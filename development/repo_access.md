@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- **Git**: Download and Install [git](https://git-scm.com/download/). 
+- **Git**: Download and Install [git](https://git-scm.com/download/).  
 -- If installing for Windows **Git Bash** will be included in the installation. All the shell commands mentioned on this document must be done using Git Bash.
 
 ## Connecting To GitHub
