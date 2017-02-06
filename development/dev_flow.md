@@ -32,6 +32,14 @@ git push origin [YOUR_GITHUB_USER_NAME]_branch
 
 Make sure to use meaningfull messages on your commits. Clear messages help describe your pull request for code reviews.
 
+## Keeping Your Branch In Sync
+
+Use the following commands to synchronize your branch with the master branch.
+```sh
+git fetch origin
+git rebase origin/master
+```
+
 ## Next
 
 - **[Pull Requests](pull_requests.md)**
