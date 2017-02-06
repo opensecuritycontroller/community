@@ -8,7 +8,7 @@
 Once you have cloned the OSC repositories you must create a new branch. 
 > **You should NOT commit or push changes directly on the 'master' branch**.
 
-You may create as many branches as you wish, branches that you intend to push to GitHub should be prefixed by your GitHub user name. Since you cannot commit or push to the 'master' branch you will need at least one branch pushd remotely. 
+You may create as many branches as you wish, branches that you intend to push to GitHub should be prefixed by your GitHub user name. Since you cannot commit or push to the 'master' branch you will need at least one branch pushed remotely. 
 ```sh
 git checkout -b [YOUR_GITHUB_USER_NAME]_branch
 ```

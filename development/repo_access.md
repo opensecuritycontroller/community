@@ -7,7 +7,7 @@
 
 ## Connecting To GitHub
 ### Proxy Configuration
-In some cases you may need to setup a proxy for your SSH Connection. This can be done with the follow steps:
+In some cases you may need to setup a proxy for your SSH Connection. This can be done with the following steps:
 
 1. Copy the content from [ssh_proxy_config](intel_only/ssh_proxy_config) to the clipboard.
 2. Update your SSH config file (creating a new one if needed):
@@ -32,14 +32,14 @@ The following steps will clone the code in your local git and configure some com
 1. Create OSC root folder to store the OSC repositories:
 
 ```sh
-mkdir /git/osc/
+mkdir /OSC
 ```
 
 2. Copy the content of [clone_repos.sh](./scripts/clone-repos.sh) on your clipboard.
 
 3. Create a local script file on the OSC root:
 ```sh
-cd /git/osc/
+cd /OSC
 vi clone-repos.sh
 # Paste the content clone_repos.sh inside this file and save
 ```
