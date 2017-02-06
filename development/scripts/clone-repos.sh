@@ -1,5 +1,4 @@
-#!/bin/sh
-
+#!/bin/bash
 repos("osc-core"\
 "vmware-nsx-plugin"\
 "vmware-nsx-api"\
@@ -16,6 +15,7 @@ for repo in "${repos[@]"
 do 
     :
     git clone git@github.com:opensecuritycontroller/${repo}.git
-    
-        
-    
+    cd ${repo}/.git/hooks/
+    ln -s ../../hooks/pre-push .
+done
+ 
