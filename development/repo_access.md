@@ -35,7 +35,7 @@ The following steps will clone the code in your local git and configure some com
 mkdir /git/osc/
 ```
 
-2. Copy the content of [clone_repos.sh](/scripts/clone-repos.sh) on your clipboard.
+2. Copy the content of [clone_repos.sh](./scripts/clone-repos.sh) on your clipboard.
 
 3. Create a local script file on the OSC root:
 ```sh
