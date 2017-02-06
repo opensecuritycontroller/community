@@ -1,5 +1,3 @@
-#!/bin/sh
-
 #!/bin/bash
 protected_branch='master'
 # check each branch being pushed
