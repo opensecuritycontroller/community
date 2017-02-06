@@ -2,23 +2,38 @@
 
 ## Requirements
 
- - **Code Access:**  Complete the steps [Accessing OSC Repositories](repo_access.md)
+ - **Code Access:**  Complete the steps **[Accessing OSC Repositories](repo_access.md)**.
 
-## Commiting Your Changes
+## Create a Branch
+Once you have cloned the OSC repositories you must create a new branch. 
+> **You should NOT commit or push changes directly on the 'master' branch**.
 
-You can commit your changes as often as you would like to and you can also push it to GitHub on your branch frequently. The following commands can be used for that:
+You may create as many branches as you wish, branches that you intend to push to GitHub should be prefixed by your GitHub user name. Since you cannot commit or push to the 'master' branch you will need at least one branch pushd remotely. 
+```sh
+git checkout -b [YOUR_GITHUB_USER_NAME]_branch
+```
+
+
+## Committing Your Changes
+
+You can commit and push your changes on your branch as often as you would like. 
+The following commands can be used for that:
 
 
 ```sh
-# Replace "filename" with the file you would like to commit. This can be done for multiple files.
+# Adding files to your commit.
 git add "filename"
 git add "filename2"
 # ...
 git commit -m "Message"
-git push origin username-branch
+git push origin [YOUR_GITHUB_USER_NAME]_branch
 # Make your code changes
 ```
 
-The above commands will bring your changes to your branch on GitHub. To have those changes reviewed and merged in the master branch see [Pull Requests](pull_requests.md).
+Make sure to use meaningfull messages on your commits. Clear messages help describe your pull request for code reviews.
+
+## Next
+
+- **[Pull Requests](pull_requests.md)**
 
 

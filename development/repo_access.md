@@ -3,7 +3,7 @@
 ## Requirements
 
 - **Git**: Download and Install [git](https://git-scm.com/download/).  
--- If installing for Windows **Git Bash** will be included in the installation. All the shell commands mentioned on this document must be done using Git Bash.
+- If installing for Windows **Git Bash** will be included in the installation. All the shell commands mentioned on this document must be done using Git Bash.
 
 ## Connecting To GitHub
 ### Proxy Configuration
@@ -26,4 +26,33 @@ Hi YOUR_USERNAME! You've successfully authenticated, but GitHub does not provide
 ```
 
 ## Getting The Code
+
+The following steps will clone the code in your local git and configure some common hooks.
+
+1. Create OSC root folder to store the OSC repositories:
+
+```sh
+mkdir /git/osc/
+```
+
+2. Copy the content of [clone_repos.sh](/scripts/clone-repos.sh) on your clipboard.
+
+3. Create a local script file on the OSC root:
+```sh
+cd /git/osc/
+vi clone-repos.sh
+# Paste the content clone_repos.sh inside this file and save
+```
+
+4. Clone the repositories:
+```sh
+./clone-repos.sh
+```
+
+## Next
+
+- **[Development Worflow](dev_flow.md)**
+- **[OSC on Eclipse](eclipse.md)**
+
+
 
