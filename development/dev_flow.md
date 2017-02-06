@@ -1,27 +1,8 @@
 # Development Worklow
 
-## Accessing the Code
+## Requirements
 
-It is recommended that you clone all the OSC repositories under the same folder. I.e.:
-```sh
-mkdir -p /c/git/osc
-cd /c/git/osc
-```
-
-The following commands should be invoked for each of the OSC repositories:
-
-```sh
-# Replace "REPO_NAME" with the respective repository name, i.e.: osc-core, sdn-controller-api, etc
-git clone https://github.com/opensecuritycontroller/REPO_NAME.git
-```
-
-The command above will clone the code locally, from within each local repository you should create a new branch to be used for your changes:
-
-```sh
-# Replace "username" below with your GitHub user name
-git checkout -b username-branch
-# Make your code changes
-```
+ - **Code Access:**  Complete the steps [Accessing OSC Repositories](repo_access.md)
 
 ## Commiting Your Changes
 
