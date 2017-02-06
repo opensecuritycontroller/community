@@ -22,7 +22,7 @@ The following commands can be used for that:
 
 ```sh
 # Adding files to your commit.
-git add "filename"
+git add "filename1"
 git add "filename2"
 # ...
 git commit -m "Message"
