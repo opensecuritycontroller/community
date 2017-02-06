@@ -1,1 +1,2 @@
-Host * ProxyCommand  connect -S proxy-us.intel.com:1080 %h %p
+Host *
+    ProxyCommand  connect -S proxy-us.intel.com:1080 %h %p
