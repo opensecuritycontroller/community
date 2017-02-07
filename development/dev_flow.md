@@ -1,8 +1,17 @@
-# Development Worklow
+# Development Workflow
 
 ## Requirements
 
  - **Code Access:**  Complete the steps **[Accessing OSC Repositories](repo_access.md)**.
+
+
+## Workflow
+The image below depicts the OSC development workflow. Other flows may also be valid.
+![](./images/dev_flow.jpg)
+
+
+## Cloning The Repositories
+See **Requirements** above or if you choose to clone the repositories differently ensure to set the git hooks under the /hooks/ directory for each repository, [see](./scripts/clone-repos.sh).  
 
 ## Create a Branch
 Once you have cloned the OSC repositories you must create a new branch. 
@@ -12,7 +21,13 @@ You may create as many branches as you wish, branches that you intend to push to
 ```sh
 git checkout -b [YOUR_GITHUB_USER_NAME]_branch
 ```
+## Keeping Your Branch In Sync
 
+Use the following commands to synchronize your branch with the master branch.
+```sh
+git fetch origin
+git rebase origin/master
+```
 
 ## Committing Your Changes
 
@@ -26,22 +41,17 @@ git add "filename1"
 git add "filename2"
 # ...
 git commit -m "Message"
-git push origin [YOUR_GITHUB_USER_NAME]_branch
+git push -f origin [YOUR_GITHUB_USER_NAME]_branch
 # Make your code changes
 ```
 
 Make sure to use meaningfull messages on your commits. Clear messages help describe your pull request for code reviews.
 
-## Keeping Your Branch In Sync
 
-Use the following commands to synchronize your branch with the master branch.
-```sh
-git fetch origin
-git rebase origin/master
-```
+## Creating a Pull Request
+Once your changes are pushed to your branch on GitHub you can perform the following steps for creating a pull request (see **[Pull Requests](pull_requests.md)** for more details):
 
-## Next
-
-- **[Pull Requests](pull_requests.md)**
-
+1.	On GitHub review the changes on your branch and click "Compare and pull request".
+2.	Add a name and description for your Pull Request.
+3.	Click "Create Pull Request".
 
