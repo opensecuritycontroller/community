@@ -9,7 +9,6 @@ repos=(
 "security-mgr-nsm-plugin"
 "security-mgr-api"
 "sdn-controller-api"
-"security-mgr-r80-plugin"
 "sdn-controller-nsc-plugin"
 "opensecuritycontroller.org"
 "community"
