@@ -14,7 +14,7 @@ import java.security.UnrecoverableEntryException;
 import java.security.cert.CertificateException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Optional;
-import javax.crypto.SecretKey;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
@@ -150,34 +150,6 @@ public class KeyStoreProvider {
     }
 
     /**
-     * Puts password in keystore under given alias. Secret password is secured with the entry password.
-     * The keystore change is persistant.
-     * @param alias alias to secret password
-     * @param password password to store as secret
-     * @param entryPassword password to secret password
-     * @throws KeyStoreProviderException
-     */
-    public void putPassword(String alias, String password, String entryPassword) throws KeyStoreProviderException {
-        try {
-            System.out.println(String.format("Putting password with alias %s in keystore ...", alias));
-
-            SecretKeyFactory skFactory = SecretKeyFactory.getInstance(SECRET_KEY_PASSWORD_ALGORITHM);
-            SecretKey secret = skFactory.generateSecret(new PBEKeySpec(password.toCharArray()));
-            this.keystore.setEntry(alias, new KeyStore.SecretKeyEntry(secret),
-                    new KeyStore.PasswordProtection(entryPassword.toCharArray()));
-            factory.persist(this.keystore);
-        } catch (NoSuchAlgorithmException nsae) {
-            throw new KeyStoreProviderException("Algorithm used to create PBE secret cannot be found.", nsae);
-        } catch (InvalidKeySpecException ikse) {
-            throw new KeyStoreProviderException("Invalid key spec used to create PBE secret.", ikse);
-        } catch (KeyStoreException kse) {
-            throw new KeyStoreProviderException("Failed to put PBE secret to keystore.", kse);
-        } catch (Exception e) {
-            throw new KeyStoreProviderException("Failed to put PBE secret in keystore", e);
-        }
-    }
-
-    /**
      * Gets the secret password stored in keystore under given alias.
      * @param alias
      * @param entryPassword entry password to access the secret password stored in keystore
@@ -214,57 +186,6 @@ public class KeyStoreProvider {
             throw new KeyStoreProviderException("Failed to get key spec from PBE secret.", ikse);
         } catch (Exception e) {
             throw new KeyStoreProviderException("Failed to get PBE secret.", e);
-        }
-    }
-
-    /**
-     * Put secret key in keystore under given alias. Secret key is secured with the entry password.
-     * @param alias alias to secret key
-     * @param key secret key that will be stored in keystore
-     * @param entryPassword password to secret key
-     * @throws KeyStoreProviderException
-     */
-    public void putSecretKey(String alias, SecretKey key, String entryPassword) throws KeyStoreProviderException {
-        try {
-            System.out.println(String.format("Putting secret key with alias %s in keystore ...", alias));
-
-            this.keystore.setEntry(alias, new KeyStore.SecretKeyEntry(key),
-                    new KeyStore.PasswordProtection(entryPassword.toCharArray()));
-            factory.persist(this.keystore);
-        } catch (KeyStoreException kse) {
-            throw new KeyStoreProviderException("Failed to put secret key to keystore.", kse);
-        } catch (Exception e) {
-            throw new KeyStoreProviderException("Failed to put secret key in keystore", e);
-        }
-    }
-
-    /**
-     * Gets the secret key stored in keystore under given alias.
-     * @param alias
-     * @param entryPassword entry password to access the secret key stored in keystore
-     * @return the secret key or null if secret key does not exists in keystore
-     * @throws KeyStoreProviderException
-     */
-    public SecretKey getSecretKey(String alias, String entryPassword) throws KeyStoreProviderException {
-        try {
-            System.out.println(String.format("Getting secret key with alias %s from keystore ...", alias));
-
-            Optional<KeyStore.SecretKeyEntry> entry = Optional.ofNullable((KeyStore.SecretKeyEntry)this.keystore.getEntry(alias, new KeyStore.PasswordProtection(entryPassword.toCharArray())));
-
-            if (!entry.isPresent()) {
-                return null;
-            }
-
-            return entry.get().getSecretKey();
-
-        } catch (NoSuchAlgorithmException nsae) {
-            throw new KeyStoreProviderException("Algorithm for recovering the secret key cannot be found.", nsae);
-        } catch (UnrecoverableEntryException uee) {
-            throw new KeyStoreProviderException("Invalid entry password to recover secret.", uee);
-        } catch (KeyStoreException kse) {
-            throw new KeyStoreProviderException("Failed to get secret key entry.", kse);
-        } catch (Exception e) {
-            throw new KeyStoreProviderException("Failed to get secret key.", e);
         }
     }
 }
