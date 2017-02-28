@@ -52,6 +52,9 @@ Make sure to use meaningfull messages on your commits. Clear messages help descr
 Once your changes are pushed to your branch on GitHub you can perform the following steps for creating a pull request (see **[Pull Requests](pull_requests.md)** for more details):
 
 1.	On GitHub review the changes on your branch and click "Compare and pull request".
+	![](./images/pull_request_1.png)
 2.	Add a name and description for your Pull Request.
-3.	Click "Create Pull Request".
+3.	Add the reviewers.
+	![](./images/add_reviewers.png)
+4.	Click "Create Pull Request".
 
