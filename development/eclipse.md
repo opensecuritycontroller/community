@@ -1,14 +1,100 @@
-# Eclipse Setup For OSC
+# Eclipse Setup
+This document describes the actions to configure Eclipse OSC workspace settings, install Eclipse plugins and import the OSC projects.
 
-TBD
 ## Requirements
-TBD
+ - Eclipse Neon and above
 
-## Importing OSC Projects
-Import OSC projects on Eclipse as Existing Maven Projects providing the OSC root where you have all your repositories.
+## Java Runtime
+
+*Set Java -> Installed JREs to jdk1.8*
+
+![](images/jdk1.8.jpg)
+
+## Workspace Settings
+
+### Text Editors
+
+*Eclipse -> Preferences -> Editors*
+
+![](images/text_editor.jpg)
+
+### Code Style
+
+Import Code Style files into eclipse workspace. The files **[cleanup_profile.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmidc_cleanup_profile.xml)**, **[code-style-format.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-style-format.xml)** and **[code-templates.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-templates.xml)** are included in the osc-core repository and can be uploaded as follows:
+
+*Eclipse -> Preferences -> Java -> Code Style -> Clean up*
+
+*Eclipse -> Preferences -> Java -> Code Style -> Formatter*
+
+*Eclipse -> Preferences -> Java -> Code Style -> Code Templates*
+
+In addition to that modify Organize Imports
+
+*Eclipse -> Preferences -> Java -> Code Style -> Organize Imports*
+
+![](images/organize_imports.JPG)
+
+### Save Actions
+
+Setup the following save actions:
+
+*Configure: Preferences -> Java -> Editor -> Save Actions -> Configure*
+
+![](images/missing_annotations.jpg)
+
+*Code Organizing*
+
+![](images/code_organize.jpg)
+
+*Code Style*
+
+![](images/code_style.jpg)
+
+*Member Accesses*
+
+![](images/member_access.jpg)
+
+*Missing Code*
+
+![](images/missing_code.jpg)
+
+*Unnecessary Code*
+
+![](images/Unnecessary_code.jpg)
+
+*Apply*
+
+![](images/save_actions.jpg)
+
+## Plugin Install
+
+### BndTools
+
+Install the bndtools plugin 3.3.0.REL from the Eclipse marketplace:
+
+![](images/bnd_tools.png)
+
+### EclEmma Java Code Coverage
+
+It is optional to add the code coverage plugin. However, it is highly recommended to add the plugin to understand and review the code coverage.
+
+![](images/code_coverage_Eclipse_marketplace.JPG)
+
+## Import OSC Projects
+
+*Eclipse -> File -> Import*
+
+![](images/import_projects.jpg)
+
+*Browse -> Select the Folder*
+
+![](images/choose_folder.jpg)
+
+*Select All -> Finish*
+
+![](images/import_projects_2.jpg)
 
 
+## Next
 
-
-
-
+- **[Build and Run OSC](build_run_osc.md)**
