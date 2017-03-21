@@ -52,7 +52,7 @@ vi clone-repos.sh
 ## Next
 
 - **[Development Worflow](dev_flow.md)**
-- **[OSC on Eclipse](eclipse.md)**
+- **[Configure Eclipse](eclipse.md)**
 
 
 
