@@ -1,53 +1,59 @@
 # OSC Security Manager Licensing
-Currently, we hardcode the license auth code (e.g. PAN plugin) and provide it as bootstrap information. This document describes the proposed changes to receive the license auth code from the user.
+Currently, we hardcode the license auth code (e.g. PAN plugin) and provide it as bootstrap information. This document describes the proposed changes to receive the license auth code as a one of the custom property from the user.
 
 ## Scope of Security Manager License
 - **Manager Connector**: All device groups and device members share the same license
 - **Distributed Appliance**: All device group share the same license
 - **Deployment Specification (DAI)**: All device members share the same license
 
-## API Changes
-The OSC REST API **POST** `/api/server/v1/applianceManagerConnectors` will accept additional field “licenseAuthCode”.
+## API and OSC Server Changes
+The OSC REST API **POST** `/api/server/v1/applianceManagerConnectors` will accept a map of custom properties.
 
-`ApplianceManagerConnectorDto`: Update `ApplianceManagerConnectorDto` to add a new variable `licenseAuthCode` to receive the value from API and UI.
+`ApplianceManagerConnectorDto`: The `ApplianceManagerConnectorDto` will have a new map of custom properties to accept value from API and UI.
 
-`ApplianceManagerConnector`: Update `ApplianceManagerConnector` to add a new variable/mapped column `licenseAuthCode` to persist the license auth code.
-
-`DeleteSvaServerTask`: Add functionality to delete/deactivate the license before deleting the device.
+`ApplianceManagerConnector`: The `ApplianceManagerConnector` will have a new map of custom properties.
 
 ## SDK Changes
 
-`ManagerDeviceApi`: Update `ManagerDeviceApi` to add a new interface method `boolean isLicenseSupported()`.
+`ApplianceManagerApi`: The api `List<String> getCustomPropertyNames()` will return the list of property names. If you do not require any custom properties, you need to return null. The custom propery names will be used on UI as label. For license auth code, we expect `License Auth Code` as a label.
+
+`ApplianceManagerConnectorElement`: The api `HashMap<String, String> getCustomProperties()` will return the custom properties.
+
 
 ## Plugin Changes
 
-`PLUGIN_NAMEDeviceApi`: Implement methods `getLicense()` and `deactivateLicense()` to manage the lifecycle of the license, e.g., In `PANDeviceApi` enhance `getLicense()` and implement `deactivateLicense()`.
+Plugin authors implementing `ApplianceManagerApi` needs to implement functionality to get the custom properties names.
+
+Plugin authors also need to implement functionality:
+- To get the license when creating a device member. If the license is not valid, we expect plugin to return valid error message.
+- To delete the license when deleting a device member.
 
 ## UI Changes
 
-Add and enable a text field on Manager Connector window to accept the license auth code from the user for manager supporting licensing. The user entered value on the UI should be hidden.
+The `AddManagerConnectorWindow` will have a text field with label `License Auth Code` to accept the license auth code from the user for manager supporting licensing. The user entered value on the UI should be hidden.
 
-![](./images/add_manager_connector.jpg) 
+![](./images/add_manager_connector.JPG)
 
-For the manager not supporting licensing, the text field and the label will be hidden.
-
-`AddManagerConnectorWindow`: Update `AddManagerConnectorWindow` to add a new text field `License Auth Code`.
+For the manager not supporting licensing, the text field and the label will be not be present.
 
 ## Database Changes
 
-Update `TABLE APPLIANCE_MANAGER_CONNECTOR` in `Schema` to add a new column `license_auth_code`.
+The `TABLE APPLIANCE_MANAGER_CONNECTOR_ATTR` in `Schema` will hold a map of custom properties.
 
-The `license_auth_code` should be hidden field in database table.
+The license auth code value should be hidden in database table.
 
 ## License Upload
 Assumption: All device groups and device members share the same license.
 
-UI: User will provide the license auth code in text field `License Auth Code`.
+UI: The user will provide the license auth code in text field `License Auth Code`.
 
-API: User will provide license auth code for `licenseAuthCode` field with body.
+API: The user will provide a map of custom properties with values in body.
 
 ## Release License
-We need to call Security Manager API to delete/deactivate the license after the device is deleted.
+Plugin author needs to call Security Manager API to delete/deactivate the license after the device is deleted.
+
+## Enhancement
+The api `List<String> getCustomPropertyNames()` can contain the list of objects with different properties, e.g, property name, type, isRequired etc.
 
 ## Open Issues/ Questions
 1. What is the PAN license policy?
@@ -68,4 +74,4 @@ We need to call Security Manager API to delete/deactivate the license after the 
 
 ## References
 
-[PAN Licensing API](https://www.paloaltonetworks.com/documentation/71/virtualization/virtualization/license-the-vm-series-firewall/licensing-ap)
+[PAN Licensing API](https://www.paloaltonetworks.com/documentation/71/virtualization/virtualization/license-the-vm-series-firewall/licensing-api)
