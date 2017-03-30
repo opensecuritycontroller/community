@@ -78,7 +78,7 @@ Install the bndtools plugin 3.3.0.REL from the Eclipse marketplace:
 
 It is optional to add the code coverage plugin. However, it is highly recommended to add the plugin to understand and review the code coverage.
 
-![](images/code_coverage_Eclipse_marketplace.JPG)
+![](images/code_coverage_eclipse_marketplace.JPG)
 
 ## Import OSC Projects
 
