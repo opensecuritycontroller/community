@@ -2,43 +2,42 @@
 This document describes the actions to configure Eclipse OSC workspace settings, install Eclipse plugins and import the OSC projects.
 
 ## Requirements
- - Eclipse Neon and above
+ - Eclipse Neon and higher
 
 ## Java Runtime
-
-*Set Java -> Installed JREs to jdk1.8*
+To set the Java Runtime settings, navigate to:
+* Set Java -> Installed JREs to jdk1.8
 
 ![](images/jdk1.8.jpg)
 
 ## Workspace Settings
+The following section describes the configuration of workplace settings.
 
 ### Text Editors
-
-*Eclipse -> Preferences -> Editors*
+To set the text editor settings, navigate to:
+* Eclipse -> Preferences -> Editors
 
 ![](images/text_editor.jpg)
 
 ### Code Style
 
-Import Code Style files into eclipse workspace. The files **[cleanup_profile.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmidc_cleanup_profile.xml)**, **[code-style-format.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-style-format.xml)** and **[code-templates.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-templates.xml)** are included in the osc-core repository and can be uploaded as follows:
+Import Code Style files into the eclipse workspace. The files **[cleanup_profile.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmidc_cleanup_profile.xml)**, **[code-style-format.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-style-format.xml)** and **[code-templates.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-templates.xml)** are included in the osc-core repository and can be uploaded as follows:
 
-*Eclipse -> Preferences -> Java -> Code Style -> Clean up*
+* Eclipse -> Preferences -> Java -> Code Style -> Clean up
+* Eclipse -> Preferences -> Java -> Code Style -> Formatter
+* Eclipse -> Preferences -> Java -> Code Style -> Code Templates
 
-*Eclipse -> Preferences -> Java -> Code Style -> Formatter*
+Organize Imports must also be modified. To do this, navigate to:
 
-*Eclipse -> Preferences -> Java -> Code Style -> Code Templates*
-
-In addition to that modify Organize Imports
-
-*Eclipse -> Preferences -> Java -> Code Style -> Organize Imports*
+* Eclipse -> Preferences -> Java -> Code Style -> Organize Imports
 
 ![](images/organize_imports.JPG)
 
 ### Save Actions
 
-Setup the following save actions:
+To configure the Save Actions, navigate to:
 
-*Configure: Preferences -> Java -> Editor -> Save Actions -> Configure*
+* Configure: Preferences -> Java -> Editor -> Save Actions -> Configure*
 
 ![](images/missing_annotations.jpg)
 
