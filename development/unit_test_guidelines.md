@@ -2,14 +2,14 @@
 
 ## Introduction
 
-This document outlines the code conventions and guidelines that must be followed when authoring unit tests for new and existing OSC components and features. Each covered topic is aligned with the following core principles:
+This document outlines the code conventions and guidelines that must be followed when authoring unit tests for new and existing OSC components and features. Each of the topics covered in this section is aligned with the following core principles:
 
-1. Isolation and independency: Tests should not be interdependent, they should run in any order and do not propagate failure.
+1. Isolation and independency: Tests should not be interdependent. They should run in any order and do not propagate failure.
 2. Single responsibility: Each test should validate a single unit or aspect of the code.
-3. Optimized for reading and maintaining: Tests should be written in a way that it is easy to read and maintain. Do not optimize for authoring, a test is usually written once and read many times.
+3. Optimized for reading and maintaining: Tests should be written in a way that is easy to read and maintain. Do not optimize for authoring. A test is usually written once and read many times.
 4. Consistency: Test name and format should be consistent across OSC.
 5. Environment independent execution: A deployment must not be needed to execute the tests.
-6. Run fast: A single test should run in a matter of tens of milliseconds. A test that is taking too long to run might be doing too much or have a hidden environment dependency.
+6. Run fast: A single test should run in a matter of tens of milliseconds. A test that is taking longer to run might be doing too much or have a hidden environment dependency.
 
 ## Conventions
 
@@ -22,7 +22,7 @@ The hierarchy and location of the unit tests should mirror the product code for 
 `osc-server\src\test\java\org\osc\core\broker\service\AddDistributedApplianceServiceTest.java`
 
 **DON'T:**
-
+ 
 `osc-server\src\java\org\osc\core\broker\service\AddDistributedApplianceServiceTest.java`
 
 #### Test Classes
@@ -43,9 +43,10 @@ For instance, class under test: `vmiDCServer\src\java\org\osc\core\broker\servic
 
 #### Supporting Code
 
-Any supporting code (helpers, entities, validators, etc) that is meant to be used across tests within different packages should be within a package suffixed with **_.test.util** and prefixed with the longest common path across the test code that will use it.
+Any supporting code (helpers, entities, validators, etc) meant to be used across tests within different packages should be within a package suffixed with **_.test.util**, and prefixed with the longest common path across the test code that will use it.
 
 For instance, given the TestGraphHelper.java meant to be used by tests in the packages
+
 `osc-server\src\java\org\osc\core\broker\service\tasks\*`
 
 **DO:**
@@ -58,15 +59,15 @@ For instance, given the TestGraphHelper.java meant to be used by tests in the pa
 
 `osc-server\src\java\org\osc\core\broker\service\tasks\TaskGraphHelper.java`
 
-Any supporting code that is NOT meant to be used across tests in different packages must stay within the package that uses it. If the code is used only by a single class make it a private class.
+Any supporting code that is NOT meant to be used across tests in different packages must stay within the package that uses it. It should be made a private class if the code is used only by a single class.
 
-In doubt if the code will be used in the future by other classes or packages be conservative and keep it less visible.
+Keep the code less visible when in doubt as to whether it will be used by other classes or packages in the future.
 
 ### Naming
 
 #### Test Class Name
 
-The name of the test class should match the class under test with the addition of the suffix **'Test'**.
+The name of the test class should match the class under tests with the addition of the suffix **Test**.
 
 For instance, class under test: `AddDistributedApplianceService.java`
 
@@ -86,20 +87,23 @@ For instance, class under test: `AddDistributedApplianceService.java`
 
 #### Test Method Name
 
-When authoring a unit test one should think about three imperatives: what is being tested, how it is being tested and what is the expectation being validated.
+Keep the following in mind when authoring a unit test: 
+* what is being tested
+* how it is being tested
+* what is the expectation being validated
 
-Keeping these three imperatives in mind for each test will result in clear, small and more maintainable test methods.
+Keeping these things in mind for each test will result in clear, small, and more maintainable test methods.
 
-The naming convention adopted for the test methods highlights these and makes the test name self-explanatory, no need for additional documentation. Having difficulty naming a test method after these three imperatives likely indicates a code smell and that one might be trying to cover too much on a single unit test.
+The naming convention adopted for the test methods highlights these things, making the test name self-explanatory with no need for additional documentation. Having difficulty naming a test method after these things likely indicates a code smell that might be trying to cover too much on a single unit test.
 
-The test method name should then follow this pattern:
+The test method name should follow this pattern:
 ```java
 testMethodUnderTest_HowIsItTested_WhatItExpects(){}
 ```
 
-You can have more parts if that makes it clearer and aside from the first part (**testMethodUnderTest**) all the others are free form.
+With the exception of (**testMethodUnderTest**), free form is provided to allow for clarity if needed. 
 
-For instance, if you are testing this method:
+For instance, if you are testing the following method:
 ```java
 void depositCheck(string checkNumber, int value) throws Exception{}
 ```
@@ -127,11 +131,15 @@ testDeposit_WithValidValue_ExpectsSuccessDeposit(){} // wrong test method name
 
 #### Test Class and Method
 
-Given the naming convention for the test classes and test methods are followed, documenting them is unnecessary and redundant. Placing the emphasis on the name versus documentation not only makes the test code itself clear but also other places that usually don&#39;t display documentation at a glance: IDEs, build reports, test result files, etc.
+Documentation is unnecessary and rendundant for test classes and test methods with the proper naming conventions. Placing the emphasis on the name versus documentation not only makes the test code itself clear, but also does so within other areas (such as those shown below) that usually don&#39;t display documentation at a glance:
+
+* IDEs
+* build reports
+* test result files
 
 #### Arrange-Act-Assert
 
-For details on Arrange-Act-Assert see the Test Format session below. Adding the comments **// Arrange. // Act. // Assert.** within the body of your test method has the purpose of creating clear visual boundaries within the test method which ultimately should help you organize the code and facilitate code reviews since it becomes very evident what is the core part of the test, what is being setup and how it is being validated. This is particularly useful for test methods with many arrange and assert lines. For short test methods these comments may not be necessary.
+For details on Arrange-Act-Assert, see the Test Format session below. Adding the comments **// Arrange. // Act. // Assert.** within the body of your test method creates clear, visual boundaries within the test method, helping you organize the code and facilitate code reviews since it becomes very evident what is the core part of the test, what is being setup and how it is being validated. This is particularly useful for test methods with many arrange and assert lines. For short test methods these comments may not be necessary.
 
 **DO:**
 
