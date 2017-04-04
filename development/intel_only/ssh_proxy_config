@@ -1,2 +1,9 @@
-Host *
+# For GitHub access
+Host github.com
     ProxyCommand  connect -S proxy-us.intel.com:1080 %h %p
+
+# For TeamForge access
+Host git.*.devtools.intel.com
+    ForwardAgent no
+    ForwardX11 no
+    HostkeyAlgorithms +ssh-dss
