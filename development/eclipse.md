@@ -2,16 +2,17 @@
 This document describes the actions to configure Eclipse OSC workspace settings, install Eclipse plugins and import the OSC projects.
 
 ## Requirements
- - Eclipse Neon and higher
+The following requirements must be met to complete the Eclipse setup:
+ * Eclipse Neon and higher
 
 ## Java Runtime
 To set the Java Runtime settings, navigate to:
 * Set Java -> Installed JREs to jdk1.8
 
 ![](images/jdk1.8.jpg)
-
+ 
 ## Workspace Settings
-The following section describes the configuration of workplace settings.
+The following sections describe the configuration of workplace settings.
 
 ### Text Editors
 To set the text editor settings, navigate to:
@@ -19,7 +20,7 @@ To set the text editor settings, navigate to:
 
 ![](images/text_editor.jpg)
 
-### Code Style
+s### Code Style
 
 Import Code Style files into the eclipse workspace. The files **[cleanup_profile.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmidc_cleanup_profile.xml)**, **[code-style-format.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-style-format.xml)** and **[code-templates.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-templates.xml)** are included in the osc-core repository and can be uploaded as follows:
 
@@ -29,7 +30,7 @@ Import Code Style files into the eclipse workspace. The files **[cleanup_profile
 
 Organize Imports must also be modified. To do this, navigate to:
 
-* Eclipse -> Preferences -> Java -> Code Style -> Organize Imports
+a* Eclipse -> Preferences -> Java -> Code Style -> Organize Imports
 
 ![](images/organize_imports.JPG)
 
@@ -37,9 +38,11 @@ Organize Imports must also be modified. To do this, navigate to:
 
 To configure the Save Actions, navigate to:
 
-* Configure: Preferences -> Java -> Editor -> Save Actions -> Configure*
+* Configure -> Preferences -> Java -> Editor -> Save Actions -> Configure
 
 ![](images/missing_annotations.jpg)
+
+Ensure your settings match the following:
 
 *Code Organizing*
 
@@ -69,31 +72,33 @@ To configure the Save Actions, navigate to:
 
 ### BndTools
 
-Install the bndtools plugin 3.3.0.REL from the Eclipse marketplace:
+Install the bndtools plugin 3.3.0.REL from the Eclipse marketplace as shown below:
 
 ![](images/bnd_tools.png)
 
 ### EclEmma Java Code Coverage
 
-It is optional to add the code coverage plugin. However, it is highly recommended to add the plugin to understand and review the code coverage.
+It is optional to add the code coverage plugin however, it is highly recommended to add the plugin to understand and review the code coverage.
 
 ![](images/code_coverage_eclipse_marketplace.JPG)
 
 ## Import OSC Projects
 
-*Eclipse -> File -> Import*
+To import OSC projects, complete the following steps:
+
+* Eclipse -> File -> Import*
 
 ![](images/import_projects.jpg)
 
-*Browse -> Select the Folder*
+* Browse -> Select the Folder*
 
 ![](images/choose_folder.jpg)
 
-*Select All -> Finish*
+* Select All -> Finish*
 
 ![](images/import_projects_2.jpg)
 
 
-## Next
+## Next Steps
 
 - **[Build and Run OSC](build_run_osc.md)**
