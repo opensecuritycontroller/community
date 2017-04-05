@@ -139,7 +139,9 @@ Documentation is unnecessary and rendundant for test classes and test methods wi
 
 #### Arrange-Act-Assert
 
-For details on Arrange-Act-Assert, see the Test Format session below. Adding the comments **// Arrange. // Act. // Assert.** within the body of your test method creates clear, visual boundaries within the test method, helping you organize the code and facilitate code reviews since it becomes very evident what is the core part of the test, what is being setup and how it is being validated. This is particularly useful for test methods with many arrange and assert lines. For short test methods these comments may not be necessary.
+For details on Arrange-Act-Assert, see the Test Format session below. 
+
+Add the comments // Arrange. // Act. // Assert. within the body of your test method to create clear, visual boundaries. Making this step a core part of the test helps to both organize the code and facilitate code reviews by providing a better picture as to exactly what is being setup and how it is being validated. This is particularly useful for test methods with several arrange and assert lines. These comments may not be necessary for short test methods. 
 
 **DO:**
 
@@ -174,7 +176,9 @@ Any supporting code that is used across different test classes should be documen
 
 ### Asserting
 
-To validate test results use the methods offered by org.junit.Assert. Observe that most of the assertion methods have an overloaded flavor that takes a String to be used as a message when the assertion fails. **ALWAYS** use this version of the method, the error message is displayed when the test fails and this helps greatly to quickly identify the source of the error. Asserts within the same test method should never have the same message.
+To validate test results, use the methods offered by org.junit.Assert. Observe that most of the assertion methods have an overloaded flavor that requires a String to be used as a message when the assertion fails. ALWAYS use this version of the method. An error message displays when the test fails, helping to quickly identify the source of the error. 
+
+ >Note: Asserts within the same test method should never have the same message.
 
 **DO:**
 ```java
@@ -200,7 +204,7 @@ Assert.assertEquals("The response id was different than expected.", response.get
 
 ### Exception
 
-When writing negative test methods often you will need to handle exceptions and potentially validate something inside the exception. JUnit offers three options to do this, see below which one should be used:
+When writing negative test methods, you will need to handle exceptions and potentially validate something inside the exception. JUnit offers three options to do this, see below which one should be used:
 
 **DO:**
 
