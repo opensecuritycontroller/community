@@ -4,7 +4,7 @@
 
 This document outlines the code conventions and guidelines that must be followed when authoring unit tests for new and existing OSC components and features. Each of the topics covered in this section is aligned with the following core principles:
 
-1. Isolation and independency: Tests should not be interdependent. They should run in any order and do not propagate failure.
+1. Isolation and independency: Tests should not be interdependent. They should run in any order and not propagate failure.
 2. Single responsibility: Each test should validate a single unit or aspect of the code.
 3. Optimized for reading and maintaining: Tests should be written in a way that is easy to read and maintain. Do not optimize for authoring. A test is usually written once and read many times.
 4. Consistency: Test name and format should be consistent across OSC.
