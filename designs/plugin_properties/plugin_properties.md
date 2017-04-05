@@ -59,14 +59,14 @@ The existing  `ManagerApiFactory` and `SdnControllerApiFactory` creates trackers
 
 ## Test Considerations
 
-While this feature does not have much impact on OSC UI and visible functionalities the validation of the plugins management and E2E flows using the various affected plugis is highly important to identify possible regressions. Below are some notes to help planning the test for this work:
+While this feature does not have much impact on OSC UI and visible functionalities the validation of the plugin management and E2E flows using the various affected plugins is highly important to identify possible regressions. Below are some notes to help planing the test for this work:
 
 * Validate the service manager name on NSX is the same as the one in `osc.plugin.vendor_name` for the respective plugins. 
-* Ensure to validate that NSM and SMC are successfully calling OSC when changes happen (i.e.: policy changes)
+* Ensure to validate that NSM and SMC are successfully calling OSC when changes happen (i.e.: policy changes).
 * Validate that upgrade from 2.5 to current release works. Plugins should be added after the database is restored and the database should contain sufficient data (DAs of different types: VMware, OpenStack, NSM, SMC) and that the connectors (VC, MC) will have the correct values based on the tables above and be fully functional.
-* Validate E2E flows using all the plugins mentioned above exerising the relavant settings (usingProviderCreds, isSecurityGroupSyncSupport, etc)
+* Validate E2E flows using all the plugins mentioned above exercising the relevant settings (usingProviderCreds, isSecurityGroupSyncSupport, etc).
 * Validate that removing and adding a plugin with a different value than before will update the respective connector with the new value.  
-* Ensure that E2E validations are verified in different systems: NSM, SMC, OSC, OST and VMware VCenter and NSX.
+* Ensure that E2E validations are verified in different systems: NSM, SMC, OSC, OST, VMware VCenter and NSX.
 
 
 
