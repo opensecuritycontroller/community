@@ -141,7 +141,7 @@ Documentation is unnecessary and rendundant for test classes and test methods wi
 
 For details on Arrange-Act-Assert, see the Test Format session below. 
 
-Add the comments // Arrange. // Act. // Assert. within the body of your test method to create clear, visual boundaries. Making this step a core part of the test helps to both organize the code and facilitate code reviews by providing a better picture as to exactly what is being setup and how it is being validated. This is particularly useful for test methods with several arrange and assert lines. These comments may not be necessary for short test methods. 
+Add the comments **// Arrange. // Act. // Assert**. within the body of your test method to create clear, visual boundaries. Making this step a core part of the test helps to both organize the code and facilitate code reviews by providing a better picture as to exactly what is being setup and how it is being validated. This is particularly useful for test methods with several arrange and assert lines. These comments may not be necessary for short test methods. 
 
 **DO:**
 
@@ -204,7 +204,7 @@ Assert.assertEquals("The response id was different than expected.", response.get
 
 ### Exception
 
-When writing negative test methods, you will need to handle exceptions and potentially validate something inside the exception. JUnit offers three options to do this, see below which one should be used:
+When writing negative test methods, you must handle exceptions, along with the potential validation of something within the exception. JUnit offers three of the following options:
 
 **DO:**
 
@@ -253,37 +253,37 @@ public void testDispatch_WithNullRequest_ThrowsNullPointerException() throws Exc
 
 ### Test Format
 
-A unit test should have a single test responsibility, attempting to test too many aspects of the code on a single test will likely lead to unreadable and hard to maintain test methods. A typical test method will have a few lines of code setting up the inputs to be used and the unit under test, a single line calling the method under test and some lines to verify the output. This aligns with the ArrangeActAssert standard, there might be exceptions to this rule but one should only consider a different approach if the overall readability and maintainability is increased, remember that whenever doing something different one will already by breaking consistency among other tests which should only be done for the sake of readability and maintainability gain not loss.
+A unit test should have a single test responsibility. Attempting to test too many aspects of the code on a single test will likely lead to unreadable and test methods that are difficult to maintain. A typical test method contains a few lines of code to set up the inputs used along with the unit under test, a single line calling the method under test, and some lines to verify the output. This aligns with the ArrangeActAssert standard however, there might be exceptions to this rule. Only consider a different approach if the overall readability and maintainability is increased.  For consistency, it is important to remember that other tests should be completed only for the sake of readability and to maintain gain, not loss.  
 
 ### Mocking
 
-Mocking should be used on the test code for two different purposes:
+Mocking should be used on the test code for two different purposes: 
 
-- Keeping the test focus on the unit under test instead of the entire chain of dependencies exercised by a given method.
-- Isolating the unit under test from environment or system dependencies, i.e.: file system, database, external services, etc.
+- To keep the test focus on the unit under test, rather than the entire chain of dependencies exercised by a given method.
+- To isolate the unit under test from environment or system dependencies, i.e.: file system, database, external services, etc.
 
-While the second reason is very clear the first one is a bit subjective. Here are some additional guidelines for when to mock:
+While the second reason is clear, the first is a bit subjective. Follow these additional guidelines for when to mock:
 
 - Mock dependencies that are behind an interface.
-- Mock common dependencies that are used across different callers and have heavy business logic.
-- Dependencies that are not common to multiple callers should not be mocked but tested as part of the callee unit test instead.
-- Dependencies that are common but are not heavy in business logic (just an extension of the callee) should not be mocked.
+- Mock common dependencies used across different callers that contain heavy business logic.
+- Dependencies uncommon to multiple callers should be tested as part of the callee unit test rather than mocked.
+- Dependencies that are common but not heavy in business logic (just an extension of the callee) should not be mocked.
 
 See the Mocking Guide for specific cases.
 
 #### Legacy Code
 
-When adding unit tests to legacy code one should strive to keep the amount of changes in the code to a minimum. To help with this, we have adopted **PowerMock** which can be used to mock static dependencies without any major refactoring. One should refrain from using PowerMock to unit test any new feature, keeping the design of new features object oriented should allow unit tests to be written simply with Mockito.
+When adding unit tests to legacy code, you should strive to keep the amount of changes in the code to a minimum. PowerMock is able to help and can be used to mock static dependencies without any major refactoring. Refrain from using **PowerMock** to unit test new features, as keeping their designs object-oriented should allow unit tests to be written with **Mockito**.
 
-Additionally, whenever unit testing legacy code and mocking dependencies ensure to add unit tests to those dependencies in isolation or track this effort accordingly.
+Additionally, when unit testing legacy code and mocking dependencies, ensure you add unit tests to dependencies in isolation or track this effort accordingly.
 
 #### New Feature Code
 
-Any new feature code should be created already with unit tests. Remember, unit testing is not a QA phase activity but a development activity. Authoring unit tests along with the code improves code quality and enforces good patterns. To take full advantage of this side effect make sure PowerMock is not used and stick with **Mockito** only whenever mocks make sense.
+Any new feature code should already be created with unit tests. Remember, unit testing is a development activity rather than a QA phase activity. Authoring unit tests along with the code improves code quality and enforces good patterns. To take full advantage of this side effect, make sure PowerMock is not used. Stick with **Mockito** only whenever mocks make sense.
 
 ### Input Variation vs. System State Manipulation
 
-As previously mentioned, each unit test will likely need to setup a set of inputs and may depend on certain mocked behaviors. In order to keep each test method clear, refrain from setting up mocks within the body of test method. Instead focus on picking up or setting up your inputs and mock your system inside of a test initialization method (for Junit use @Before). This initialization method will be aware of the inputs the various tests within a class use and refer to them when a certain mocked behavior is needed. This approach puts all the code where the system state is set (mocked) in a single place and allows the test method to have the emphasis on the input, action and validation thus becoming more readable.
+As previously mentioned, each unit test will likely need to setup a set of inputs and may depend on certain mocked behaviors. To keep each test method clear, refrain from setting up mocks within the body of test method. Instead, focus on picking up or setting up your inputs and, mocking your system inside of a test initialization method (for Junit use @Before). This initialization method is aware of inputs that the various tests within a class use, and refers to them when a certain mocked behavior is needed. This approach places all the code where the system state is set (mocked) in a single place, allowing the test method to have emphasis on the input, action and validation, while creating more readability.
 
 ## Appendix
 
