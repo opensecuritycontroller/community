@@ -3,11 +3,13 @@ This document describes the actions to configure Eclipse OSC workspace settings,
 
 ## Requirements
 The following requirements must be met to complete the Eclipse setup:
+
  * Eclipse Neon and higher
 
 ## Java Runtime
 To set the Java Runtime settings, navigate to:
-* Set Java -> Installed JREs to jdk1.8
+
+*Set Java -> Installed JREs to jdk1.8*
 
 ![](images/jdk1.8.jpg)
  
@@ -16,21 +18,24 @@ The following sections describe the configuration of workplace settings.
 
 ### Text Editors
 To set the text editor settings, navigate to:
-* Eclipse -> Preferences -> Editors
+
+*Eclipse -> Preferences -> Editors*
 
 ![](images/text_editor.jpg)
 
-s### Code Style
+### Code Style
 
 Import Code Style files into the eclipse workspace. The files **[cleanup_profile.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmidc_cleanup_profile.xml)**, **[code-style-format.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-style-format.xml)** and **[code-templates.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-templates.xml)** are included in the osc-core repository and can be uploaded as follows:
 
-* Eclipse -> Preferences -> Java -> Code Style -> Clean up
-* Eclipse -> Preferences -> Java -> Code Style -> Formatter
-* Eclipse -> Preferences -> Java -> Code Style -> Code Templates
+*Eclipse -> Preferences -> Java -> Code Style -> Clean up*
+
+*Eclipse -> Preferences -> Java -> Code Style -> Formatter*
+
+*Eclipse -> Preferences -> Java -> Code Style -> Code Templates*
 
 Organize Imports must also be modified. To do this, navigate to:
 
-a* Eclipse -> Preferences -> Java -> Code Style -> Organize Imports
+*Eclipse -> Preferences -> Java -> Code Style -> Organize Imports*
 
 ![](images/organize_imports.JPG)
 
@@ -38,7 +43,7 @@ a* Eclipse -> Preferences -> Java -> Code Style -> Organize Imports
 
 To configure the Save Actions, navigate to:
 
-* Configure -> Preferences -> Java -> Editor -> Save Actions -> Configure
+*Configure -> Preferences -> Java -> Editor -> Save Actions -> Configure*
 
 ![](images/missing_annotations.jpg)
 
@@ -86,15 +91,15 @@ It is optional to add the code coverage plugin however, it is highly recommended
 
 To import OSC projects, complete the following steps:
 
-* Eclipse -> File -> Import*
+*Eclipse -> File -> Import*
 
 ![](images/import_projects.jpg)
 
-* Browse -> Select the Folder*
+*Browse -> Select the Folder*
 
 ![](images/choose_folder.jpg)
 
-* Select All -> Finish*
+*Select All -> Finish*
 
 ![](images/import_projects_2.jpg)
 
