@@ -67,7 +67,7 @@ Keep the code less visible when in doubt as to whether it will be used by other 
 
 #### Test Class Name
 
-The name of the test class should match the class under tests with the addition of the suffix **Test**.
+The name of the test class should match the class under test with the addition of the suffix **Test**.
 
 For instance, class under test: `AddDistributedApplianceService.java`
 
@@ -273,17 +273,17 @@ See the Mocking Guide for specific cases.
 
 #### Legacy Code
 
-When adding unit tests to legacy code, you should strive to keep the amount of changes in the code to a minimum. PowerMock is able to help and can be used to mock static dependencies without any major refactoring. Refrain from using **PowerMock** to unit test new features, as keeping their designs object-oriented should allow unit tests to be written with **Mockito**.
+When adding unit tests to legacy code, you should strive to keep the amount of changes in the code to a minimum. **PowerMock** is able to help and can be used to mock static dependencies without any major refactoring. Refrain from using **PowerMock** to unit test new features, as keeping their designs object-oriented should allow unit tests to be written with **Mockito**.
 
 Additionally, when unit testing legacy code and mocking dependencies, ensure you add unit tests to dependencies in isolation or track this effort accordingly.
 
 #### New Feature Code
 
-Any new feature code should already be created with unit tests. Remember, unit testing is a development activity rather than a QA phase activity. Authoring unit tests along with the code improves code quality and enforces good patterns. To take full advantage of this side effect, make sure PowerMock is not used. Stick with **Mockito** only whenever mocks make sense.
+Any new feature code should already be created with unit tests. Remember, unit testing is a development activity rather than a QA phase activity. Authoring unit tests along with the code improves code quality and enforces good patterns. To take full advantage of this side effect, make sure **PowerMock** is not used. Stick with **Mockito** only whenever mocks make sense.
 
 ### Input Variation vs. System State Manipulation
 
-As previously mentioned, each unit test will likely need to setup a set of inputs and may depend on certain mocked behaviors. To keep each test method clear, refrain from setting up mocks within the body of test method. Instead, focus on picking up or setting up your inputs and, mocking your system inside of a test initialization method (for Junit use @Before). This initialization method is aware of inputs that the various tests within a class use, and refers to them when a certain mocked behavior is needed. This approach places all the code where the system state is set (mocked) in a single place, allowing the test method to have emphasis on the input, action and validation, while creating more readability.
+As previously mentioned, each unit test will likely need to setup a set of inputs and may depend on certain mocked behaviors. To keep each test method clear, refrain from setting up mocks within the body of test method. Instead, focus on picking up or setting up your inputs, and mocking your system inside of a test initialization method (for Junit use @Before). This initialization method is aware of inputs that the various tests within a class use, and refers to them when a certain mocked behavior is needed. This approach places all the code where the system state is set (mocked) in a single place, allowing the test method to have emphasis on the input, action, and validation, while creating more readability.
 
 ## Appendix
 
