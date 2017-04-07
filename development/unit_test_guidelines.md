@@ -253,7 +253,7 @@ public void testDispatch_WithNullRequest_ThrowsNullPointerException() throws Exc
 
 ### Test Format
 
-A unit test should have a single test responsibility. Attempting to test too many aspects of the code on a single test will likely lead to unreadable and test methods that are difficult to maintain. A typical test method contains a few lines of code to set up the inputs used along with the unit under test, a single line calling the method under test, and some lines to verify the output. This aligns with the ArrangeActAssert standard however, there might be exceptions to this rule. Only consider a different approach if the overall readability and maintainability is increased.  For consistency, it is important to remember that other tests should be completed only for the sake of readability and to maintain gain, not loss.  
+A unit test should have a single test responsibility. Attempting to test too many aspects of the code on a single test will likely lead to unreadable test methods that are difficult to maintain. A typical test method contains a few lines of code to set up the inputs used along with the unit under test, a single line calling the method under test, and some lines to verify the output. This aligns with the ArrangeActAssert standard however, there might be exceptions to this rule. Only consider a different approach if the overall readability and maintainability is increased.  For consistency, it is important to keep other existing tests in mind. A different approach will be breaking consistency thus should only be done for the sake of better readability and maintainability overall.  
 
 ### Mocking
 
