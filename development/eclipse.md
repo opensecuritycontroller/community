@@ -91,7 +91,7 @@ It is optional to add the code coverage plugin however, it is highly recommended
 
 To import OSC projects, complete the following steps:
 
-*Window -> File -> Import*
+Select *File -> Import*
 
 ![](images/import_projects.jpg)
 
