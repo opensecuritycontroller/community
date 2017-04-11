@@ -19,7 +19,7 @@ The following sections describe the configuration of workplace settings.
 ### Text Editors
 To set the text editor settings, navigate to:
 
-*Eclipse -> Preferences -> Editors*
+*Window -> Preferences -> General -> Editors*
 
 ![](images/text_editor.jpg)
 
@@ -27,15 +27,15 @@ To set the text editor settings, navigate to:
 
 Import Code Style files into the eclipse workspace. The files **[cleanup_profile.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmidc_cleanup_profile.xml)**, **[code-style-format.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-style-format.xml)** and **[code-templates.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-templates.xml)** are included in the osc-core repository and can be uploaded as follows:
 
-*Eclipse -> Preferences -> Java -> Code Style -> Clean up*
+*Window -> Preferences -> Java -> Code Style -> Clean up*
 
-*Eclipse -> Preferences -> Java -> Code Style -> Formatter*
+*Window -> Preferences -> Java -> Code Style -> Formatter*
 
-*Eclipse -> Preferences -> Java -> Code Style -> Code Templates*
+*Window -> Preferences -> Java -> Code Style -> Code Templates*
 
 Organize Imports must also be modified. To do this, navigate to:
 
-*Eclipse -> Preferences -> Java -> Code Style -> Organize Imports*
+*Window -> Preferences -> Java -> Code Style -> Organize Imports*, and then enter the number **3** into the **Number of Static imports needed for** field as shown below:
 
 ![](images/organize_imports.JPG)
 
@@ -43,7 +43,7 @@ Organize Imports must also be modified. To do this, navigate to:
 
 To configure the Save Actions, navigate to:
 
-*Configure -> Preferences -> Java -> Editor -> Save Actions -> Configure*
+*Window -> Preferences -> Java -> Editor -> Save Actions*, and then select **Configure**.
 
 ![](images/missing_annotations.jpg)
 
@@ -91,7 +91,7 @@ It is optional to add the code coverage plugin however, it is highly recommended
 
 To import OSC projects, complete the following steps:
 
-*Eclipse -> File -> Import*
+*Window -> File -> Import*
 
 ![](images/import_projects.jpg)
 
