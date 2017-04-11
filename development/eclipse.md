@@ -11,7 +11,7 @@ To set the Java Runtime settings, navigate to:
 
 *Set Java -> Installed JREs to jdk1.8*
 
-![](images/jdk1.8.jpg)
+[](images/jdk1.8.jpg)
  
 ## Workspace Settings
 The following sections describe the configuration of workplace settings.
@@ -21,7 +21,7 @@ To set the text editor settings, navigate to:
 
 *Window -> Preferences -> General -> Editors*
 
-![](images/text_editor.jpg)
+*![](images/text_editor.jpg)
 
 ### Code Style
 
@@ -35,7 +35,7 @@ Import Code Style files into the eclipse workspace. The files **[cleanup_profile
 
 Organize Imports must also be modified. To do this, navigate to:
 
-*Window -> Preferences -> Java -> Code Style -> Organize Imports*, and then enter the number **3** into the **Number of Static imports needed for** field as shown below:
+*Window -> Preferences -> Java -> Code Style -> Organize Imports*, and then enter the number **3** into the **Number of Static imports needed for.\*** field as shown below:
 
 ![](images/organize_imports.JPG)
 
@@ -83,7 +83,7 @@ Install the bndtools plugin 3.3.0.REL from the Eclipse marketplace as shown belo
 
 ### EclEmma Java Code Coverage
 
-It is optional to add the code coverage plugin however, it is highly recommended to add the plugin to understand and review the code coverage.
+Although optional, it is highly recommended to add the code coverage plugin to facilitate unit testing.
 
 ![](images/code_coverage_eclipse_marketplace.JPG)
 
