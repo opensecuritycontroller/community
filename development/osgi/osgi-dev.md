@@ -125,11 +125,11 @@ To read more about bundle lifecycle go to [link](http://eclipsesource.com/blogs/
 
 ## OSC Bundles
 
-Every project mentioned in previous paragraph has `bnd.bnd` file inside which treats `pom.xml` like a repository. It is extremely important to correctly scope your dependencies in the `pom.xml`. You can read more about maven dependency scope under [this](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html) link.
+Every project mentioned in previous paragraph has `bnd.bnd` file inside which treats `pom.xml` like a repository. It is extremely important to correctly scope your dependencies in the `pom.xml`. You can read more about Maven dependency scope under [this](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html) link.
 
 ### Adding Dependencies to the Uber Bundle
 
-*Notice: Only **runtime** non OSGi dependencies that are not compatible with OSGi should be added to this bundle.*
+*Notice: Only **runtime** dependencies that are not compatible with OSGi should be added to this bundle.*
 
 Let us take a look at `osc-uber\bnd.bnd` . It is bundle that contains it's own java classes but also classes from dependencies selected to `bnd.bnd` from `pom.xml`.
 
@@ -405,7 +405,7 @@ Basically, this is build as a bundle and includes dependencies that are necessar
        com.google.gson.*
    ```
 
-3.  Finally we have a block that we should be familiar with:
+3. Finally we have a block that we should be familiar with:
 
    ```
    -includeresource: \
