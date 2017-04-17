@@ -6,7 +6,7 @@ The code and documentation review process for OSC is driven by GitHub pull reque
  - **Development Workflow:**  Complete the steps **[Development Workflow](dev_flow.md)**.
 
 ## Pull Request Flow
-The diagram shown below depicts the detailed steps, along the with git commands involved in a **PR** lifecycle:  
+The diagram shown below depicts the detailed steps, along with the git commands involved in a **PR** lifecycle:  
 ![](./images/pr_flow.jpg)  
 *Pull Request Steps and Commands*  
 
@@ -16,11 +16,11 @@ Pull requests should generally have a single commit. You may send pull requests 
 
 
 ## Addressing Comments
-Once a pull requested is created, it will go through a code review/discussion. All the comments must be addressed prior to merging either with a response or code change.  
+Once a pull request is created, other community members can comment on your changes and give an overall review of either **Approved** or **Changes requested**. All comments should be addressed by either a response comment or a code change.  
 
 
 ## Merging Pull Requests
-Once the PR has been flagged as '**Approved**', the PR owner can merge it to the master branch. 
+Once a pull request has been flagged as **Approved**, a designated branch administrator can merge it to the master branch.
 
 
 
