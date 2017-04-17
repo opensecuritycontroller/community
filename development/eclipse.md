@@ -35,7 +35,7 @@ Import Code Style files into the eclipse workspace. The files **[cleanup_profile
 
 Organize Imports must also be modified. To do this, navigate to:
 
-*Window -> Preferences -> Java -> Code Style -> Organize Imports*, and then enter the number **3** into the **Number of Static imports needed for.\*** field as shown below:
+*Window -> Preferences -> Java -> Code Style -> Organize Imports*, and then enter the number **3** into the **Number of Static imports needed for .\*** field as shown below:
 
 ![](images/organize_imports.JPG)
 
