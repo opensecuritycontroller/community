@@ -1,9 +1,9 @@
 # OSC Releases
 
-OSC releases are represented accross all OSC repositories by a release branch. This document describes the process for committing changes on release branches and updating *master* with those changes.
+OSC releases are represented across all OSC repositories by a release branch. This document describes the process for committing changes on release branches and updating *master* with those changes.
 
 ## Release Branches
-OSC release branches are protected and merges can only be made by the organization admin. Commits to theses branches are reserved only for hotfixes of high priority bugs identified on that release and approved by triage.  
+OSC release branches are protected and merges can only be made by the organization admin. Commits to these branches are reserved only for hotfixes of high priority bugs identified on that release and approved by triage.  
 To submit commits for a release branch follow the same steps defined in the [pull requests (PRs) flow](pull_requests.md), diverging only on the last step: once your PR is approved the organization admin will merge it to the respective release branch.
 
 ### Merging a Hotfix to *Master*
@@ -21,5 +21,5 @@ $ git push -f origin owner/master_merge
 
 At this point, you must create a PR from your branch to master on GitHub. If your merge had any conflicts or required any additional changes follow the [code review process](pull_requests.md#addressing-comments), otherwise you can directly merge your PR.
 
-> **Important**: As opposed to a regular PR flow, when merging changes originated from a release branch **DO NOT** squash the commits, intead use the GitHub option **Merge pull request**: 
+> **Important**: As opposed to a regular PR flow, when merging changes originated from a release branch **DO NOT** squash the commits, instead use the GitHub option **Merge pull request**: 
 > ![](./images/pr_merge.png)
