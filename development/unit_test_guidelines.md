@@ -139,7 +139,7 @@ Documentation is unnecessary and rendundant for test classes and test methods wi
 
 #### Arrange-Act-Assert
 
-For details on Arrange-Act-Assert, see the Test Format session below. 
+For details on Arrange-Act-Assert, see the Test Format section below. 
 
 Add the comments **// Arrange. // Act. // Assert**. within the body of your test method to create clear, visual boundaries. Making this step a core part of the test helps to both organize the code and facilitate code reviews by providing a better picture as to exactly what is being setup and how it is being validated. This is particularly useful for test methods with several arrange and assert lines. These comments may not be necessary for short test methods. 
 
