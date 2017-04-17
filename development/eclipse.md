@@ -2,45 +2,52 @@
 This document describes the actions to configure Eclipse OSC workspace settings, install Eclipse plugins and import the OSC projects.
 
 ## Requirements
- - Eclipse Neon and above
+The following requirements must be met to complete the Eclipse setup:
+
+ * Eclipse Neon and higher
 
 ## Java Runtime
+To set the Java Runtime settings, navigate to:
 
 *Set Java -> Installed JREs to jdk1.8*
 
-![](images/jdk1.8.jpg)
-
+[](images/jdk1.8.jpg)
+ 
 ## Workspace Settings
+The following sections describe the configuration of workplace settings.
 
 ### Text Editors
+To set the text editor settings, navigate to:
 
-*Eclipse -> Preferences -> Editors*
+*Window -> Preferences -> General -> Editors*
 
-![](images/text_editor.jpg)
+*![](images/text_editor.jpg)
 
 ### Code Style
 
-Import Code Style files into eclipse workspace. The files **[cleanup_profile.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmidc_cleanup_profile.xml)**, **[code-style-format.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-style-format.xml)** and **[code-templates.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-templates.xml)** are included in the osc-core repository and can be uploaded as follows:
+Import Code Style files into the eclipse workspace. The files **[cleanup_profile.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmidc_cleanup_profile.xml)**, **[code-style-format.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-style-format.xml)** and **[code-templates.xml](https://github.com/opensecuritycontroller/osc-core/blob/master/vmiDC-code-templates.xml)** are included in the osc-core repository and can be uploaded as follows:
 
-*Eclipse -> Preferences -> Java -> Code Style -> Clean up*
+*Window -> Preferences -> Java -> Code Style -> Clean up*
 
-*Eclipse -> Preferences -> Java -> Code Style -> Formatter*
+*Window -> Preferences -> Java -> Code Style -> Formatter*
 
-*Eclipse -> Preferences -> Java -> Code Style -> Code Templates*
+*Window -> Preferences -> Java -> Code Style -> Code Templates*
 
-In addition to that modify Organize Imports
+Organize Imports must also be modified. To do this, navigate to:
 
-*Eclipse -> Preferences -> Java -> Code Style -> Organize Imports*
+*Window -> Preferences -> Java -> Code Style -> Organize Imports*, and then enter the number **3** into the **Number of Static imports needed for .\*** field as shown below:
 
 ![](images/organize_imports.JPG)
 
 ### Save Actions
 
-Setup the following save actions:
+To configure the Save Actions, navigate to:
 
-*Configure: Preferences -> Java -> Editor -> Save Actions -> Configure*
+*Window -> Preferences -> Java -> Editor -> Save Actions*, and then select **Configure**.
 
 ![](images/missing_annotations.jpg)
+
+Ensure your settings match the following:
 
 *Code Organizing*
 
@@ -70,19 +77,21 @@ Setup the following save actions:
 
 ### BndTools
 
-Install the bndtools plugin 3.3.0.REL from the Eclipse marketplace:
+Install the bndtools plugin 3.3.0.REL from the Eclipse marketplace as shown below:
 
 ![](images/bnd_tools.png)
 
 ### EclEmma Java Code Coverage
 
-It is optional to add the code coverage plugin. However, it is highly recommended to add the plugin to understand and review the code coverage.
+Although optional, it is highly recommended to add the code coverage plugin to facilitate unit testing.
 
 ![](images/code_coverage_eclipse_marketplace.JPG)
 
 ## Import OSC Projects
 
-*Eclipse -> File -> Import*
+To import OSC projects, complete the following steps:
+
+Select *File -> Import*
 
 ![](images/import_projects.jpg)
 
@@ -95,6 +104,6 @@ It is optional to add the code coverage plugin. However, it is highly recommende
 ![](images/import_projects_2.jpg)
 
 
-## Next
+## Next Steps
 
 - **[Build and Run OSC](build_run_osc.md)**
