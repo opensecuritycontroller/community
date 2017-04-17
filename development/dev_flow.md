@@ -11,7 +11,7 @@ The image below depicts the OSC development workflow. Other flows may also be va
 
 
 ## Cloning The Repositories
-See **Requirements** to gain code access and use the ./scripts/clone-repos.sh.See **Requirements** above or if you choose to clone the repositories differently, ensure to set the git hooks under the /hooks/ directory for each repository, [see](./scripts/clone-repos.sh).  
+See [Requirements]( if you choose to clone the repositories differently, ensure to set the git hooks under the /hooks/ directory for each repository, [see](./scripts/clone-repos.sh).  
 
 ## Create a Branch
 Once you have cloned the OSC repositories, you must create a new branch. 
@@ -31,7 +31,7 @@ git rebase origin/master
 ```
 
 ## Committing Your Changes
-You can commit and push changes on your own branch as often as necessary by using the following commands: 
+You can commit and push changes on your own branch as often as you wish by using the following commands: 
 
 ```sh
 # Adding files to your commit.
