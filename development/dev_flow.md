@@ -11,7 +11,7 @@ The image below depicts the OSC development workflow. Other flows may also be va
 
 
 ## Cloning The Repositories
-See [Requirements](https://github.com/opensecuritycontroller/community/blob/master/development/development.md) above or if you choose to clone the repositories differently ensure to set the git hooks under the /hooks/ directory for each repository, for details [see the script](https://github.com/opensecuritycontroller/community/blob/master/development/scripts/clone-repos.sh).
+See [Requirements](#requirements) above or if you choose to clone the repositories differently ensure to set the git hooks under the /hooks/ directory for each repository, for details [see the script](./scripts/clone-repos.sh).
 
 ## Create a Branch
 Once you have cloned the OSC repositories, you must create a new branch. 
