@@ -8,15 +8,6 @@ The following information will provide you the instructions to access OSC reposi
  > Note: If installing for Windows, **Git Bash** is included in the installation. Shell commands mentioned in this document must be completed using Git Bash.
 
 ## Connecting To GitHub
-### Proxy Configuration
-You may need to setup a proxy for your SSH Connection in some instances. This can be completed with the following steps:
-
-1. Copy the content from [ssh_proxy_config](intel_only/ssh_proxy_config) to the clipboard.
-2. Update your SSH config file (creating a new one if needed):
-``` sh
-vi ~/.ssh/config
-# Append the copied content to this file.
-```
 
 ### SSH Configuration
 
@@ -29,7 +20,7 @@ Hi YOUR_USERNAME! You've successfully authenticated, but GitHub does not provide
 
 ## Getting The Code
 
-The following steps will clone the code in your local git and configure some common hooks. To get the clone:
+The following steps will clone the code in your local git and configure some common hooks. To clone:
 
 1. Create OSC root folder to store the OSC repositories:
 
