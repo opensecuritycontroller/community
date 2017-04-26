@@ -109,13 +109,13 @@ Things to consider when adding a new bundle:
 
 ## OSGi GoGo Shell
 
-To run OSC with GoGo Shell, open in Eclipse `server-debug.bndrun` and Run OSGi. You should now be able to type within the console. To list all bundles, type `lb`.
+To run OSC with GoGo Shell, open in Eclipse `server-debug.bndrun` and **Run OSGi**. You should now be able to type within the console. To list all bundles, type `lb`.
 
 ![](../images/bnd-osgi-gogo-shell.png)
 
 A helpful situation to keep in mind when using GoGo Shell:
 
-- You can install directly via GoGo Shell to add new bundles to OSGi Conatiner.
+- You can install directly via GoGo Shell to add new bundles to OSGi Container.
 - If a bundle is not active for any reason, you can attempt to reinstall it for the reason as to why it failed.
 - To find if your newly added bundle via Eclipse BND Tools is installed and active.
 
