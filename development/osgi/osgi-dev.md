@@ -101,7 +101,7 @@ Things to consider when adding a new bundle:
 - The order of the bundles doesn't matter in OSC.
 - Sometimes you include only by name, i. e. `openstack-nova;version='[2.0.0,2.0.1)'` but there are also cases where you have to specify the bundle with its groupId i. e. `com.fasterxml.jackson.core.jackson-annotations;version='[2.8.5,2.8.6)',\ ` 
 
->Note: It is very helpful to use Eclipse BND tools to import bundles into `server.bndrun`. Simply drag and drop from Repos to Run bundles.
+>Note: It is very helpful to use Eclipse BND tools to import bundles into `server.bndrun`. Simply drag and drop from **Repositories** to **Run Bundles**.
 
 ![](../images/bnd-osgi-add-bundle.png)
 
@@ -109,7 +109,7 @@ Things to consider when adding a new bundle:
 
 ## OSGi GoGo Shell
 
-To run OSC with GoGo Shell, open in Eclipse `server-debug.bndrun` and Run OSGi. You should now be able to type within the console. To list all bundles, type `lb`
+To run OSC with GoGo Shell, open in Eclipse `server-debug.bndrun` and Run OSGi. You should now be able to type within the console. To list all bundles, type `lb`.
 
 ![](../images/bnd-osgi-gogo-shell.png)
 
@@ -117,7 +117,7 @@ A helpful situation to keep in mind when using GoGo Shell:
 
 - You can install directly via GoGo Shell to add new bundles to OSGi Conatiner.
 - If a bundle is not active for any reason, you can attempt to reinstall it for the reason as to why it failed.
-- To find if your newly added bundle via Eclipse BND Tools is installed and active
+- To find if your newly added bundle via Eclipse BND Tools is installed and active.
 
 See [link](http://eclipsesource.com/blogs/2013/01/23/how-to-track-lifecycle-changes-of-osgi-bundles/) to read more about the bundle lifecycle.
 
@@ -130,7 +130,7 @@ Every project mentioned in the sections above contains a `bnd.bnd` file inside w
 ### Adding Dependencies to the Uber Bundle
 
 >Note: Only **runtime** dependencies that are not compatible with OSGi should be added to this bundle.
-h
+
 `osc-uber\bnd.bnd` is a bundle that contains not only its own java classes, but also those from dependencies selected to `bnd.bnd` from `pom.xml`.
 
 If you want to include resources based on `pom.xml` to your bundle, you must first include that line in your `bnd.bnd` file:
@@ -211,7 +211,7 @@ import-extra:\
   com.fasterxml.jackson.core
 ```
 
->Note: if you will use some class i. e. `com.fasterxml.jackson.annotation.JsonIgnore;`, which is from bundle injected into OSGi container and forget to import `com.fasterxml.jackson.annotation`,  annotation `@JsonIgnore` won't work in runtime and you will get an error on an endpoint where you have to use `@JsonIgnore`. Please take a look at [VersionUtil.java](https://github.com/opensecuritycontroller/osc-core/blob/master/osc-common/src/main/java/org/osc/core/util/VersionUtil.java#L100)*
+>Note: if you will use some class i. e. `com.fasterxml.jackson.annotation.JsonIgnore;`, which is from bundle injected into OSGi container and forget to import `com.fasterxml.jackson.annotation`,  annotation `@JsonIgnore` won't work in runtime and you will get an error on an endpoint where you have to use `@JsonIgnore`. Please take a look at [VersionUtil.java](https://github.com/opensecuritycontroller/osc-core/blob/master/osc-common/src/main/java/org/osc/core/util/VersionUtil.java#L100)
 
 ## Resolving Exception Problems
 
