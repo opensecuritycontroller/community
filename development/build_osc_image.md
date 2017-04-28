@@ -1,13 +1,14 @@
 # Building OSC Images
-This section describes how to setup a local build environment to build OSC images. Using OSC build process three types of images can be generated i.e:VMDK,QCOW2 and RAW image formats.
+This document describes how to setup a local build environment to build OSC images. Using OSC build process three types of images can be generated, i.e.: VMDK, QCOW2 and RAW image formats.
 
 ## Prerequisites
 OSC image can only be built on Linux OS. Any type of Linux OS distribution can be used, for example Ubuntu, RedHat, etc.  Java related application in OSC can be compiled using Maven in windows using CYGWIN tool.  Following tools and packages are required and mandatory for OSC image builds.
 
 1. Any Linux OS distribution
-2. Java8
-3. Maven3.3
-4. [Access to OSC source code](./repo_access.md)
+2. Java 8
+3. Apache Maven 3.3
+4. Apache Ant 1.9.X
+5. [Access to OSC source code](./repo_access.md)
 
 ## Assumptions
 This document assumes that user is performing following installation steps on Linux OS. And examples in this section are with reference to Ubuntu Desktop Linux OS.
@@ -25,13 +26,21 @@ Now extract downloaded archive using following command.
 
 `$ sudo tar xzf apache-maven-3.3.9-bin.tar.gz`  
 `$ sudo ln -s apache-maven-3.3.9 apache-maven`  
+### 3 : Install Apache Ant
+Make sure you have a Java environment installed before installing  Ant.  
+Following command is an example to download Ant on Ubuntu14.04:
+```sh
+$ sudo apt-get update
+$ sudo apt-get install ant
+```
+Refer to your Linux OS guide on how to download Ant.
 
-### 3 : Setup Environment Variables
+### 4 : Setup Environment Variables
 #### Maven and Java Path Setup
-As you have downloaded pre compiled Apache Maven files on your system. Now set the environments variables by creating new file `apache-maven.sh`.
+As you have downloaded pre compiled Apache Maven files on your system, you must set the environments variables by creating new file `apache-maven.sh`.
 
 `$ sudo vi /etc/profile.d/apache-maven.sh`  
-and add following content.  
+And add following content.  
 ```sh
 export JAVA_HOME=/usr/lib/jvm/java-8-oracle
 export M2_HOME=/usr/local/apache-maven
@@ -47,15 +56,15 @@ Verify the Maven version and required version should be **3.3**.xxx
 #### Maven Proxy Setup
 If connecting through a proxy create or modify `~/.m2/setting.xml` providing the proxy settings. 
 
-### 4 :  Create CentOS Schroot Environment
-OSC build process requires CentOS chroot environment to generate a VMDK,QCOW2 or a RAW image. This CentOS schroot environment allows the user to run a command or a login shell in a chroot environment.  
+### 5 :  Create CentOS Schroot Environment
+OSC build process requires CentOS chroot environment to generate a VMDK, QCOW2 or a RAW image. This CentOS schroot environment allows the user to run a command or a login shell in a chroot environment.  
 
 To create a CentOS schroot environment run following commands:  
 `$ cd /local-working-directory/osc-core/osc-server-bon/bin`  
 `$ ./create-centos`
 
-### 5 : Build Commands
-This section explains all the build command formats required to generate different type of images like VMDK,QCOW2 and RAW images. OSC virtual appliance will be packaged and distributed in OVF format.
+### 6 : Build Commands
+This section explains all the build command formats required to generate different type of images like VMDK, QCOW2 and RAW images. OSC virtual appliance will be packaged and distributed in OVF format.
 
 Go to osc-core directory  
 `$ cd /local-working-directory/osc-core/`  
