@@ -8,10 +8,10 @@
 **Type:** (Positive / Negative)  
 
 **Description:**  
-Describing the test case.
+Describe the test case.
 
 **Required Initial State:**  
-Describing OSC state and environment state.
+Describe the OSC or environment required initial state.
 
 **Steps:**  
 1. Step 1.    
