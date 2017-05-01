@@ -16,7 +16,7 @@ This article provides information on how [OSGi](https://en.wikipedia.org/wiki/OS
 
 The OSGi container is a place where all OSGi compatible JAR files, or bundles, should be placed. In the `osc-export` module, you will find some important files:
 
--  included in `server.bndrun` and defines the run environment, requirements, properties etc.
+- `server.bnd` -  included in `server*.bndrun` and defines the run environment, requirements, properties etc.
 - `server.bndrun`- contains all bundles that are fundamental to running the OSC server.
 - `server-debug.bndrun`- contains bundles from `server.bndrun` and bundles to run OSGi's [GoGo shell](http://enroute.osgi.org/appnotes/gogo.html).
 
