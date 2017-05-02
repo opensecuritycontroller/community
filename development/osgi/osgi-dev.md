@@ -388,7 +388,7 @@ Basically, this is built as a bundle and includes dependencies that are necessar
    -include target/depend.bnd
    ```
 
-2. We have an conditional package section that imports packages only from libraries that are inside the `pom.xml`:
+2. We have a conditional package section that imports packages only from libraries that are inside the `pom.xml`:
 
    ```java
    # include minimal contents for stand-alone jar
@@ -433,5 +433,5 @@ Basically, this is built as a bundle and includes dependencies that are necessar
    ```
 
    This set is a minimal requirement to work properly in runtime.
-
->Note: Remember to ensure that any external library added in the POM file should also be included in the `osc-control\bnd.bnd`. Remember to also add a class from a package that is not included within the conditional package.
+ 
+>Note: Remember to ensure that any external library added in the `pom.xml` file should also be included in the `osc-control\bnd.bnd`. Remember to also add a class from a package that is not included within the conditional package.
