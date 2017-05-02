@@ -1,6 +1,6 @@
 # OSC And OSGi Development Guide
 
-This article provides information on how [OSGi](https://en.wikipedia.org/wiki/OSGi) is integrated into a project, along with how to avoid and handle some typical OSGi troubles related to development. 
+This article provides information on how [OSGi](https://en.wikipedia.org/wiki/OSGi) is integrated into a projects, along with how to avoid and handle some typical OSGi troubles related to development. 
 
 
 
@@ -69,7 +69,7 @@ To add a new bundle into an OSGi container, you must include it in `server.bndru
   org.glassfish.jersey.ext.jersey-entity-filtering;version='[2.25.0,2.25.1)',\
   org.hibernate.validator;version='[5.1.3,5.1.4)',\
   com.fasterxml.classmate;version='[1.3.0,1.3.1)',\
-  com.fasterxml.vackson.jaxrs.jackson-jaxrs-json-provider;version='[2.8.5,2.8.6)',\
+  com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider;version='[2.8.5,2.8.6)',\
   com.fasterxml.jackson.jaxrs.jackson-jaxrs-base;version='[2.8.5,2.8.6)',\
   com.fasterxml.jackson.core.jackson-core;version='[2.8.5,2.8.6)',\
   com.fasterxml.jackson.core.jackson-databind;version='[2.8.5,2.8.6)',\
@@ -131,7 +131,7 @@ Every project mentioned in the sections above contains a `bnd.bnd` file inside w
 
 >Note: Only **runtime** dependencies that are not compatible with OSGi should be added to this bundle.
 
-`osc-uber\bnd.bnd` is a bundle that contains not only its own Java classes, but also those from dependencies selected to `bnd.bnd` from `pom.xml`.
+To add dependenceis in the OSC uber bundle you will need to modify the file `osc-uber\bnd.bnd`. This file contains not only its own Java classes, but also those from dependencies selected to `bnd.bnd` from `pom.xml`.
 
 If you want to include resources based on `pom.xml` to your bundle, you must first include that line in your `bnd.bnd` file:
 
@@ -154,7 +154,7 @@ You are then able to include resources such as:
     ...
 ```
 
-#### Excluding packages
+#### Excluding Packages
 
 There are situations when you may include some resources to your bundle, but don't want to use all packages from that JAR file. You are able to exclude those packages by using an exclamation mark (!). Consider the `osc-uber\bnd.bnd` file again:
 
@@ -211,7 +211,7 @@ import-extra:\
   com.fasterxml.jackson.core
 ```
 
->Note: if you will use some class i. e. `com.fasterxml.jackson.annotation.JsonIgnore;`, which is from bundle injected into OSGi container and forget to import `com.fasterxml.jackson.annotation`,  annotation `@JsonIgnore` won't work in runtime and you will get an error on an endpoint where you have to use `@JsonIgnore`. Please take a look at [VersionUtil.java](https://github.com/opensecuritycontroller/osc-core/blob/master/osc-common/src/main/java/org/osc/core/util/VersionUtil.java#L100)
+>Note: If you you are using a class from a bundle in the OSGi container and forget to import its package you will get an error at runtime. For instance, if you use com.fasterxml.jackson.annotation.JsonIgnore; and do not import com.fasterxml.jackson.annotation,  the annotation @JsonIgnore will not work.  Please take a look at [VersionUtil.java](https://github.com/opensecuritycontroller/osc-core/blob/master/osc-common/src/main/java/org/osc/core/util/VersionUtil.java#L100)
 
 ## Resolving Exception Problems
 
@@ -219,7 +219,7 @@ import-extra:\
 
 While adding a new bundle to the OSGi container, you must also include the bundles required by the new dependency as shown below:
 
-1. Remove all bundles from `server-debug.bndrun` that contain the `com.fasterxml.jackson.jaxrs` groupID.
+1. Remove all bundles from `server-debug.bndrun` with the groupID `com.fasterxml.jackson.jaxrs` groupID.
 
 2. The console should contain the following messages:
 
@@ -301,13 +301,13 @@ While adding a new bundle to the OSGi container, you must also include the bundl
 
    ​
 
->Note: To know the dependency that should be added to OSGi Container while adding a new one, you need to look at the dependency network of the specific bundle, and provide all that are required. In Eclipse, open `pom.xml` and navigate to the **Dependency Hierarchy** tab:
+>Note: To know the dependency that should be added to OSGi Container while adding a new one, you need to look at the dependency network of the specific bundle, and provide all that are required. In Eclipse, open the `pom.xml` and navigate to the **Dependency Hierarchy** tab:
 
 ![](../images/bnd-osgi-dependency-hierarchy.png)
 
 #### Missing Requirements in the OSC Uber Bundle
 
-Non-OSGi dependencies added to the OSC uber bundle may also have missing requirements. This situation provides the same log as the previous one, but with a different intent. You must include the resource inside `osc-uber` bundle as shown below:
+Non-OSGi dependencies added to the OSC uber bundle may also have missing requirements. This situation provides the same log as the previous one, but with a different intent. You must include the resource inside the `osc-uber` bundle as shown below:
 
 
 1. Remove ` @${yavijava.dep},\` from `osc-uber\bnd.bnd` and then recompile and Run OSGi with GoGo shell.
@@ -380,15 +380,15 @@ You will find the project `osc-control`inside `osc-core`. This is a standalone J
 
 #### BND.BND In OSC-Control
 
-Basically, this is built as a bundle and includes dependencies that are necessary to work without problems in runtime. Below is an example of the `bnd.bnd` file:
+Basically, this is built as a bundle and includes dependencies that are necessary to work without problems at runtime. Below is an example of the `bnd.bnd` file:
 
-1. It contains line that helps us to work with `pom.xml` as a repository:
+1. It contains line the following line. allowing us to work with `pom.xml` as a repository:
 
    ```java
    -include target/depend.bnd
    ```
 
-2. We have an conditional package section that imports packages only from libs that are inside `pomx.ml`:
+2. We have aa conditional package section that imports packages only from libs that are inside the `pomx.ml`:
 
    ```java
    # include minimal contents for stand-alone jar
@@ -434,4 +434,4 @@ Basically, this is built as a bundle and includes dependencies that are necessar
 
    This set is a minimal requirement to work properly in runtime.
 
->Note: Remember to ensure that `osc-control\bnd.bnd` is included if an external library from the POM file is added. Remember to also add a class from a package that is not included within the conditional package.
+>Note: Remember to ensure that any external library added in the POM file should also be included in the osc-control\bnd.bnd. Remember to also add a class from a package that is not included within the conditional package.
