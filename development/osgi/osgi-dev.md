@@ -173,7 +173,7 @@ exclude-tomcat:\
   ...
 ```
 
-In the fragment from the `bnd.bnd` file, the `!javax.servlet.jsp` and `!javax.servlet.jsp.tagext` were excluded however, if you look at the `com.mcafee.vmidc.server.Server org.osc.core.server` class, you will notice that packages from `javax.servlet` are used:
+In the fragment from the `bnd.bnd` file, the `!javax.servlet.jsp` and `!javax.servlet.jsp.tagext` were excluded however, if you look at the `org.osc.core.server` class, you will notice that packages from `javax.servlet` are used:
 
 ```java
 package org.osc.core.server;
