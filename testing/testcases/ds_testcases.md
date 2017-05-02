@@ -20,7 +20,7 @@ OSC has VC, MC, SF, DA added.
 6. Select Openstack default RegionOne.  
 7. Select Criterion By Host e.g. and enable it.  
 8. Select Management, Inspection Networks.  
-9. Select floatingIP pool of Openstack e.f. ext-net.   
+9. Select floatingIP pool of Openstack e.g. ext-net.   
 10. Keep default Deployment Count 1 and Shared selected.  
 11. Click OK.  
 
