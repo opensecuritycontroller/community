@@ -188,7 +188,7 @@ public class Server {
 }
 ```
 
-#### Importing packages
+#### Importing Packages
 
 Packages imported from bundles injected directly into OSGi container don't use exclamation marks at the start of a line:
 
@@ -279,7 +279,7 @@ While adding a new bundle to the OSGi container, you must also include the bundl
       ...
    ```
 
-  The newly added bundle `com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider;version='[2.8.5,2.8.6)',\` is in the container however, it is missing some dependency that is also missed in `osc-uber` and `jersey-media-json-jackson` as is seen above in Step 2.
+   The newly added bundle `com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider;version='[2.8.5,2.8.6)',\` is in the container however, it is missing some dependency that is also missed in `osc-uber` and `jersey-media-json-jackson` as is seen above in Step 2.
 
 6. Add `com.fasterxml.jackson.jaxrs.jackson-jaxrs-base;version='[2.8.5,2.8.6)',\` to `server-debug.bndrun` and re-run. 
 
