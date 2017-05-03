@@ -45,7 +45,8 @@ The commands below demonstrate how you can cherry-pick the commit `04b42aa0ee067
 ```sh
 $ git cherry-pick -x 04b42aa0ee0672f117d754b03ac92e0c459d6f47
 # This will bring that commit as a new one on your hotfix_merge branch. 
-Observe that the commit message contains the original commit number: 
+# Observe that the commit message contains the original commit number: 
+# (cherry picked from commit 04b42aa0ee0672f117d754b03ac92e0c459d6f47)
 ```
 3. Push your new branch to the remote:
 
