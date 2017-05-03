@@ -211,7 +211,8 @@ import-extra:\
   com.fasterxml.jackson.core
 ```
 
->Note: If you are using a class from a bundle in the OSGi container and forget to import its package you will get an error at runtime. For instance, if you use com.fasterxml.jackson.annotation.JsonIgnore; and do not import com.fasterxml.jackson.annotation,  the annotation @JsonIgnore will not work.  Please take a look at [VersionUtil.java](https://github.com/opensecuritycontroller/osc-core/blob/master/osc-common/src/main/java/org/osc/core/util/VersionUtil.java#L100)
+>Note: If you are using a class from a bundle in the OSGi container and forget to import its package you will get an error at runtime. For instance, if you use `com.fasterxml.jackson.annotation.JsonIgnore`; and do not import `com.fasterxml.jackson.annotation`
+,  the annotation @JsonIgnore will not work.  Please take a look at [VersionUtil.java](https://github.com/opensecuritycontroller/osc-core/blob/master/osc-common/src/main/java/org/osc/core/util/VersionUtil.java#L100)
 
 ## Resolving Exception Problems
 
@@ -219,7 +220,7 @@ import-extra:\
 
 While adding a new bundle to the OSGi container, you must also include the bundles required by the new dependency as shown below:
 
-1. Remove all bundles from server-debug.bndrun with the groupId com.fasterxml.jackson.jaxrs.
+1. Remove all bundles from `server-debug.bndrun` with the groupId `com.fasterxml.jackson.jaxrs`.
 
 2. The console should contain the following messages:
 
