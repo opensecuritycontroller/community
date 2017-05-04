@@ -1,15 +1,15 @@
-# Service Function Test Cases
+# Service Function (SF) Test Cases
 
 **ID:** SF_1  
-**Name:** User can Auto Import a SF  
+**Name:** Auto Import a SF  
 **Priority:** High 
 **Type:** Positive  
 
 **Description:** 
-User can upload a VNF service function image e.g. IPS to OSC.  
+User can import and upload a VNF service function image e.g. IPS to OSC.  
 
 **Required Initial State:** 
-OSC can contact a VNF image server to upload the file, IPS e.g.
+OSC can contact a VNF image server to upload the file, e.g. IPS.
 
 **Steps:**   
 1. Launch OSC web application: https://OSC-ip-address.  
@@ -24,7 +24,7 @@ Service Version sees Software Version number, Virtulization Type Openstack e.g.,
 ****
 
 **ID:** SF_2  
-**Name:** User can delete a SF  
+**Name:** Delete a SF  
 **Priority:** High  
 **Type:** Negative  
 
@@ -32,7 +32,7 @@ Service Version sees Software Version number, Virtulization Type Openstack e.g.,
 User can delete an existing SF.  
 
 **Required Initial State:**  
-OSC can contact the VNF Image server (IPS/NGFW e.g.).  
+VNF Image (IPS e.g.) has been uploaded and displayed in OSC UI.  
 
 **Steps:**    
 1. Launch OSC web application: https://OSC-ip-address.  
