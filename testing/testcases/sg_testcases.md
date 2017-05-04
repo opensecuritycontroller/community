@@ -1,15 +1,15 @@
-# Security Group Test Cases
+# Security Group (SG) Test Cases
 
 **ID:** SG_1  
-**Name:** User can add a SG  
+**Name:** Add a SG  
 **Priority:** High  
 **Type:** Positive  
 
 **Description:**  
-Given an existing service function, manager connector and virtualization connector, distributed appliance, user can add a secirity group for hosts or networks.  
+User can add a secirity group for hosts or networks in Openstack.  
 
 **Required Initial State:**  
-OSC has VC, MC, DA, DS added.  
+OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function (SF) and Distrubuted Appliance (DA) added and Deployment Specification (DS) deployed.
 
 **Steps:**    
 1. Launch OSC web application: https://OSC-ip-address.  
@@ -29,7 +29,7 @@ SG with members, services of DA should be shown and Job Status should be PASSED.
 ****
 
 **ID:** SG_2  
-**Name:** User can delete a SG  
+**Name:** Delete a SG  
 **Priority:** High  
 **Type:** Negative  
 
@@ -37,7 +37,7 @@ SG with members, services of DA should be shown and Job Status should be PASSED.
 User can delete an existing SG which has VC, MC, DA, DS associated.  
 
 **Required Initial State:**  
-OSC has VC, MC, DA added, SG has been added but VC Security Group has not been bound, SG line with Services box empty.  
+OSC has VC, MC, DA added, SG has been added but SG has not been bound to the DA, SG line has Services column empty.  
 
 **Steps:**    
 1. Launch OSC web application: https://OSC-ip-address.  
@@ -72,7 +72,7 @@ The SG should have Job Status from RUNNING to PASSED.
 ****
 
 **ID:** SG_4  
-**Name:** User can bind a SG  
+**Name:** Bind a SG  
 **Priority:** High  
 **Type:** Positive  
 
@@ -86,7 +86,7 @@ OSC has VC, MC, DA added, and Deployment Specification has been deployed.
 1. Launch OSC web application: https://OSC-ip-address.  
 2. Login to OSC.  
 3. Click OSC->Setup->Virtualization Connector->Security Group->Bind.  
-4. Enable Openstack DA service with Inspection Policy selected.  
+4. Select Enabled column.  
 5. Click OK.  
 
 **Expected Result:**  
@@ -96,21 +96,21 @@ The SG should be bound to the DA in Services column and Job Status should be PAS
 
 
 **ID:** SG_5  
-**Name:** User can unbind the SG  
+**Name:** Unbind the SG  
 **Priority:** High  
 **Type:** Negative  
 
 **Description:**  
-User can nbind an existing SG with DA.  
+User can unbind an existing SG with DA.  
 
 **Required Initial State:**  
-OSC has VC, MC, DA added, and Deployment Specification has been deployed.
+OSC has VC, MC, DA added, and Deployment Specification has been deployed and SG bound to the DA.
 
 **Steps:**    
 1. Launch OSC web application: https://OSC-ip-address.  
 2. Login to OSC.  
 3. Click OSC->Setup->Virtualization Connector->Security Group->Bind.  
-4. Disable Openstack DA service.  
+4. De-select Enabled column.  
 5. Click OK.  
 
 **Expected Result:**  
