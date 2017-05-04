@@ -39,7 +39,7 @@ $ git checkout -b owner/hotfix_merge
 2. Cherry-pick your commit from the release branch to your new branch. 
 > Note: While cherry-picking supports multiple commits you should NOT cherry-pick multiple commits from a release branch to bring to `master` in a single merge. That is because merges to master always must be squashed, therefore if you cherry-pick multiple commits from a release branch to `master` after the merge those commits will be transfered as a single one and this will make it harder to follow the commits history accross branches.  
 
-> Note: When cherry-picking ensure to use the option `-x`. This will add the original commit number to your new commit's ^message in `master`.  
+> Note: When cherry-picking ensure to use the option `-x`. This will add the original commit number to your new commit's message in `master`.  
 
 The commands below demonstrate how you can cherry-pick the commit `04b42aa0ee0672f117d754b03ac92e0c459d6f47` from the 0.6 branch.  
 **Tip**: You can use the "Copy the full SHA" button displayed in the commit history on GitHub to easily copy the SHA of your targeted commit.
