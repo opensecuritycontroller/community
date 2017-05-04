@@ -1,15 +1,15 @@
-# Manager Connector Test Cases
+# Manager Connector (MC) Test Cases
 
 **ID**: MC_1  
-**Name**: User can add a MC  
+**Name**: Add a MC  
 **Priority**: High  
 **Type**: Positive  
 
 **Description**: 
-User can add a VNF (McAfee NSM/SMC e.g.) MC.
+User can add a VNF (McAfee NSM e.g.) MC.
 
 **Required Initial State**: 
-OSC can ping the VNF Manager (NSM/SMC e.g.).
+OSC can ping the VNF Manager (NSM e.g.).
 
 **Steps**:  
 1. Launch OSC web application: https://OSC-ip-address.  
@@ -26,7 +26,7 @@ Manager Connector with the name My_MC1 should be added. IP should be shown as in
 ****
 
 **ID**: MC_2 
-**Name**: User can delete a MC  
+**Name**: Delete a MC  
 **Priority**: High  
 **Type**: Negative  
 
@@ -34,7 +34,7 @@ Manager Connector with the name My_MC1 should be added. IP should be shown as in
 User can delete an existing MC.
 
 **Required Initial State**: 
-MC to VNF Manager (NSM/SMC e.g.) has been added.
+MC to VNF Manager (NSM e.g.) has been added.
 
 **Steps**:  
 1. Launch OSC web application: https://OSC-ip-address.  
