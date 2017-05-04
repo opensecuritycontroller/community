@@ -1,36 +1,36 @@
-# Deployment Specifications Test Cases
+# Deployment Specifications (DS) Test Cases
 
 **ID:** DS_1  
-**Name:** User can deploy a DS  
+**Name:** Deploy a DS  
 **Priority:** High  
 **Type:** Positive  
 
 **Description:**  
-Given an existing service function, manager connector and virtualization connector, distrubuted appliance, the user can add a deployment specifications on OSC.
+User can add a DS on OSC.
 
 **Required Initial State:**  
-OSC has VC, MC, SF, DA added.  
+OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function (SF) and Distrubuted Appliance (DA) added.
 
 **Steps:**    
 1. Launch OSC web application: https://OSC-ip-address.  
 2. Login to OSC.  
-3. Click OSC->Setup->Distributed Appliances->Deployments->Deployment Specifications->Add.  
-4. Provide a unique DS name e.g. My_DS1.  
+3. Click OSC->Setup->Distributed Appliance->Deployments->Deployment Specifications for Virtual System->Add.  
+4. Provide a unique DS name e.g. My-DS1.  
 5. Select Openstack Tenant.  
 6. Select Openstack default RegionOne.  
 7. Select Criterion By Host e.g. and enable it.  
 8. Select Management, Inspection Networks.  
-9. Select floatingIP pool of Openstack e.g. ext-net.   
-10. Keep default Deployment Count 1 and Shared selected.  
+9. Select FloatingIP pool of Openstack e.g. ext-net.   
+10. Keep default Deployment Count 1 and 'Shared' selected.  
 11. Click OK.  
 
 **Expected Result:**
-It takes a while and Deployment Specifications with the name My_DS1 should be added. Job Status should be PASSED. In Openstack, see Instance IPS installed.  
+It takes a while and Deployment Specifications with the name My-DS1 should be added. Job Status should be PASSED. In Openstack, see the Instance IPS installed.  
 
 ****
 
 **ID:** DS_2  
-**Name:** User can delete a DS  
+**Name:** Delete a DS  
 **Priority:** High  
 **Type:** Negative  
 
@@ -38,12 +38,12 @@ It takes a while and Deployment Specifications with the name My_DS1 should be ad
 User can delete an existing DS with Openstack.  
 
 **Required Initial State:**  
-OSC has VC, MC, DA added, DS has been added but VC Security Group has not been bound.  
+OSC has VC, MC, DA and DS added but DA has not been bound with the Security Group.  
 
 **Steps:**    
 1. Launch OSC web application: https://OSC-ip-address.  
 2. Login to OSC.  
-3. Click OSC->Setup->Distributed Appliances->Deployments->Deployment Specifications->Delete.  
+3. Click OSC->Setup->Distributed Appliances->Deployments->Deployment Specifications for Virtual System->Delete.  
 4. Click OK to delete DS.  
 
 **Expected Result:**  
@@ -52,7 +52,7 @@ The DS should be deleted.
 ****
 
 **ID:** DS_3  
-**Name:** User can sync a DS  
+**Name:** Sync a DS  
 **Priority:** High  
 **Type:** Positive  
 
@@ -65,7 +65,7 @@ OSC has VC, MC, DA added, and Deployment Specification has been deployed.
 **Steps:**    
 1. Launch OSC web application: https://OSC-ip-address.  
 2. Login to OSC.  
-3. Click OSC->Setup->Distributed Appliances->Deployments->Deployment Specifications->Sync.  
+3. Click OSC->Setup->Distributed Appliances->Deployments->Deployment Specifications for Virtual System->Sync.  
 
 **Expected Result:**  
 The DS should have Job Status from RUNNING to PASSED.  
