@@ -1,15 +1,15 @@
 # Distributed Appliances (DA) Test Cases
 
 **ID:** DA_1  
-**Name:** My-DA1  
+**Name:** Add a DA  
 **Priority:** High  
 **Type:** Positive  
 
 **Description:**  
-Added Virtualization Connector (VC), Manager Connector (MC), and Service Function (SF), the user can add a distributed appliance on OSC.
+User can add a DA on OSC.
 
 **Required Initial State:**  
-OSC has VC, MC and SF added.
+OSC has Virtualization Connector (VC), Manager Connector (MC), and Service Function (SF) added.
 
 **Steps:**  
 1. Launch OSC web application: https://OSC-ip-address.  
@@ -28,7 +28,7 @@ Distributed Appliances with the name My-DA1 should be added. Manager and VNF Mod
 ****
 
 **ID:** DA_2  
-**Name:** User can delete a DA  
+**Name:** Delete a DA  
 **Priority:** High  
 **Type:** Negative  
 
@@ -50,7 +50,7 @@ The DA should be deleted.
 ****
 
 **ID:** DA_3  
-**Name:** User can force delete a SG bound DA.  
+**Name:** Force delete a SG bound DA.  
 **Priority:** High  
 **Type:** negative  
 
@@ -64,9 +64,9 @@ OSC has the DA added and VC Security Group has been bound with this DA.
 1. Launch OSC web application: https://OSC-ip-address.  
 2. Login to OSC.  
 3. Click OSC->Setup->Distributed Appliances->Delete.  
-4. Popup confirmation with force selection.  
-5. Click OK and reconfirm force selection to delete the DA.  
-6. Also go to Openstack to delete the VNF Instance since OSC force delete will not force delete in Openstack.  
+4. Popup confirmation with force delete selection.  
+5. Click OK and reconfirm force delete selection to delete the DA.  
+6. Also go to Openstack UI to delete the VNF Instance since OSC force delete DA will not force delete Instance in Openstack.  
 
 **Expected Result:**  
 The DA should be deleted.
