@@ -1,7 +1,7 @@
-# Virtualization Connector Test Cases
+# Virtualization Connector (VC) Test Cases
 
 **ID:** VC_1  
-**Name:** User can add a VC  
+**Name:** Add a VC  
 **Priority:** High  
 **Type:** Positive  
 
@@ -19,7 +19,7 @@ OSC can ping the Openstack Controller and Openstack Keystone is Up.
 5. Provide VC name e.g. My_VC1, SDN Type: NONE.  
 6. Fill up Openstack Keystone IP, Tenant, User, Password fields.  
 7. If needed (If Rabbit MQ does not use default settings) click the ‘Show Advanced Settings’ button and put the parameters for Rabbit MQ (https, IP, user name, password, port) and click OK in the ‘Show Advanced Settings’ dialog.  
-8. Click OK for default settings.  
+8. Click OK.  
 
 **Expected Result:**  
 Virtualization Connector with the name My_VC1 should be added. The Type should be Openstack, Controller IP should be empty and Provider IP should have the keystone ip according to input at step 6., Job Status should be PASSED.
@@ -27,7 +27,7 @@ Virtualization Connector with the name My_VC1 should be added. The Type should b
 ****
 
 **ID:** VC_2  
-**Name:** User can add a VC Openstack using https  
+**Name:** Add a VC Openstack using https  
 **Priority:** High  
 **Type:** Positive  
 
@@ -44,17 +44,17 @@ OSC can ping the Openstack Controller and Openstack Keystone is Up.
 4. Type: select OPENSTACK.  
 5. Provide VC name e.g. My_VC2, SDN Type: NONE.  
 6. Fill up Openstack Keystone IP, Tenant, User, Password fields.  
-7. If needed (If Rabbit MQ does not use default settings) click the ‘Show Advanced Settings’ button and put the parameters for Rabbit MQ (https, IP, user name, password, port) and click OK in the ‘Advanced Settings’ dialog.  
+7. Click the ‘Show Advanced Settings’ button, select Https box and put the parameters for Rabbit MQ (IP, user name, password, port) and click OK in the ‘Advanced Settings’ dialog.  
 8. Click OK.  
 
 **Expected Result:**  
-A dialog ask you to approve SSL Certificates will appear. Upon completion
-Line with Virtualization Connector with the name My_VC2 should be added. The Type should be Openstack, Controller IP should be empty and Provider IP should have the keystone ip according to input at step 6., Job Status should be PASSED.
+A dialog asks you to approve SSL Certificates will appear. Upon completion, the
+line with Virtualization Connector with the name My_VC2 should be added. The Type should be Openstack, Controller IP should be empty and Provider IP should have the keystone ip according to input at step 6., Job Status should be PASSED.
 
 ****
 
 **ID:** VC_3  
-**Name:** User can delete a VC  
+**Name:** Delete a VC  
 **Priority:** High  
 **Type:** Negative  
 
@@ -71,4 +71,4 @@ OSC can ping the Openstack Controller and Openstack Keystone is Up.
 4. Click OK.  
 
 **Expected Result:**  
-The VC should be deleted if no Distributed Appliance is referenced otherwisw it pops up Error.  
+The VC should be deleted if no Distributed Appliance is referenced, otherwise it pops up Error.  
