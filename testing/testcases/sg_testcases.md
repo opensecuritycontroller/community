@@ -17,7 +17,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 3. Click OSC->Setup->Virtualization Connector->Security Group->Add.  
 4. Provide an unique SG name e.g. My_SG1.  
 5. Select Openstack Tenant.  
-6. Select Openstack default RegionOne.  
+6. Select Openstack Region.  
 7. Select By Type VM or Network or Subnet.  
 8. Move the item from left to the right.  
 9. Leave Protect External unselected or select.  
