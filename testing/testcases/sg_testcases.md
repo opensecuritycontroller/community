@@ -51,8 +51,8 @@ The SG should be deleted.
 ****
 
 **ID:** SG_3  
-**Name:** User can sync a SG  
-**Priority:** High  
+**Name:** Sync a SG  
+**Priority:** Medium  
 **Type:** Positive  
 
 **Description:**  
