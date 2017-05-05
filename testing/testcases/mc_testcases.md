@@ -1,4 +1,4 @@
-# Manager Connector (MC) Test Cases
+# Security Manager Connector (MC) Test Cases
 
 **ID**: MC_1  
 **Name**: Add a MC  
@@ -6,16 +6,17 @@
 **Type**: Positive  
 
 **Description**: 
-User can add a VNF (McAfee NSM e.g.) MC.
+User can add an MC.
 
 **Required Initial State**: 
-OSC can ping the VNF Manager (NSM e.g.).
+OSC can ping the Security Manager.
+Manager Plugin has been uploaded.
 
 **Steps**:  
 1. Launch OSC web application: https://OSC-ip-address.  
 2. Login to OSC.  
 3. Click OSC->Setup->Manager Connectors->Add.  
-4. Type: select NSM e.g.  
+4. Type: select for all the Manager Plugins the one that you want to connect.
 5. Provide a unique MC name e.g. My_MC1.  
 6. Fill up NSM login credential fields.  
 7. Click OK.  
