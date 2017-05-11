@@ -9,8 +9,8 @@
 User can add a DS through OSC UI.
 
 **Required Initial State:**  
-OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function (SF) and Distrubuted Appliance (DA) added.
-In your Openstack environment you must have at least one host, and three networks for Management, Inspection and Floating IP Pool.
+OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function (SF) and Distributed Appliance (DA) added.
+In the Openstack environment, user must have at least one host, and three networks for Management, Inspection and Floating IP Pool.
 
 **Steps:**    
 1. Launch OSC web application: https://OSC-ip-address.  
@@ -26,7 +26,7 @@ In your Openstack environment you must have at least one host, and three network
 11. Click OK.  
 
 **Expected Result:**
-It takes a while and Deployment Specifications with the name My-DS1 should be added. Job Status should be PASSED. In Openstack, see the  appliance instance related to the DS deployed.  
+It takes a while and Deployment Specifications with the name My-DS1 should be added. Job Status should be PASSED. In Openstack, the  appliance instance related to the DS should be deployed.  
 
 ****
 
