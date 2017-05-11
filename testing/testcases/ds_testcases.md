@@ -39,7 +39,7 @@ It takes a while and Deployment Specifications with the name My-DS1 should be ad
 User can delete an existing DS.
 
 **Required Initial State:**  
-OSC has VC, MC, DA and DS added but DA has not been bound with the Security Group.  
+OSC has VC, MC, DA and DS added but DA has not been bound to a Security Group.  
 
 **Steps:**    
 1. Launch OSC web application: https://OSC-ip-address.  
@@ -69,6 +69,6 @@ OSC has VC, MC, DA added, and Deployment Specification has been deployed.
 3. Click OSC->Setup->Distributed Appliances->Deployments->Deployment Specifications for Virtual System->Sync.  
 
 **Expected Result:**  
-The DS should have Job Status from RUNNING to PASSED.  
+DS Sync job should run and change its status from RUNNING to PASSED.  
 
 ****
