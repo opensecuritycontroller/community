@@ -6,7 +6,7 @@
 **Type:** Positive  
 
 **Description:**  
-User can add a DA on OSC.
+User can add a DA through OSC UI.
 
 **Required Initial State:**  
 OSC has Virtualization Connector (VC), Manager Connector (MC), and Service Function (SF) added.
