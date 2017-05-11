@@ -1,7 +1,7 @@
 # Security Group (SG) Test Cases
 
 **ID:** SG_1  
-**Name:** Add an SG of VM type
+**Name:** Add an SG of VM type  
 **Priority:** High  
 **Type:** Positive  
 
@@ -58,7 +58,7 @@ SG with members, services of DA should be shown and Job Status should be PASSED.
 ****
 
 **ID:** SG_3  
-**Name:** Add an SG of Subnet type 
+**Name:** Add an SG of Subnet type   
 **Priority:** High  
 **Type:** Positive  
 
