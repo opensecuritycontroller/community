@@ -41,6 +41,9 @@ vi clone-repos.sh
 ```sh
 ./clone-repos.sh
 ```
+## Useful Aliases
+
+Update your git aliases in `~/.gitconfig` with [git-aliases](./aliases/git-aliases). While these aliases are optional they can be very useful as they simplify common git operations.  
 
 ## Next Steps
 
