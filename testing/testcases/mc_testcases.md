@@ -42,7 +42,7 @@ MC has been added.
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
 3. Click OSC->**Setup**->**Manager Connectors**->**Delete**.  
-4. Click OK.  
+4. Click **OK**.  
 
 **Expected Result**: 
 The MC should be deleted.
