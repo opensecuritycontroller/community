@@ -13,9 +13,9 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 In the Openstack environment, user must have at least one host, and three networks for Management, Inspection and Floating IP Pool.
 
 **Steps:**    
-1. Launch OSC web application: https://OSC-ip-address.  
+1. Launch OSC web application: ```https://OSC-ip-address```.  
 2. Login to OSC.  
-3. Click OSC->Setup->Distributed Appliance->Deployments->Deployment Specifications for Virtual System->Add.  
+3. Click OSC->**Setup**->**Distributed Appliance**->**Deployments**->**Deployment Specifications** for Virtual System->**Add**.  
 4. Provide a unique DS name e.g. My-DS1.  
 5. Select Openstack Tenant.  
 6. Select Openstack Region.  
@@ -23,7 +23,7 @@ In the Openstack environment, user must have at least one host, and three networ
 8. Select Management, Inspection Networks.  
 9. Select FloatingIP pool of Openstack e.g. ext-net.   
 10. Keep default Deployment Count 1 and 'Shared' selected.  
-11. Click OK.  
+11. Click **OK**.  
 
 **Expected Result:**
 It takes a while and Deployment Specifications with the name My-DS1 should be added. Job Status should be PASSED. In Openstack, the  appliance instance related to the DS should be deployed.  
@@ -42,10 +42,10 @@ User can delete an existing DS.
 OSC has VC, MC, DA and DS added but DA has not been bound to a Security Group.  
 
 **Steps:**    
-1. Launch OSC web application: https://OSC-ip-address.  
+1. Launch OSC web application: ```https://OSC-ip-address```.  
 2. Login to OSC.  
-3. Click OSC->Setup->Distributed Appliances->Deployments->Deployment Specifications for Virtual System->Delete.  
-4. Click OK to delete DS.  
+3. Click OSC->**Setup**->**Distributed Appliances**->**Deployments**->**Deployment Specifications** for Virtual System->**Delete**.  
+4. Click **OK** to delete DS.  
 
 **Expected Result:**  
 The DS should be deleted.
@@ -64,9 +64,9 @@ User can sync a deployed DS with Openstack.
 OSC has VC, MC, DA added, and Deployment Specification has been deployed.  
 
 **Steps:**    
-1. Launch OSC web application: https://OSC-ip-address.  
+1. Launch OSC web application: ```https://OSC-ip-address```.  
 2. Login to OSC.  
-3. Click OSC->Setup->Distributed Appliances->Deployments->Deployment Specifications for Virtual System->Sync.  
+3. Click OSC->**Setup**->**Distributed Appliances**->**Deployments**->**Deployment Specifications** for Virtual System->**Sync**.  
 
 **Expected Result:**  
 DS Sync job should run and change its status from RUNNING to PASSED.  
