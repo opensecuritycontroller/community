@@ -12,7 +12,7 @@ User can add a DA through OSC UI.
 OSC has Virtualization Connector (VC), Manager Connector (MC), and Service Function (SF) added.
 
 **Steps:**  
-1. Launch OSC web application: https://OSC-ip-address.  
+1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
 3. Click OSC->**Setup**->**Distributed Appliance**->**Add**.  
 4. Provide a unique DA name e.g. My-DA1. (Start with a letter, 13 chars max, alphanumeric and dash '-' only)
@@ -39,7 +39,7 @@ User can delete an existing DA.
 OSC has DA added, but the DA isn't bound to any Security Group (SG).  
 
 **Steps:**   
-1. Launch OSC web application: https://OSC-ip-address.  
+1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
 3. Click OSC->**Setup**->**Distributed Appliance**->**Delete**.  
 4. Click **OK** to delete DA.  
@@ -61,7 +61,7 @@ User can force delete a SG bound DA.
 OSC has the DA added and VC Security Group has been bound with this DA.
 
 **Steps:**   
-1. Launch OSC web application: https://OSC-ip-address.  
+1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
 3. Click OSC->**Setup**->**Distributed Appliance**->**Delete**.  
 4. Popup confirmation with force delete selection.  
