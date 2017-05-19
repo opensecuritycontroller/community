@@ -99,7 +99,7 @@ OSC has VC, MC, DA added, SG has been added but SG has not been bound to the DA,
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Virtualization Connector**->**Security Groupv->**Delete**.  
+3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Delete**.  
 4. Click **OK** to delete SG.  
 
 **Expected Result:**  
