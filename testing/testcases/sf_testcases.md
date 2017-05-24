@@ -2,7 +2,7 @@
 
 **ID:** SF_1  
 **Name:** Auto Import a SF  
-**Priority:** High 
+**Priority:** High  
 **Type:** Positive  
 
 **Description:** 
