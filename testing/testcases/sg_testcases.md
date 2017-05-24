@@ -143,7 +143,7 @@ OSC has VC, MC, DA added, and Deployment Specification has been deployed.
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
 3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Bind**.  
-4. Select Enabled column.  
+4. Select **Enabled&& checkbox.  
 5. Click **OK**.  
 
 **Expected Result:**  
@@ -167,7 +167,7 @@ OSC has VC, MC, DA added, and Deployment Specification has been deployed and SG 
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
 3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Bind**.  
-4. De-select Enabled column.  
+4. De-select **Enabled** checkbox.  
 5. Click **OK**.  
 
 **Expected Result:**  
