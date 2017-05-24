@@ -66,10 +66,10 @@ OSC has the DA added and VC Security Group has been bound with this DA.
 3. Click OSC->**Setup**->**Distributed Appliance**->**Delete**.  
 4. Popup confirmation with force delete selection.  
 5. Click **OK** and reconfirm force delete selection to delete the DA.  
-6. Also go to Openstack UI to delete the VNF Instance since OSC force delete DA will not force delete Instance in Openstack.  
+6. Also go to OpenStack UI to delete the VNF Instance since OSC force delete DA will not force delete Instance in OpenStack.  
 
 **Expected Result:**  
 The DA should be deleted.  
-Be aware if not doing step 6 you'll have the DA VM instances still in Openstack environment.
+Be aware if not doing step 6 you'll have the DA VM instances still in OpenStack environment.
 
 ****
