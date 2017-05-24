@@ -16,15 +16,15 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 2. Login to OSC.  
 3. Click OSC->**Setup**->**Distributed Appliance**->**Deployments**->**Deployment Specifications** for Virtual System->**Add**.  
 4. Provide a unique DS name e.g. My-DS1.  
-5. Select Openstack Tenant.  
-6. Select Openstack Region.  
+5. Select OpenStack Tenant.  
+6. Select OpenStack Region.  
 7. Select Criterion By Host e.g. and enable it.  
 8. Select the Management Network, Inspection Network, and Floating IP Pool.
 9. Keep default Deployment Count 1 and 'Shared' selected.  
 10. Click **OK**.  
 
 **Expected Result:**
-It takes a while and Deployment Specifications with the name My-DS1 should be added. Job Status should be PASSED. In Openstack, the  appliance instance related to the DS should be deployed.  
+It takes a while and Deployment Specifications with the name My-DS1 should be added. Job Status should be PASSED. In OpenStack, the  appliance instance related to the DS should be deployed.  
 
 ****
 
@@ -56,7 +56,7 @@ The DS should be deleted.
 **Type:** Positive  
 
 **Description:**  
-User can sync a deployed DS with Openstack.  
+User can sync a deployed DS with OpenStack.  
 
 **Required Initial State:**  
 OSC has VC, MC, DA added, and Deployment Specification has been deployed.  
