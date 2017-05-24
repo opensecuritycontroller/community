@@ -6,7 +6,7 @@
 **Type:** Positive  
 
 **Description:**  
-User can add an Openstack VC (while open stack uses http).
+User can add an Openstack VC (while Openstack uses http).
 
 **Required Initial State:**  
 OSC can ping the Openstack Controller and Openstack Keystone is Up.
