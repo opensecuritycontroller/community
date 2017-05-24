@@ -52,7 +52,7 @@ The DA should be deleted.
 **ID:** DA_3  
 **Name:** Force delete a DA which bound to SG.  
 **Priority:** High  
-**Type:** negative  
+**Type:** Negative  
 
 **Description:**  
 User can force delete a SG bound DA.
