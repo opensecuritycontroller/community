@@ -6,7 +6,7 @@
 **Type:** Positive  
 
 **Description:**  
-User can add an Openstack VC (while Openstack uses http).
+User can add an Openstack VC (while Openstack uses HTTP).
 
 **Required Initial State:**  
 OSC can ping the Openstack Controller and Openstack Keystone is Up.
@@ -18,7 +18,7 @@ OSC can ping the Openstack Controller and Openstack Keystone is Up.
 4. Type: select OPENSTACK.  
 5. Provide VC name e.g. My_VC1, SDN Type: NONE.  
 6. Fill up Openstack Keystone IP, Tenant, User, Password fields.  
-7. If needed (If Rabbit MQ does not use default settings) click the ‘**Show Advanced Settings**’ button and put the parameters for Rabbit MQ (https, IP, user name, password, port) and click **OK** in the ‘Show Advanced Settings’ dialog.  
+7. (optional). If Rabbit MQ does not use default settings, click **Show Advanced Settings** and fill in all RabbitMQ fields and click **OK**. 
 8. Click **OK**.  
 
 **Expected Result:**  
@@ -27,7 +27,7 @@ Virtualization Connector with the name My_VC1 should be added. The Type should b
 ****
 
 **ID:** VC_2  
-**Name:** Add a VC Openstack using https  
+**Name:** Add a VC Openstack using HTTPS  
 **Priority:** High  
 **Type:** Positive  
 
