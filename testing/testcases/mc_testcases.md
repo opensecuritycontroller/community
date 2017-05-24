@@ -27,7 +27,7 @@ If this Manager type supports Policy Syncing - you will be able to see its Polic
 
 ****
 
-**ID**: MC_2 
+**ID**: MC_2   
 **Name**: Delete an MC  
 **Priority**: High  
 **Type**: Negative  
