@@ -16,8 +16,8 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 2. Login to OSC.  
 3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Add**.  
 4. Provide a unique SG name e.g. My_SG1.  
-5. Select Openstack Tenant.  
-6. Select Openstack Region.  
+5. Select OpenStack Tenant.  
+6. Select OpenStack Region.  
 7. Select Type VM.  
 8. Move the item from left to the right using the **>** button.  
 9. Leave Protect External unselected.  
@@ -45,8 +45,8 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 2. Login to OSC.  
 3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Add**.  
 4. Provide a unique SG name e.g. My_SG1.  
-5. Select Openstack Tenant.  
-6. Select Openstack Region.  
+5. Select OpenStack Tenant.  
+6. Select OpenStack Region.  
 7. Select Type Network.  
 8. Move the item from left to the right using the **>** button.  
 9. Leave Protect External unselected.   
@@ -73,8 +73,8 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 2. Login to OSC.  
 3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Add**.  
 4. Provide a unique SG name e.g. My_SG1.  
-5. Select Openstack Tenant.  
-6. Select Openstack Region.  
+5. Select OpenStack Tenant.  
+6. Select OpenStack Region.  
 7. Select Type Subnet.  
 8. Move the item from left to the right using the **>** button.  
 9. Leave Protect External unselected.   
@@ -134,7 +134,7 @@ The SG should have Job Status from RUNNING to PASSED.
 **Type:** Positive  
 
 **Description:**  
-User can bind an SG with Openstack DAI
+User can bind an SG with OpenStack DAI
 
 **Required Initial State:**  
 OSC has VC, MC, DA added, and Deployment Specification has been deployed.  
