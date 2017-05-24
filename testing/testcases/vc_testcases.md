@@ -32,7 +32,7 @@ Virtualization Connector with the name My_VC1 should be added. The Type should b
 **Type:** Positive  
 
 **Description:**  
-User can add an Openstack VC (while Openstack uses https)
+User can add an Openstack VC (while Openstack uses HTTPS)
 
 **Required Initial State:**  
 OSC can ping the Openstack Controller and Openstack Keystone is Up.
