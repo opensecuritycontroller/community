@@ -35,7 +35,7 @@ SG with members, services of DA should be shown and Job Status should be PASSED.
 **Type:** Positive  
 
 **Description:**  
-User can add a secirity group for hosts or networks through OSC UI.  
+User can add a security group for hosts or networks through OSC UI.  
 
 **Required Initial State:**  
 OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function (SF) and Distrubuted Appliance (DA) added and Deployment Specification (DS) deployed.
@@ -63,7 +63,7 @@ SG with members, services of DA should be shown and Job Status should be PASSED.
 **Type:** Positive  
 
 **Description:**  
-User can add a secirity group for hosts or networks through OSC UI.  
+User can add a security group for hosts or networks through OSC UI.  
 
 **Required Initial State:**  
 OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function (SF) and Distrubuted Appliance (DA) added and Deployment Specification (DS) deployed.
