@@ -1,6 +1,8 @@
 # Building and Running OSC
 
-**IMPORTANT**:
+## Prerequisites
+
+### Known Maven Compile Error and Fix
 Before building or running, navigate to the `org.osc.export` project and open the `server.bndrun` file as shown below.
 
 Due to a bug in the bnd-export-maven-plugin, the following step is required before the first command-line build can succeed. This step is required until an expected resolution occurs.
@@ -10,6 +12,15 @@ Due to a bug in the bnd-export-maven-plugin, the following step is required befo
 The following error from the command-line build displays if this step is skipped:
 
 ![](images/error_cli.png)
+
+### Setup wget on Windows
+Building OSC from the command line depends on wget. If you are using Windows, download and install wget according to your system configuration and requirements.
+Version of wget preferred is shown below:  
+![](images/wget-version.png)
+#### Proxy Setup for wget
+If your local machines is behind a proxy, setup `HTTP_PROXY` and `HTTPS_PROXY` environment variables in Windows operating system.
+![](images/wget-proxy.png)  
+
 
 ## Command Line
 ### Building

@@ -1,26 +1,26 @@
 # OSC And OSGi Development Guide
 
-In this article you can find information how is [OSGi](https://en.wikipedia.org/wiki/OSGi) integrated into project, and how to avoid and handle some typical OSGi troubles related to development. 
+This article provides information on how [OSGi](https://en.wikipedia.org/wiki/OSGi) is integrated into OSC projects, along with how to avoid and handle some typical OSGi troubles related to development. 
 
 
 
 ## OSGi Modules in OSC
 
-- `osc-uber` - contains `osc-common`, `osc-server` and dependencies from`pom.xml` not injected directly into OSGi container
-- `osc-domain` - data access object module
-- `osc-uber-jcloud` - contains all dependencies to integrate with Openstack
+- `osc-common`, `osc-server`, and dependencies from the POM file not injected directly into the OSGi container.
+- `osc-domain` - data access object module.
+- `osc-uber-jcloud` - contains all dependencies to integrate with OpenStack.
 
 
 
 ## OSGi Container
 
-OSGi container is a place, where all OSGi compatible jars(aka bundle) should be placed. In `osc-export` you can find few important files:
+The OSGi container is a place where all OSGi compatible JAR files, or bundles, should be placed. In the `osc-export` module, you will find some important files:
 
-- `server.bnd`- included into server*.bndrun files, defines run environment, requirements, properties etc.
-- `server.bndrun`- contains all bundles that are fundamental part of our application
-- `server-debug.bndrun`- contains bundles from `server.bndrun` and bundles to run OSGi [GoGo Shell](http://enroute.osgi.org/appnotes/gogo.html)
+- `server.bnd` -  included in `server*.bndrun` and defines the run environment, requirements, properties etc.
+- `server.bndrun`- contains all bundles that are fundamental to running the OSC server.
+- `server-debug.bndrun`- contains bundles from `server.bndrun` and bundles to run OSGi's [GoGo shell](http://enroute.osgi.org/appnotes/gogo.html).
 
-To add new bundle into OSGi container you have to include it in `server.bndrun`(also add it to `server-debug.bndrun`) in that part:
+To add a new bundle into an OSGi container, you must include it in `server.bndrun`(also add it to `server-debug.bndrun`):
 
 ```java
 -runbundles: \
@@ -95,13 +95,13 @@ To add new bundle into OSGi container you have to include it in `server.bndrun`(
   openstack-neutron;version='[2.0.0,2.0.1)',\
   openstack-nova;version='[2.0.0,2.0.1)'
 ```
-There are few things worth to notice:
+Things to consider when adding a new bundle:
 
-- You need to define a version of bundle/jar to include
-- In OSC order of bundles don't matter
-- Sometimes you include only by name, i. e. `openstack-nova;version='[2.0.0,2.0.1)'` but there are also cases where you have to specify bundle with it's groupId i. e. `com.fasterxml.jackson.core.jackson-annotations;version='[2.8.5,2.8.6)',\ ` 
+- A version needs to be defined for the JAR/bundle file.
+- The order of the bundles does not matter in OSC.
+- Sometimes the bundle can be included by name, e.g., `openstack-nova;version='[2.0.0,2.0.1)'`. There are some cases where the bundled needs to be specified by its groupId, e.g., `com.fasterxml.jackson.core.jackson-annotations;version='[2.8.5,2.8.6)',\ `.
 
-*Notice: It is very helpful to use Eclipse BND Tools to import bundles into `server.bndrun` . Just simply Drag'n'Drop from Repos to Run Bundles*
+>Note: It is very helpful to use Eclipse BND tools to import bundles into `server.bndrun`. Simply drag and drop from **Repositories** to **Run Bundles**.
 
 ![](../images/bnd-osgi-add-bundle.png)
 
@@ -109,38 +109,38 @@ There are few things worth to notice:
 
 ## OSGi GoGo Shell
 
-To run OSC with GoGo Shell just simply open in Eclipse `server-debug.bndrun` and Run OSGi. You should be able now to type in console. To list all bundles, type `lb`
+To run OSC with GoGo shell, open `server-debug.bndrun` in Eclipse and click **Run OSGi**. You should now be able to type within the console. To list all bundles, type `lb`.
 
 ![](../images/bnd-osgi-gogo-shell.png)
 
-Situation when using GoGo Shell is helpful:
+GoGo shell is helpful in the following situations:
 
-- Adding new bundles to OSGi Conatiner - you can install them directly via GoGo Shell
-- If from any reason, bundle won't be active, you can try to reinstall it and see the reason why it failed
-- To see if your freshly added bundle via Eclipse BND Tools is installed and active
+- You can install directly via GoGo shell to add new bundles to OSGi Container.
+- If a bundle is not active for any reason, you can attempt to reinstall it to investigate the reason as to why it failed.
+- To find if your newly added bundle via Eclipse BND Tools is installed and active.
 
-To read more about bundle lifecycle go to [link](http://eclipsesource.com/blogs/2013/01/23/how-to-track-lifecycle-changes-of-osgi-bundles/).
+View the [OSGi bundle lifecycle](http://eclipsesource.com/blogs/2013/01/23/how-to-track-lifecycle-changes-of-osgi-bundles/) for more information.
 
 
 
 ## OSC Bundles
 
-Every project mentioned in previous paragraph has `bnd.bnd` file inside which treats `pom.xml` like a repository. It is extremely important to correctly scope your dependencies in the `pom.xml`. You can read more about Maven dependency scope under [this](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html) link.
+Every project mentioned in the sections above contains a `bnd.bnd` file inside which treats `pom.xml` like a repository. It is extremely important to correctly scope your dependencies in the `pom.xml`. View the [Maven dependency scope](https://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html) for more information.
 
 ### Adding Dependencies to the Uber Bundle
 
-*Notice: Only **runtime** dependencies that are not compatible with OSGi should be added to this bundle.*
+>Note: Only **runtime** dependencies that are not compatible with OSGi should be added to this bundle.
 
-Let us take a look at `osc-uber\bnd.bnd` . It is bundle that contains it's own java classes but also classes from dependencies selected to `bnd.bnd` from `pom.xml`.
+To add dependenceis in the OSC uber bundle you will need to modify the file `osc-uber\bnd.bnd`. This file contains not only its own Java classes, but also those from dependencies selected to `bnd.bnd` from `pom.xml`.
 
-First of all, if we want to include resources based on `pom.xml` to our bundle we need to have that line in our `bnd.bnd` file:
+If you want to include resources based on `pom.xml` to your bundle, you must first include the following line in your `bnd.bnd` file:
 
 ```
 # depend.bnd is generated by antrun prior to running bnd-maven-plugin
 -include target/depend.bnd
 ```
 
-then we are able to include resources like below:
+You are then able to include resources such as:
 
 ```
 -includeresource: \
@@ -154,9 +154,9 @@ then we are able to include resources like below:
     ...
 ```
 
-#### Excluding packages
+#### Excluding Packages
 
-There are situations, when we include some resource to our bundle, but we don't want to use all packages from that jar. Then we are able to exclude package using exclamation mark. Let us consider `osc-uber\bnd.bnd` file again:
+There are situations when you may include some resources to your bundle, but don't want to use all packages from that JAR file. You are able to exclude those packages by using an exclamation mark (!). Consider the `osc-uber\bnd.bnd` file again:
 
 ```java
 exclude-tomcat:\
@@ -173,10 +173,10 @@ exclude-tomcat:\
   ...
 ```
 
-In above fragment from `bnd.bnd` file we exclude `!javax.servlet.jsp` and `!javax.servlet.jsp.tagext`, however if you go to class `com.mcafee.vmidc.server.Server` you can notice that we use other packages from `javax.servlet`, i. e. :
+In the fragment from the `bnd.bnd` file, the `!javax.servlet.jsp` and `!javax.servlet.jsp.tagext` were excluded however, if you look at the `org.osc.core.server` class, you will notice that packages from `javax.servlet` are used:
 
 ```java
-package com.mcafee.vmidc.server;
+package org.osc.core.server;
 
 ...
 import javax.servlet.http.HttpSession;
@@ -188,9 +188,9 @@ public class Server {
 }
 ```
 
-#### Importing packages
+#### Importing Packages
 
-It is easy now to see that if we want to import some package from bundle injected directly into OSGi container, we just don't use exclamation mark at start of a line:
+Packages imported from bundles injected directly into the OSGi container don't use exclamation marks at the start of a line:
 
 ```java
 import-extra:\
@@ -211,25 +211,24 @@ import-extra:\
   com.fasterxml.jackson.core
 ```
 
-*Notice: if you will use some class i. e. `com.fasterxml.jackson.annotation.JsonIgnore;`, which is from bundle injected into OSGi container and forget to import `com.fasterxml.jackson.annotation`,  annotation `@JsonIgnore` won't work in runtime and you will get an error on an endpoint where you have to use `@JsonIgnore`. Please take a look at [VersionUtil.java](https://github.com/opensecuritycontroller/osc-core/blob/master/osc-common/src/main/java/org/osc/core/util/VersionUtil.java#L100)*
+>Note: If you are using a class from a bundle in the OSGi container and forget to import its package you will get an error at runtime. For instance, if you use `com.fasterxml.jackson.annotation.JsonIgnore`; and do not import `com.fasterxml.jackson.annotation`
+,  the annotation @JsonIgnore will not work.  Please take a look at [VersionUtil.java](https://github.com/opensecuritycontroller/osc-core/blob/master/osc-common/src/main/java/org/osc/core/util/VersionUtil.java#L100)
 
 ## Resolving Exception Problems
 
 #### Missing Requirements in the OSGi Container
 
-While adding a new bundle to the OSGi container you also need to include the bundles required by the new dependency.
+While adding a new bundle to the OSGi container, you must also include the bundles required by the new dependency as shown below:
 
-Let us  take a look at example below:
+1. Remove all bundles from `server-debug.bndrun` with the groupId `com.fasterxml.jackson.jaxrs`.
 
-1. Remove from `server-debug.bndrun` all bundles with groupId `com.fasterxml.jackson.jaxrs`.
-
-2. In console you should see messages:
+2. The console should contain the following messages:
 
    ```java
    ! Failed to start bundle org.glassfish.jersey.media.jersey-media-json-jackson-2.25.0, exception Unable to resolve org.glassfish.jersey.media.jersey-media-json-jackson [46](R 46.0): missing requirement [org.glassfish.jersey.media.jersey-media-json-jackson [46](R 46.0)] osgi.wiring.package; (&(osgi.wiring.package=com.fasterxml.jackson.jaxrs.base)(version>=2.8.0)(!(version>=3.0.0))) Unresolved requirements: [[org.glassfish.jersey.media.jersey-media-json-jackson [46](R 46.0)] osgi.wiring.package; (&(osgi.wiring.package=com.fasterxml.jackson.jaxrs.base)(version>=2.8.0)(!(version>=3.0.0)))]
    ```
 
-   and list of bundles in GoGo Shell should contain:
+   and the list of bundles in GoGo shell should contain:
 
    ```java
    START LEVEL 1
@@ -246,17 +245,17 @@ Let us  take a look at example below:
         
    ```
 
-3. We can see that two bundles are not active because something is missing when looking at log file:
+3. Two bundles are not active because something is missing when looking at the log file:
 
    ```java
    osgi.wiring.package=com.fasterxml.jackson.jaxrs.json
    ```
 
-   So in this situation we have to add  `com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider` which we use in OSC Rest API. 
+   You must add  `com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider` which is used in OSC's Rest API. 
 
-4. Add `com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider;version='[2.8.5,2.8.6)',\` to `server-debug.bndrun` and Run OSGi
+4. Add `com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider;version='[2.8.5,2.8.6)',\` to `server-debug.bndrun` and Run OSGi.
 
-5. Look at console log:
+5. The console log should appear as:
 
    ```java
    ! Failed to start bundle osc-uber-1.0.0, exception Unable to resolve osc-uber [15](R 15.0): missing requirement [osc-uber [15](R 15.0)] osgi.wiring.package; (&(osgi.wiring.package=com.fasterxml.jackson.jaxrs.json)(version>=2.8.0)(!(version>=3.0.0))) [caused by: Unable to resolve com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider [50](R 50.0): missing requirement [com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider [50](R 50.0)] osgi.wiring.package; (&(osgi.wiring.package=com.fasterxml.jackson.jaxrs.base)(version>=2.8.0)(!(version>=3.0.0)))] Unresolved requirements: [[osc-uber [15](R 15.0)] osgi.wiring.package; (&(osgi.wiring.package=com.fasterxml.jackson.jaxrs.json)(version>=2.8.0)(!(version>=3.0.0)))]
@@ -265,7 +264,7 @@ Let us  take a look at example below:
 
    ```
 
-   and list bundles should contain:
+   and the list bundles should contain:
 
    ```
       14|Active     |    1|javax.inject:1 as OSGi bundle (2.5.0.b05)|2.5.0.b05
@@ -281,11 +280,11 @@ Let us  take a look at example below:
       ...
    ```
 
-   So you can see that freshly added bundle `com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider;version='[2.8.5,2.8.6)',\` is in our Container, but it is missing some dependency that also is missed in `osc-uber` and `jersey-media-json-jackson` like before in step 2
+   The newly added bundle `com.fasterxml.jackson.jaxrs.jackson-jaxrs-json-provider;version='[2.8.5,2.8.6)',\` is in the container however, it is missing some dependency that is also missed in `osc-uber` and `jersey-media-json-jackson` as is seen above in Step 2.
 
-6. Now add `com.fasterxml.jackson.jaxrs.jackson-jaxrs-base;version='[2.8.5,2.8.6)',\` to `server-debug.bndrun` and re-run. 
+6. Add `com.fasterxml.jackson.jaxrs.jackson-jaxrs-base;version='[2.8.5,2.8.6)',\` to `server-debug.bndrun` and re-run. 
 
-7. After listing bundles in console you should see that all mentioned modules are `Active` now:
+7. After listing bundles in the console, you should see that all mentioned modules are now **Active**:
 
    ```java
       14|Active     |    1|javax.inject:1 as OSGi bundle (2.5.0.b05)|2.5.0.b05
@@ -303,25 +302,24 @@ Let us  take a look at example below:
 
    ​
 
-*Notice: to know exactly what dependency should be added to OSGi Container while adding some new one, you need to look at dependency network of that bundle and provide all that are require. In Eclipse open `pom.xml` and go to Dependency Hierarchy tab:*
+>Note: To know the dependency that should be added to OSGi Container, you need to look at the dependency network of the specific bundle, and provide all that are required. In Eclipse, open the `pom.xml` and navigate to the **Dependency Hierarchy** tab:
 
 ![](../images/bnd-osgi-dependency-hierarchy.png)
 
 #### Missing Requirements in the OSC Uber Bundle
 
-Non OSGi dependencies being added to the OSC uber bundle may also have missing requirements. This situation gives us same log as that one before, but our intend is different. We want to include resource inside `osc-uber` bundle.
+Non-OSGi dependencies added to the `osc-uber` bundle may also have missing requirements. This situation provides the same log as the previous one, but with a different intent. You must include the resource inside the `osc-uber` bundle as shown below:
 
-Let us take a look at example below:
 
-1. Remove ` @${yavijava.dep},\` from `osc-uber\bnd.bnd` and then recompile and Run OSGi with GoGo Shell.
+1. Remove `@${xxx.dep},\` from `osc-uber\bnd.bnd` and then recompile and Run OSGi with GoGo shell.
 
-2. Look at console log:
+2. The console log should appear as:
 
    ```java
-   ! Failed to start bundle osc-uber-1.0.0, exception Unable to resolve osc-uber [15](R 15.0): missing requirement [osc-uber [15](R 15.0)] osgi.wiring.package; (osgi.wiring.package=com.vmware.vim25) Unresolved requirements: [[osc-uber [15](R 15.0)] osgi.wiring.package; (osgi.wiring.package=com.vmware.vim25)]
+   ! Failed to start bundle osc-uber-1.0.0, exception Unable to resolve osc-uber [15](R 15.0): missing requirement [osc-uber [15](R 15.0)] osgi.wiring.package; (osgi.wiring.package=xxx) Unresolved requirements: [[osc-uber [15](R 15.0)] osgi.wiring.package; [(osgi.wiring.package=xxx)]
    ```
 
-   and list of bundles should contains:
+   and the list of bundles should contain:
 
    ```java
       ...
@@ -333,9 +331,9 @@ Let us take a look at example below:
 
    ​
 
-3. In this case we are adding back `@${yavijava.dep},\` to our `osc-uber\bnd.bnd` file recompiling and then Run OSGi with GoGo Shelll. 
+3. In this case we are adding back `@${yavijava.dep},\` to our `osc-uber\bnd.bnd` file, recompiling, and then starting OSGi by clicking **Run OSGi** with the GoGo shell. 
 
-4. Our application started without any problem
+4. Our application began without any issues:
 
    ```java
       ...
@@ -344,24 +342,22 @@ Let us take a look at example below:
       16|Active     |    1|JavaMail API (1.5.6)|1.5.6
       ...
    ```
-
-*Notice: remember that pom.xml file is just repository of  your libs. You decide where you want lib to be: OSGi Container or inside some uber bundle i. e. `osc-uber`.*
+>Note: Remember that the pom.xml file is a repository of your libraries. It is up to you to decide where you want your library to be. An example would be within the OSGi container or within the `osc-uber` bundle.
 
 #### Missing Non-Runtime Requirements
 
-In some situation, we would like to include some library but it's dependency force us to include also some other lib to our Uber bundle. In this situation we can exclude packages that requires other libs.
+In some situations, you may want to include some library however, its dependency may force the inclusion of some other library to the `osc-uber` bundle. You can exclude packages that requires other libraries in the situation as shown below:
 
-Let us take a look at example:
 
-1. Go to `osc-uber\bnd.bnd` and remove line `!org.apache.commons.beanutils,\`. Recompile and Run OSGi with GoGo Shell.
+1. Navigate to `osc-uber\bnd.bnd` and remove the line `!org.apache.commons.beanutils,\`. Recompile and **Run OSGi** with GoGo shell.
 
-2. Look at cosnole log:
+2. The console log should appear as:
 
    ```java
    ! Failed to start bundle osc-uber-1.0.0, exception Unable to resolve osc-uber [15](R 15.0): missing requirement [osc-uber [15](R 15.0)] osgi.wiring.package; (osgi.wiring.package=org.apache.commons.beanutils) Unresolved requirements: [[osc-uber [15](R 15.0)] osgi.wiring.package; (osgi.wiring.package=org.apache.commons.beanutils)]
    ```
 
-   and list of bundles should contain:
+   and the list of bundles should contain:
 
    ```java
       ...
@@ -373,27 +369,27 @@ Let us take a look at example:
 
    ​
 
-3. If you add line that was removed in point 1, everything works just fine.
+3. If you add the line that was removed in Step 1, everything should work.
 
-*Notice: excluding some packages is very helpful way to avoid big size of our bundle. We should always know what libs and packages we need inside our bundle.*
+>Note: It is helpful to exclude some packages to avoid a very large bundle. You should always be aware as to which libraries and packages need be inside your bundle.
 
 
 
 ## OSC-Control
 
-Inside `osc-core` you can find project named `osc-control` . This is just standalone jar application that run/stop/reset server and do few more things. However, in this paragraph we will discuss only the way it is build with BND Tools.
+You will find the project `osc-control`inside `osc-core`. This is a standalone JAR application that runs, stops, resets, etc. the server. This section will cover the only the way it is built with BND Tools.
 
 #### BND.BND In OSC-Control
 
-Basically, this is build as a bundle and includes dependencies that are necessary to work without problems in runtime. Let us take a llok at `bnd.bnd` file:
+Basically, this is built as a bundle and includes dependencies that are necessary to work without problems at runtime. Below is an example of the `bnd.bnd` file:
 
-1. It contains line that help us to work with `pom.xml` as a repository:
+1. It contains the following line allowing us to work with `pom.xml` as a repository:
 
    ```java
    -include target/depend.bnd
    ```
 
-2. We have conditional package section, that imports packages only from libs that are inside `pomx.ml`:
+2. We have a conditional package section that imports packages only from libraries that are inside the `pom.xml`:
 
    ```java
    # include minimal contents for stand-alone jar
@@ -405,7 +401,7 @@ Basically, this is build as a bundle and includes dependencies that are necessar
        com.google.gson.*
    ```
 
-3. Finally we have a block that we should be familiar with:
+3. Finally, we have a familiar block:
 
    ```
    -includeresource: \
@@ -437,6 +433,6 @@ Basically, this is build as a bundle and includes dependencies that are necessar
    	@${gson.dep}
    ```
 
-   This is a minimal set required to work properly in runtime.
-
-*Notice: remember that if you add some external lib from pom - check if it is included in `osc-control\bnd.bnd` . Also, if you would like to use a class from package that is not in conditional package set, add it there.*
+   This set is a minimal requirement to work properly in runtime.
+ 
+>Note: Remember to ensure that any external library added in the `pom.xml` file should also be included in the `osc-control\bnd.bnd`. Remember to also add a class from a package that is not included within the conditional package.
