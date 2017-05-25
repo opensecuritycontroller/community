@@ -134,7 +134,7 @@ The SG should have Job Status from RUNNING to PASSED.
 **Type:** Positive  
 
 **Description:**  
-User can bind an SG with OpenStack DAI
+User can bind an SG with OpenStack DA.
 
 **Required Initial State:**  
 OSC has VC, MC, DA added, and Deployment Specification has been deployed.  
