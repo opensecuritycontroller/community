@@ -19,8 +19,6 @@ Version of wget preferred is shown below:
 ![](images/wget-version.png)
 #### Proxy Setup for wget
 If your local machines is behind a proxy, setup `HTTP_PROXY` and `HTTPS_PROXY` environment variables in Windows operating system.
-![](images/wget-proxy.png)  
-
 
 ## Command Line
 ### Building

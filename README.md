@@ -2,6 +2,8 @@
 
 ## Code Contributions
 
+### [Accessing OSC Repositories](/development/repo_access.md)
+
 ### [Setting Up Eclipse](/development/eclipse.md)
 
 ### [Development Workflow](/development/dev_flow.md)
@@ -17,8 +19,6 @@
 ### *Coming Soon*
 
 ## Building and Running OSC
-
-### [Accessing OSC Repositories](/development/repo_access.md)
 
 ### [Building and Running OSC](/development/build_run_osc.md)
 
