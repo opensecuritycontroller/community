@@ -1,4 +1,4 @@
-# Security Manager Connector (MC) Test Cases
+# Manager Connector (MC) Test Cases
 
 **ID**: MC_1  
 **Name**: Add an MC  
