@@ -14,7 +14,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), and Service Funct
 **Steps:**  
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Distributed Appliance**->**Add**.  
+3. Click **Setup**->**Distributed Appliance**->**Add**.  
 4. Provide a unique DA name e.g. My-DA1. (Start with a letter, 13 chars max, alphanumeric and dash '-' only)
 5. Select the previously added Manager Connector.  
 6. Select the previously added Service Function.  
@@ -41,7 +41,7 @@ OSC has DA added, but the DA isn't bound to any Security Group (SG).
 **Steps:**   
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Distributed Appliance**->**Delete**.  
+3. Click **Setup**->**Distributed Appliance**->**Delete**.  
 4. Click **OK** to delete DA.  
 
 **Expected Result:**  
@@ -63,7 +63,7 @@ OSC has the DA added and VC Security Group has been bound with this DA.
 **Steps:**   
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Distributed Appliance**->**Delete**.  
+3. Click **Setup**->**Distributed Appliance**->**Delete**.  
 4. Popup confirmation with force delete selection.  
 5. Click **OK** and reconfirm force delete selection to delete the DA.  
 6. Also go to OpenStack UI to delete the VNF Instance since OSC force delete DA will not force delete Instance in OpenStack.  
