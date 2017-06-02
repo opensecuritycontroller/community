@@ -22,7 +22,7 @@ OSC can ping the OpenStack Controller and OpenStack Keystone is Up.
 8. Click **OK**.  
 
 **Expected Result:**  
-Virtualization Connector with the name My_VC1 should be added. The Type should be OPENSTACK, Controller IP should be empty and Provider IP should have the keystone ip according to input at step 6., Job Status should be PASSED.
+Virtualization Connector with the name My_VC1 should be added. The Type should be OPENSTACK, Controller IP should be empty and Provider IP should have the keystone ip according to input at step 6., Job Status should be ****PASSED**.
 
 ****
 
