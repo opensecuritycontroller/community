@@ -1,7 +1,7 @@
 # Service Function (SF) Test Cases
 
 **ID:** SF_1  
-**Name:** Auto Import a SF  
+**Name:** Auto Import an SF  
 **Priority:** High  
 **Type:** Positive  
 
@@ -24,7 +24,7 @@ Service Version sees Software Version number, Virtulization Type Openstack e.g.,
 ****
 
 **ID:** SF_2  
-**Name:** Delete a SF  
+**Name:** Delete an SF  
 **Priority:** High  
 **Type:** Negative  
 
