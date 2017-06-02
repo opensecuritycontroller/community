@@ -14,7 +14,7 @@ OSC can contact a VNF image server to upload the file.
 **Steps:**   
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Service Function**->**Auto Import**.  
+3. Click **Setup**->**Service Function**->**Auto Import**.  
 4. Browse the VNF image file e.g. a zip file.  
 5. Click **OK** to finish image uploading to the OSC server.  
 
@@ -37,7 +37,7 @@ VNF Image has been uploaded and displayed in OSC UI.
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Service Function**->**Software Version**->**Delete**.  
+3. Click **Setup**->**Service Function**->**Software Version**->**Delete**.  
 4. Click **OK** to delete SF.  
 
 **Expected Result:**  
