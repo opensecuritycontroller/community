@@ -108,7 +108,7 @@ The SG should be deleted.
 ****
 
 **ID:** SG_5  
-**Name:** Sync a SG  
+**Name:** Sync an SG  
 **Priority:** Medium  
 **Type:** Positive  
 
