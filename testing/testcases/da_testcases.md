@@ -1,4 +1,4 @@
-# Distributed Appliances (DA) Test Cases
+# Distributed Appliance (DA) Test Cases
 
 **ID:** DA_1  
 **Name:** Add a DA  
@@ -23,7 +23,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), and Service Funct
 9. Click **OK**.  
 
 **Expected Result:**  
-Distributed Appliances with the name My-DA1 should be added. Manager and VNF Model must be shown, Job Status must be PASSED.
+Distributed Appliance with the name My-DA1 should be added. Manager and VNF Model must be shown, Job Status must be **PASSED**.
 
 ****
 
