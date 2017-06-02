@@ -14,7 +14,7 @@ OSC can ping the OpenStack Controller and OpenStack Keystone is Up.
 **Steps:**  
 1. Launch OSC GUI: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Virtualization Connectors**->**Add**.  
+3. Click **Setup**->**Virtualization Connectors**->**Add**.  
 4. Type: select OPENSTACK.  
 5. Provide VC name e.g. My_VC1, SDN Type: NONE.  
 6. Fill OpenStack Keystone IP, Tenant, User, Password fields.  
@@ -40,7 +40,7 @@ OSC can ping the OpenStack Controller and OpenStack Keystone is Up.
 **Steps:**  
 1. Launch OSC GUI: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Virtualization Connectors**->**Add**.  
+3. Click **Setup**->**Virtualization Connectors**->**Add**.  
 4. Type: select OPENSTACK.  
 5. Provide VC name e.g. My_VC2, SDN Type: NONE.  
 6. Fill OpenStack Keystone IP, Tenant, User, Password fields.  
@@ -49,7 +49,7 @@ OSC can ping the OpenStack Controller and OpenStack Keystone is Up.
 
 **Expected Result:**  
 A dialog asks you to approve SSL Certificates will appear. Upon completion, the
-line with Virtualization Connector with the name My_VC2 should be added. The Type should be OPENSTACK, Controller IP should be empty and Provider IP should have the keystone ip according to input at step 6., Job Status should be PASSED.
+line with Virtualization Connector with the name My_VC2 should be added. The Type should be OPENSTACK, Controller IP should be empty and Provider IP should have the keystone ip according to input at step 6., Job Status should be **PASSED**.
 
 ****
 
@@ -67,7 +67,7 @@ OSC can ping the OpenStack Controller and OpenStack Keystone is Up.
 **Steps:**  
 1. Launch OSC GUI: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Virtualization Connectors**->**Virtualization Connector**->**Delete**.  
+3. Click **Setup**->**Virtualization Connectors**->**Virtualization Connector**->**Delete**.  
 4. Click **OK**.  
 
 **Expected Result:**  
