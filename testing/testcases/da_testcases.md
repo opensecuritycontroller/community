@@ -50,7 +50,7 @@ The DA should be deleted.
 ****
 
 **ID:** DA_3  
-**Name:** Force delete a DA which bound to SG.  
+**Name:** Force delete a DA which has been bound to SG.  
 **Priority:** High  
 **Type:** Negative  
 
