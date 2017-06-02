@@ -20,7 +20,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 6. Select OpenStack Region.  
 7. Select Type VM.  
 8. Move the item from left to the right using the **>** button.  
-9. Leave Protect External unselected.  
+9. Leave **Protect External** unselected.  
 10. Click **OK**.  
 
 **Expected Result:**  
@@ -49,7 +49,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 6. Select OpenStack Region.  
 7. Select Type Network.  
 8. Move the item from left to the right using the **>** button.  
-9. Leave Protect External unselected.   
+9. Leave **Protect External** unselected.   
 10. Click **OK**.  
 
 **Expected Result:**  
@@ -77,7 +77,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 6. Select OpenStack Region.  
 7. Select Type Subnet.  
 8. Move the item from left to the right using the **>** button.  
-9. Leave Protect External unselected.   
+9. Leave **Protect External** unselected.   
 10. Click **OK**.  
 
 **Expected Result:**  
