@@ -55,21 +55,20 @@ The DA should be deleted.
 **Type:** Negative  
 
 **Description:**  
-User can force delete a SG bound DA.
+User can force delete a DA which has SG bound.
 
 **Required Initial State:**  
-OSC has the DA added and VC Security Group has been bound with this DA.
+OSC has a DA added and bound to a Security Group (SG).
 
 **Steps:**   
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
 3. Click **Setup**->**Distributed Appliance**->**Delete**.  
 4. Popup confirmation with force delete selection.  
-5. Click **OK** and reconfirm force delete selection to delete the DA.  
-6. Also go to OpenStack UI to delete the VNF Instance since OSC force delete DA will not force delete Instance in OpenStack.  
+5. Click **OK** and reconfirm force delete selection to delete the DA.   
 
 **Expected Result:**  
 The DA should be deleted.  
-Be aware if not doing step 6 you'll have the DA VM instances still in OpenStack environment.
+**Note**: Also ensure to delete the VNF instance on OpenStack since forcing deleting a DA on OSC will not delete the deployed instance.
 
 ****
