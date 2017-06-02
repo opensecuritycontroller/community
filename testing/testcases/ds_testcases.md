@@ -14,7 +14,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 **Steps:**    
 1. Launch OSC web application: ```https://OSC-ip-address```.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Distributed Appliance**->**Deployments**->**Deployment Specifications** for Virtual System->**Add**.  
+3. Click **Setup**->**Distributed Appliance**->**Deployments**->**Deployment Specifications** for Virtual System->**Add**.  
 4. Provide a unique DS name e.g. My-DS1.  
 5. Select OpenStack Tenant.  
 6. Select OpenStack Region.  
@@ -24,7 +24,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 10. Click **OK**.  
 
 **Expected Result:**
-It takes a while and Deployment Specifications with the name My-DS1 should be added. Job Status should be PASSED. In OpenStack, the  appliance instance related to the DS should be deployed.  
+It takes a while and Deployment Specifications with the name My-DS1 should be added. Job Status should be **PASSED**. In OpenStack, the  appliance instance related to the DS should be deployed.  
 
 ****
 
@@ -42,7 +42,7 @@ OSC has VC, MC, DA and DS added but DA has not been bound to a Security Group.
 **Steps:**    
 1. Launch OSC web application: ```https://OSC-ip-address```.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Distributed Appliances**->**Deployments**->**Deployment Specifications** for Virtual System->**Delete**.  
+3. Click **Setup**->**Distributed Appliances**->**Deployments**->**Deployment Specifications** for Virtual System->**Delete**.  
 4. Click **OK** to delete DS.  
 
 **Expected Result:**  
@@ -64,9 +64,9 @@ OSC has VC, MC, DA added, and Deployment Specification has been deployed.
 **Steps:**    
 1. Launch OSC web application: ```https://OSC-ip-address```.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Distributed Appliances**->**Deployments**->**Deployment Specifications** for Virtual System->**Sync**.  
+3. Click **Setup**->**Distributed Appliances**->**Deployments**->**Deployment Specifications** for Virtual System->**Sync**.  
 
 **Expected Result:**  
-DS Sync job should run and change its status from RUNNING to PASSED.  
+DS Sync job should run and change its status from **RUNNING** to **PASSED**.  
 
 ****
