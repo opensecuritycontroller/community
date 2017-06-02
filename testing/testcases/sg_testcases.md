@@ -14,7 +14,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Add**.  
+3. Click **Setup**->**Virtualization Connector**->**Security Group**->**Add**.  
 4. Provide a unique SG name e.g. My_SG1.  
 5. Select OpenStack Tenant.  
 6. Select OpenStack Region.  
@@ -24,7 +24,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 10. Click **OK**.  
 
 **Expected Result:**  
-SG with members, services of DA should be shown and Job Status should be PASSED.  
+SG with members, services of DA should be shown and Job Status should be **PASSED**.  
 
 ****
 
@@ -43,7 +43,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Add**.  
+3. Click **Setup**->**Virtualization Connector**->**Security Group**->**Add**.  
 4. Provide a unique SG name e.g. My_SG1.  
 5. Select OpenStack Tenant.  
 6. Select OpenStack Region.  
@@ -53,7 +53,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 10. Click **OK**.  
 
 **Expected Result:**  
-SG with members, services of DA should be shown and Job Status should be PASSED.  
+SG with members, services of DA should be shown and Job Status should be **PASSED**.  
 
 ****
 
@@ -71,7 +71,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Add**.  
+3. Click **Setup**->**Virtualization Connector**->**Security Group**->**Add**.  
 4. Provide a unique SG name e.g. My_SG1.  
 5. Select OpenStack Tenant.  
 6. Select OpenStack Region.  
@@ -81,7 +81,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 10. Click **OK**.  
 
 **Expected Result:**  
-SG with members, services of DA should be shown and Job Status should be PASSED.  
+SG with members, services of DA should be shown and Job Status should be **PASSED**.  
 
 ****
 
@@ -99,7 +99,7 @@ OSC has VC, MC, DA added, SG has been added but SG has not been bound to the DA,
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Delete**.  
+3. Click **Setup**->**Virtualization Connector**->**Security Group**->**Delete**.  
 4. Click **OK** to delete SG.  
 
 **Expected Result:**  
@@ -121,10 +121,10 @@ OSC has VC, MC, DA added, and Deployment Specification has been deployed.
 **Steps:**  
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Sync**.  
+3. Click **Setup**->**Virtualization Connector**->**Security Group**->**Sync**.  
 
 **Expected Result:**  
-The SG should have Job Status from RUNNING to PASSED.  
+The SG should have Job Status from **RUNNING** to **PASSED**.  
 
 ****
 
@@ -142,12 +142,12 @@ OSC has VC, MC, DA added, and Deployment Specification has been deployed.
 **Steps:**  
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Bind**.  
+3. Click **Setup**->**Virtualization Connector**->**Security Group**->**Bind**.  
 4. Select **Enabled** checkbox.  
 5. Click **OK**.  
 
 **Expected Result:**  
-The SG should be bound to the DA in Services column and Job Status should be PASSED.  
+The SG should be bound to the DA in Services column and Job Status should be **PASSED**.  
 
 ****
 
@@ -166,11 +166,11 @@ OSC has VC, MC, DA added, and Deployment Specification has been deployed and SG 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
-3. Click OSC->**Setup**->**Virtualization Connector**->**Security Group**->**Bind**.  
+3. Click **Setup**->**Virtualization Connector**->**Security Group**->**Bind**.  
 4. De-select **Enabled** checkbox.  
 5. Click **OK**.  
 
 **Expected Result:**  
-The SG should have Job Status from RUNNING to PASSED.  
+The SG should have Job Status from **RUNNING** to **PASSED**.  
 
 ****
