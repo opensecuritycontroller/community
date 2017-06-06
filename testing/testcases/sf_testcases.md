@@ -26,7 +26,7 @@ Service Version sees Software Version number, Virtulization Type Openstack e.g.,
 **ID:** SF_2  
 **Name:** Delete an SF  
 **Priority:** High  
-**Type:** Negative  
+**Type:** Positive  
 
 **Description:**  
 User can delete an existing SF.  
