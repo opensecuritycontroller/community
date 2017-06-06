@@ -88,7 +88,7 @@ SG with members, services of DA should be shown and Job Status should be **PASSE
 **ID:** SG_4  
 **Name:** Delete an SG  
 **Priority:** High  
-**Type:** Negative  
+**Type:** Positive  
 
 **Description:**  
 User can delete an existing SG which has VC, MC, DA, DS associated.  
@@ -155,7 +155,7 @@ The SG should be bound to the DA in Services column and Job Status should be **P
 **ID:** SG_7  
 **Name:** Unbind the SG  
 **Priority:** High  
-**Type:** Negative  
+**Type:** Positive  
 
 **Description:**  
 User can unbind an existing SG with DA.  
