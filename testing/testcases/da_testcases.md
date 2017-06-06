@@ -30,7 +30,7 @@ Distributed Appliance with the name My-DA1 should be added. Manager and VNF Mode
 **ID:** DA_2  
 **Name:** Delete a DA  
 **Priority:** High  
-**Type:** Negative  
+**Type:** Positive  
 
 **Description:**  
 User can delete an existing DA.
@@ -52,7 +52,7 @@ The DA should be deleted.
 **ID:** DA_3  
 **Name:** Force delete a DA which has been bound to SG.  
 **Priority:** High  
-**Type:** Negative  
+**Type:** Positive  
 
 **Description:**  
 User can force delete a DA which has SG bound.
