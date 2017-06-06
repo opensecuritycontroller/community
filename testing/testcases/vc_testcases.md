@@ -56,7 +56,7 @@ line with Virtualization Connector with the name My_VC2 should be added. The Typ
 **ID:** VC_3  
 **Name:** Delete a VC  
 **Priority:** High  
-**Type:** Negative  
+**Type:** Positive  
 
 **Description:**  
 User can delete an existing OpenStack VC.  
