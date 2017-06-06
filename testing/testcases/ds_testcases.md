@@ -24,7 +24,7 @@ OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function 
 10. Click **OK**.  
 
 **Expected Result:**
-Deployment Specifications with the name My-DS1 should be added. It takes a while to see Job Status becomes **PASSED** since in the OpenStack, the appliance instance related to the DS should be deployed.  
+Deployment Specifications with the name My-DS1 should be added. It may take up to 2 mins to see Job Status becomes **PASSED** since in the OpenStack, the appliance instance related to the DS is deployed.  
 
 ****
 
