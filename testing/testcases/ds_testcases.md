@@ -59,7 +59,7 @@ The DS should be deleted.
 User can sync a deployed DS with OpenStack.  
 
 **Required Initial State:**  
-OSC has VC, MC, DA added, and Deployment Specification has been deployed.  
+OSC has VC, MC, DA and DS added, and Deployment Specification has been deployed.  
 
 **Steps:**    
 1. Launch OSC web application: ```https://OSC-ip-address```.  
