@@ -6,10 +6,10 @@
 **Type:** Positive  
 
 **Description:**  
-User can add a security group for hosts or networks through OSC UI.  
+User can add a security group for a host or hosts through OSC UI.  
 
 **Required Initial State:**  
-OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function (SF) and Distrubuted Appliance (DA) added and Deployment Specification (DS) deployed.
+OpenStack is configured with host.
 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
@@ -35,10 +35,10 @@ SG with members, services of DA should be shown and Job Status should be **PASSE
 **Type:** Positive  
 
 **Description:**  
-User can add a security group for hosts or networks through OSC UI.  
+User can add a security group for a network or networks through OSC UI.  
 
 **Required Initial State:**  
-OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function (SF) and Distrubuted Appliance (DA) added and Deployment Specification (DS) deployed.
+OpenStack is configured with networks.
 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
@@ -63,10 +63,10 @@ SG with members, services of DA should be shown and Job Status should be **PASSE
 **Type:** Positive  
 
 **Description:**  
-User can add a security group for hosts or networks through OSC UI.  
+User can add a security group for a subnet or subnets through OSC UI.  
 
 **Required Initial State:**  
-OSC has Virtualization Connector (VC), Manager Connector (MC), Service Function (SF) and Distrubuted Appliance (DA) added and Deployment Specification (DS) deployed.
+OpenStack is configured with network and subnet.
 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
@@ -91,10 +91,10 @@ SG with members, services of DA should be shown and Job Status should be **PASSE
 **Type:** Positive  
 
 **Description:**  
-User can delete an existing SG which has VC, MC, DA, DS associated.  
+User can delete an existing SG.  
 
 **Required Initial State:**  
-OSC has VC, MC, DA added, SG has been added but SG has not been bound to the DA, SG line has Services column empty.  
+No specific requirement, may even force-delete an SG.  
 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
@@ -116,7 +116,7 @@ The SG should be deleted.
 User can sync an existing SG.  
 
 **Required Initial State:**  
-OSC has VC, MC, DA added, and Deployment Specification has been deployed.  
+SG has been added.  
 
 **Steps:**  
 1. Launch OSC web application: `https://OSC-ip-address`.  
