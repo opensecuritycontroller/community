@@ -9,7 +9,7 @@
 User can add a security group for a host or hosts through OSC UI.  
 
 **Required Initial State:**  
-OpenStack is configured with host.
+OpenStack is configured with host and Virtualization Connector (VC) to the OpenStack added.
 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
@@ -38,7 +38,7 @@ SG with members, services of DA should be shown and Job Status should be **PASSE
 User can add a security group for a network or networks through OSC UI.  
 
 **Required Initial State:**  
-OpenStack is configured with networks.
+OpenStack is configured with networks and Virtualization Connector (VC) to the OpenStack added.
 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
@@ -66,7 +66,7 @@ SG with members, services of DA should be shown and Job Status should be **PASSE
 User can add a security group for a subnet or subnets through OSC UI.  
 
 **Required Initial State:**  
-OpenStack is configured with network and subnet.
+OpenStack is configured with network and subnet and Virtualization Connector (VC) to the OpenStack added.
 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
