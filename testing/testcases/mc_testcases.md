@@ -9,14 +9,14 @@
 User can add an MC.
 
 **Required Initial State**: 
-OSC can ping the Security Manager.
+The security manager endpoint is reachable by OSC.
 Manager Plugin has been uploaded.
 
 **Steps**:  
 1. Launch OSC web application: `https://OSC-ip-address`.  
 2. Login to OSC.  
 3. Click **Setup**->**Manager Connectors**->**Add**.  
-4. Type: select for all the Manager Plugins the one that you want to connect.
+4. Select the Manager **Type** corresponding to the plugin you are using.
 5. Provide a unique MC name e.g. My_MC1.  
 6. Fill in the Manager login credential fields.  
 7. Click **OK**.  
