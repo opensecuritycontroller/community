@@ -9,7 +9,7 @@
 User can import and upload a VNF service function image to OSC.  
 
 **Required Initial State:** 
-OSC can contact a VNF image server to upload the file.
+OSC can import the image file from the local system or a remote server.
 
 **Steps:**   
 1. Launch OSC web application: `https://OSC-ip-address`.  
