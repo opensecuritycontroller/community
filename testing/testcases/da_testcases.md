@@ -58,7 +58,7 @@ The DA should be deleted.
 User can force delete a DA which has SG bound.
 
 **Required Initial State:**  
-OSC has a DA added and bound to a Security Group (SG).
+OSC has a DA added and it's bound to a Security Group (SG).
 
 **Steps:**   
 1. Launch OSC web application: `https://OSC-ip-address`.  
