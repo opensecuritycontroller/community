@@ -9,7 +9,7 @@
 User can add a security group for a host or hosts through OSC UI.  
 
 **Required Initial State:**  
-OpenStack is configured with host and Virtualization Connector (VC) to the OpenStack added.
+OSC has Virtualization Connector (VC) to OpenStack which has a host.
 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
@@ -38,7 +38,7 @@ SG with members, services of DA should be shown and Job Status should be **PASSE
 User can add a security group for a network or networks through OSC UI.  
 
 **Required Initial State:**  
-OpenStack is configured with networks and Virtualization Connector (VC) to the OpenStack added.
+OSC has Virtualization Connector (VC) to OpenStack which has networks configured.
 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
@@ -66,7 +66,7 @@ SG with members, services of DA should be shown and Job Status should be **PASSE
 User can add a security group for a subnet or subnets through OSC UI.  
 
 **Required Initial State:**  
-OpenStack is configured with network and subnet and Virtualization Connector (VC) to the OpenStack added.
+OSC has Virtualization Connector (VC) to OpenStack which has networks and subnets configured.
 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
@@ -137,7 +137,7 @@ The SG should have Job Status from **RUNNING** to **PASSED**.
 User can bind an SG with OpenStack DA.
 
 **Required Initial State:**  
-OSC has VC, MC, DA added, and Deployment Specification has been deployed.  
+OSC has VC, MC, DA and DS added.  
 
 **Steps:**  
 1. Launch OSC web application: `https://OSC-ip-address`.  
@@ -161,7 +161,7 @@ The SG should be bound to the DA in Services column and Job Status should be **P
 User can unbind an existing SG with DA.  
 
 **Required Initial State:**  
-OSC has VC, MC, DA added, and Deployment Specification has been deployed and SG bound to the DA.
+OSC has VC, MC, DA and DS added, and SG bound to the DA.
 
 **Steps:**    
 1. Launch OSC web application: `https://OSC-ip-address`.  
