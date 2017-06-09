@@ -9,7 +9,7 @@
 User can add an OpenStack VC.
 
 **Required Initial State:**  
-OSC can ping the OpenStack Controller and OpenStack Keystone is Up.
+The OpenStack Controller is reachable by OSC and OpenStack Keystone is Up.
 
 **Steps:**  
 1. Launch OSC GUI: `https://OSC-ip-address`.  
@@ -35,7 +35,7 @@ Virtualization Connector with the name My_VC1 should be added. The Type should b
 User can add an OpenStack VC (while OpenStack uses HTTPS)
 
 **Required Initial State:**  
-OSC can ping the OpenStack Controller and OpenStack Keystone is Up.
+The OpenStack Controller is reachable by OSC and OpenStack Keystone is Up.
 
 **Steps:**  
 1. Launch OSC GUI: `https://OSC-ip-address`.  
@@ -62,7 +62,7 @@ line with Virtualization Connector with the name My_VC2 should be added. The Typ
 User can delete an existing OpenStack VC.  
 
 **Required Initial State:**  
-OSC can ping the OpenStack Controller and OpenStack Keystone is Up.
+The OpenStack Controller is reachable by OSC and OpenStack Keystone is Up.
 
 **Steps:**  
 1. Launch OSC GUI: `https://OSC-ip-address`.  
