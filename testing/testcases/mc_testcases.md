@@ -22,7 +22,7 @@ Manager Plugin has been uploaded.
 7. Click **OK**.  
 
 **Expected Result**: 
-Manager Connector with the name My_MC1 should be added. IP should be shown as input at step 6., Job Status should be **PASSED**.
+Manager Connector with the name My_MC1 should be added. IP should be shown as input at step 6, Job Status should be **PASSED**.
 If this Manager type supports Policy Syncing - you will be able to see its Policies in UI.
 
 ****
