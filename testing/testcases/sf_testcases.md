@@ -19,7 +19,7 @@ OSC can import the image file from the local system or a remote server.
 5. Click **OK** to finish image uploading to the OSC server.  
 
 **Expected Result:**  
-Service Version sees Software Version number, Virtulization Type Openstack e.g., Image Name.  
+Service Version shows Software Version number, Virtulization Type Openstack e.g., Image Name.  
 
 ****
 
