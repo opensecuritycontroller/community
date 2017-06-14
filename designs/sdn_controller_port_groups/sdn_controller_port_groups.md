@@ -11,7 +11,8 @@ Some SDN controllers implement traffic redirection at the level of port groups r
 Responsible to check whether a port group must be created, updated or deleted in the SDN controller.
 
 #### PortGroupHookCheckMetaTask
-Responsible to check whether a port group hook must be created or deleted in the SDN controller. It will also invoke the tasks to assign or unassign the distributed appliance instance ports (redirection ports) to the security group member ports.
+Responsible to check whether a port group hook must be created or deleted in the SDN controller. It will also invoke the tasks to assign or unassign the distributed appliance instance ports (redirection ports) to the security group member ports.  
+This task executes only after the PortGroupCheckMetaTask finishes succesfully.  
 
 > Note: Update is currently not supported by an SDN controller.
 
@@ -29,4 +30,5 @@ Assigns the security VNF instance (distributed appliance instance) with the secu
 Detaches the security VNF instance (distributed appliance instance) from the security group interface member ports. This operation affects the OSC database only.
 
 #### DeleteInspectionPortTask
-Deletes the inspection port from the SDN controller.
+Deletes the inspection port group from the SDN controller.
+> Note: This task should be called even if the SDN controller does not support port groups. 
