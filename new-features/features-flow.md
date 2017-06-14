@@ -23,11 +23,11 @@ Once your document is ready for review you can share it through a regular [pull 
 After approval, contributions towards a feature development are welcome from anyone, see the [code contributions flow](../development/dev_flow.md) to learn more about the code review and merging processes.  
 
 ### Test
-Testing should be done as part of the development of the feature development through unit and functional tests. When designing a new feature keep the following test aspects in mind:
-    1. New code must always include unit tests in the pull request. See the [unit tests guidelines](../development/unit_test_guidelines.md) for more details.
-    2. API tests must be included for any new features. 
-    3. UI tests must be executed for any new features surfaced in the UI.
-    4. Any feature should be demonstrable and testable in isolation from any particular vendor plugin or environment.
+Testing should be done as part of the development of the feature development through unit and functional tests. When designing a new feature keep the following test aspects in mind:  
+    1. New code must always include unit tests in the pull request. See the [unit tests guidelines](../development/unit_test_guidelines.md) for more details.  
+    2. API tests must be included for any new features.   
+    3. UI tests must be executed for any new features surfaced in the UI.  
+    4. Any feature should be demonstrable and testable in isolation from any particular vendor plugin or environment.  
      
 ### Merge
 Code contributions for a feature should be merged frequently. Piecemeal changes are easier to test and code review. 
