@@ -8,7 +8,7 @@ This document describes the expected stages for the design and development of ne
 
 ## Designing
 
-### Reasearch and Discuss
+### Conceptualize and Discuss
 A new feature will typically start with some research and discussions. Common activities during this phase are discussions on our Slack channel, creation of PoCs, mock ups, etc. Our community welcomes sharing and discussing new ideas at any time. 
 
 ### Document 
