@@ -1,6 +1,6 @@
-# [Defec] Title of defect
+# [Defect Title]
 
-**Defect Title:** Short defect description  
+**Defect number:** optional 
 **Severity:** (Critical / Major / Minor / Cosmetic)  
 
 **Initial state:**  
@@ -18,3 +18,6 @@ Describe the expected result(s).
 
 **Work around:**  
 Describe how to bypass the defect.
+
+****
+
