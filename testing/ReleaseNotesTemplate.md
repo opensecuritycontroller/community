@@ -1,24 +1,23 @@
 # [Defect Title]
 
-**Defect number:** optional  
-**Defect Title:** required  
-**Severity:** (Critical / Major / Minor / Cosmetic)  
+**Defect number:** DE2801  
+**Defect Title:** Job Graph is not displayed well if special characters - “{“ and “}” are used in the Manager Connector (MC) Name  
+**Severity:** Cosmetic
 
 **Initial state:**  
-State before doing step 1.
+Have an OSC deployed
 
 **Steps:**  
-1. Step 1.    
-2. Step 2.  
+1. Create any manager connector with the next name NORMAL BLACK " NODE }      
 
 **Actual Result:**  
-Describe the actual result(s).
+The job graphs for the creation or edit of the manager connector will be: NORMAL => will look normal BLACK " => Will look like one line with some black rectangles NODE } => will look like graph but will have the node names modified same for NODE {.
 
 **Expected Result:**  
-Describe the expected result(s).  
+All the job graphs are supposed to look normal (no black rectangles).  
 
 **Work around:**  
-Describe how to bypass the defect.
+Do not use the special characters “{“ and “}” in the Manager Connector Name.
 
 ****
 
