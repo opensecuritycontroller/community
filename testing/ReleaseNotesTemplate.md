@@ -1,6 +1,7 @@
 # [Defect Title]
 
-**Defect number:** optional   
+**Defect number:** optional  
+**Defect Title:**  
 **Severity:** (Critical / Major / Minor / Cosmetic)  
 
 **Initial state:**  
