@@ -5,6 +5,9 @@ description
 
 **Severity:** Minor
 
+**Description:** 
+Description
+
 **Initial state:**  
 State before step 1
 
@@ -23,3 +26,4 @@ the expected result
 How to avoid or bypass the defect
 
 ****
+
