@@ -1,311 +1,33 @@
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
-**Expected Result:**  
-the expected result
-
+**Issue:**
+After upload plugins, UI does not do screen refresh to see the result.  
 **Work around:**  
-How to avoid or bypass the defect
-
+Manually do a refresh from the browser F5.  
 ****
 
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
+**Issue:**
+Adding MC validation for wrong Ip or wrong user name-password needs dialogue before error message. Right now it pops up red error: **no route to the host**.  
 **Expected Result:**  
-the expected result
-
+A white dialogue with reported error, possible reasons, question if the user is sure to continue.  
 **Work around:**  
-How to avoid or bypass the defect
-
+Make sure entries are accurate or double check on errors.
 ****
 
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
-**Expected Result:**  
-the expected result
-
-**Work around:**  
-How to avoid or bypass the defect
-
+**Issue:**
+VNF SMC Security Group **Bind/unBind** got failed with Null Exception, a plugin issue filed in github.  
 ****
 
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
-**Expected Result:**  
-the expected result
-
-**Work around:**  
-How to avoid or bypass the defect
-
+**Issue:**
+OSC api-doc web page saw dummy red **ERROR {...}.**: Can't read swagger.json.  
 ****
 
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
-**Expected Result:**  
-the expected result
-
+**Issue:**
+User can install Manager plugins from SDN plugin pane, and it shows up in Manager plugins State: INSTALL_WAIT.  
 **Work around:**  
-How to avoid or bypass the defect
-
+Make sure upload SDN plugins in **SDN Plugins** pane and upload Manager plugins in **Manager Plugins** pane.  
 ****
 
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
-**Expected Result:**  
-the expected result
-
+**Issue:**
+Uploading an invalid plugin (e.g. a missing properties plugin) did not display an appropriate error message.  
 **Work around:**  
-How to avoid or bypass the defect
-
-****
-
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
-**Expected Result:**  
-the expected result
-
-**Work around:**  
-How to avoid or bypass the defect
-
-****
-
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
-**Expected Result:**  
-the expected result
-
-**Work around:**  
-How to avoid or bypass the defect
-
-****
-
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
-**Expected Result:**  
-the expected result
-
-**Work around:**  
-How to avoid or bypass the defect
-
-****
-
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
-**Expected Result:**  
-the expected result
-
-**Work around:**  
-How to avoid or bypass the defect
-
-****
-
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
-**Expected Result:**  
-the expected result
-
-**Work around:**  
-How to avoid or bypass the defect
-
-****
-
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
-**Expected Result:**  
-the expected result
-
-**Work around:**  
-How to avoid or bypass the defect
-
-****
-
-# [Defect Title]
-
-**Description:** 
-Description
-
-**Initial state:**  
-State before step 1
-
-**Steps:**  
-1. 
-2. 
-3.      
-
-**Actual Result:**  
-The actual result
-
-**Expected Result:**  
-the expected result
-
-**Work around:**  
-How to avoid or bypass the defect
-
+Do not upload an invalid plugin file.  
 ****
