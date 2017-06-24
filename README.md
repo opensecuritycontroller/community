@@ -16,7 +16,7 @@
 
 ## Issue Contributions
 
-### *Coming Soon*
+### [Issue Tracking](/development/issue_tracking.md)
 
 ## Building and Running OSC
 
