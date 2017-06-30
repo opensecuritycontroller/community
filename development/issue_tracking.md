@@ -14,7 +14,7 @@ When opening a defect issue, do not check any boxes in the *Status* section of t
 ### Triage Flow
 
 1. The triage team looks for opened issues without any labels.
-2. The triage team adds a single *defect [issue type](#issue-types)* label, a single *triage* label, and a single *priority* label. A single *inactive* label can be added if the issue is deemed inactive.
+2. The triage team adds a single *defect [issue type](#issue-types)* label, a single *triage* label, and a single *priority* label. 
     > Note: If the issue does not contain enough information, the triage team will add the *triage/more-info* label and assign it back to the person that opened the issue. Once the assignee adds the correct information, the assignee must mention `@opensecuritycontroller/osc_triage` to notify them that more information has been added. The triage team can then add the *triage/re-evaluate* label.
 3. Once the triage team has approved the issue, they will add both a *triage/approved* label and assign a developer.
 4. Once a defect has been fixed and closed, the triage team will add a new community member as assignee to perform validation on the appropriate branch.
@@ -41,9 +41,12 @@ It is important to understand the use and meaning of labels as they help facilit
 ### Issue Types
 
 Choose only **one** of the following label types:
+
 * defect
 * discussion
 * improvement
+
+> Note: The above types are the three base namespaces of each issue type, for example, in osc-core, defect corresponds to defect/product-code, defect/documentation, and defect/unit-test. To see the exact label name, look at the labels in the repository where you would like to open an issue.
 
 ### Issue Specifiers
 
