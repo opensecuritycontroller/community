@@ -5,9 +5,9 @@ OSC uses GitHub issues to track defects, discussions, and improvements. This doc
 ## Opening an Issue
 
 Once a defect is found or you would like to suggest an improvement or start a discussion, the first step is to look at existing issues to see if it is already being tracked. If the issue is not being tracked, create a new one.
-   > Note: The issue template is for defects. If the issue is pertaining to a discussion or an improvement, delete the template and provide a detailed description.
+   > Note: The issue template may not be suitable for all types of issues; if you cannot utilize the issue template, provide a detailed description of the issue.
 
-When opening a defect issue, do not check any boxes in the *Status* section of the issue template at this time.
+When opening an issue, do not check any boxes in the *Status* section of the issue template at this time.
 
 ## Defects
 
@@ -22,15 +22,16 @@ When opening a defect issue, do not check any boxes in the *Status* section of t
 ### Assignee Flow
 
 1. After an owner is assigned by the triage team, they will attempt to reproduce the issue. Once it is successfully reproduced, they will check the *Reproduced* task box.
-   > Note: If the assignee cannot reproduce the issue, mention the triage team, @opensecuritycontroller/osc_triage, and include details to apply the appropriate label, for instance, *triage/declined/duplicate*, *triage/declined/invalid*, or *triage/declined/wont-fix*.
+   > Note: If the assignee cannot reproduce the issue, mention the triage team, `@opensecuritycontroller/osc_triage`, and include details to apply the appropriate label, for instance, *triage/declined/duplicate*, *triage/declined/invalid*, or *triage/declined/wont-fix*.
 2. Once the assignee starts working on the defect, they will check the *In Progress* task box.
-3. When the assignee is ready with a fix, they will send out a pull request [referencing the issue](https://github.com/blog/1506-closing-issues-via-pull-requests) and check the *Pull Request Out* task box.
+3. When the assignee is ready with a fix, they will send out a pull request [referencing the issue](https://github.com/blog/1506-closing-issues-via-pull-requests).
 4. Once the pull request is merged, the issue will be closed if it was referenced correctly.
    > Note: The last task box, *Validated*, is still unchecked. This box will be checked when another community member validates the fix on the applicable project branch.
 
 ## Discussions and Improvements
 
-When opening an issue pertaining to discussions and improvements, be sure to delete the issue template and provide a detailed description. Once the issue is submitted, the triage team will add either a *discussion* or *improvement* label and assign the issue to a  to help facilitate the discussion or improvement.
+Once the issue is submitted, the triage team will add either a *discussion* or *improvement* label and assign the issue to a community member to help facilitate the discussion or improvement.
+> Note: When opening an issue in osc-core pertaining to discussions and improvements, be sure to delete the issue template and provide a detailed description. 
 
 ## Issue Labels
 
@@ -67,6 +68,7 @@ Triage Status
 * triage/re-evaluate  
 
 Assigned Priority
+* priority/critical
 * priority/high
 * priority/medium
 * priority/low  
