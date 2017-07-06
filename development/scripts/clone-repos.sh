@@ -5,14 +5,15 @@ user=ENTER_USERNAME
 
 repos=(
 "osc-core" 
-"security-mgr-smc-plugin"
+#"security-mgr-smc-plugin"
 "security-mgr-sample-plugin"
-"security-mgr-nsm-plugin"
+#"security-mgr-nsm-plugin"
 "security-mgr-api"
 "sdn-controller-api"
 "sdn-controller-nsc-plugin"
 "opensecuritycontroller.org"
 "community"
+"osc-nuage-plugin"
 )
 
 for repo in "${repos[@]}"
