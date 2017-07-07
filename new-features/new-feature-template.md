@@ -1,6 +1,9 @@
 # New Feature Proposal Template
 Provide a short single paragraph description for the feature. 
 
+## Assignees
+Provide the names and GitHub handles of the contributors driving the implementation of this feature.
+
 ## Background
 Provide any additional background for the feature. I.e.: user scenarios, business value, etc.
 
@@ -13,7 +16,7 @@ Provide a high level description of the design highlighting the impacted OSC com
 
 ### REST API 
 Describe in details any changes to the OSC REST APIs. This should include any new, modified or removed API and describing their payloads, headers and response status.
-> Note: Using the [swagger specification](http://swagger.io/specification/) is highly recommended.
+> Note: Using the [swagger specification](#swagger-specification) is highly recommended.
 
 ### OSC SDKs
 
@@ -38,3 +41,8 @@ Describe any changes on the OSC internal synchronization tasks or metatasks. Use
 ## Tests
 Describe here any new test requirement for this feature. This can include: virtualization platform, test infrastructure, stubs, etc. 
 > Note: Any feature should be demonstrable and testable independently of a particular vendor component or service. 
+
+## References
+###[Swagger Specification](http://swagger.io/specification/)
+
+
