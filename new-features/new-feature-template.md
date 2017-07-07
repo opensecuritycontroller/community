@@ -43,6 +43,6 @@ Describe here any new test requirement for this feature. This can include: virtu
 > Note: Any feature should be demonstrable and testable independently of a particular vendor component or service. 
 
 ## References
-###[Swagger Specification](http://swagger.io/specification/)
+### [Swagger Specification](http://swagger.io/specification/)
 
 
