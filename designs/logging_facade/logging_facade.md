@@ -46,5 +46,7 @@ POC build of the osc-core.
 
 ## References
 [SLF4j](https://www.slf4j.org/manual.html)
+
 [Logback](https://logback.qos.ch/index.html)
+
 [Java Logging Dead](http://blog.takipi.com/is-standard-java-logging-dead-log4j-vs-log4j2-vs-logback-vs-java-util-logging/)
