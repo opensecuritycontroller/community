@@ -17,12 +17,18 @@ Several logging frameworks have been considered to use with slf4j.
   - Groovy or XML configuration.
   - Log rotation and compression.
   - Well tested.
+  
 - **log4j2** version 2 -- very common and is currently used by most of the project directly. Considered second best.
   - XML, YAML or JSON configuration.
+
 - **log4j** -- Not actively maintained, though it significantly [outperforms](http://blog.takipi.com/the-logging-olympics-a-race-between-todays-top-5-logging-frameworks/) its successor according to some benchmarks.
+
 - **jacarta.commons.logging (jcl)** -- according to the [slf4j](https://www.slf4j.org/manual.html) documentation, buggy and not entirely reliable.
+
 - **java.util.logging (jul)** -- level naming not compatible with the others. Also, it is [rather unpopular](http://blog.takipi.com/is-standard-java-logging-dead-log4j-vs-log4j2-vs-logback-vs-java-util-logging/).
+
 - **slf4j-simple** -- according to the [slf4j](https://www.slf4j.org/manual.html) this one is suitable for smaller projects. Only one "appender," fewer features.
+
 
 ![](./images/concrete-bindings.png)
 
