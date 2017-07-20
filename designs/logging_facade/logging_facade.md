@@ -13,10 +13,10 @@ All the java code to only import **org.slf4j** packages. All the **.bnd** files 
 ## Logging framework options
 
 Several logging frameworks have been considered to use with slf4j.
-	-	**log4j** version 2 -- very common and is currently used by most of the project directly.
-	- 	**logback** -- [faster and more robust](https://logback.qos.ch/reasonsToSwitch.html) than log4j.
-	- 	**jacarta commons logging (jcl)** -- according to the [slf4j](https://www.slf4j.org/manual.html) documentation, buggy and not entirely reliable.
-	- 	**simple** -- according to the [slf4j](https://www.slf4j.org/manual.html) documentation, buggy and not entirely reliable.
+- **log4j** version 2 -- very common and is currently used by most of the project directly.
+- **logback** -- [faster and more robust](https://logback.qos.ch/reasonsToSwitch.html) than log4j.
+- **jacarta commons logging (jcl)** -- according to the [slf4j](https://www.slf4j.org/manual.html) documentation, buggy and not entirely reliable.
+- **simple** -- according to the [slf4j](https://www.slf4j.org/manual.html) documentation, buggy and not entirely reliable.
 
 ![](./images/concrete-bindings.png)
 
