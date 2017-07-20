@@ -10,7 +10,7 @@ The SLF4j facade provides a common API, inluding logging levels: *error*, *warn*
 ![](./images/concrete-bindings.png)
 
 ## Design Changes
-All the java code to only import **org.slf4j** packages. All the **.bnd** files likewise. 
+All the java code to only import **org.slf4j** packages. All the **.bnd** files -- likewise. 
 
 ### REST API 
 N/A.
