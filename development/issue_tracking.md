@@ -78,3 +78,9 @@ Assigned Priority
 * priority/high
 * priority/medium
 * priority/low  
+
+Assigned Severity
+* severity/critical
+* severity/high
+* severity/medium
+* severity/low  
