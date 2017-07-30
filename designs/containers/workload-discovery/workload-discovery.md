@@ -23,7 +23,7 @@ To create a traffic redirection using OVN SFC additional calls to the OVN northb
 ### Nuage SDN for Kubernetes
 > This assumption is being called out given that the traffic redirection using Nuage must still be tried out. 
 
-To create a traffic redirection using Nuage for Kubernetes calls to the Nuage SDN controller through the OSC Nuage plugin will be needed to retrieve the   **port id** of the pod under protection. The id of the port under protection is the only thing needed with respect to the workload pod to create the redirection. For that, the following values from Kubernetes will suffice: **name of the node hosting the pod, pod namespace, pod name.**  
+To create a traffic redirection using Nuage for Kubernetes the only required information about the workload pod is its **port id**. OSC will obtain this **port id** from Nuage by making a separate call while providing the following values: **name of the node hosting the pod, pod namespace, pod name.**  
 
 
 ### Design Assumptions
