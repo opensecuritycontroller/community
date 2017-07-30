@@ -30,7 +30,7 @@ To create a traffic redirection using Nuage for Kubernetes the only required inf
 > Note: The assumptions below refer to design changes not yet fully described in this document but necessary to understand some of its current content. In the next revision of this document those details will be added (look for **TBD on the next revision** along this document) and these assumptions removed.  
 
 * **Security Group:**
-The security group entity and DTO in OSC will have a set of labels. These labels will be on the form `key=value`. For the first release of this feature all the `key` values in a given security group will always be the same, i.e.: security=webserver, security=backend, etc.
+The security group entity and DTO in OSC will have a set of labels. These labels will be strings with the format `key=value`. For the first release of this feature all the `key` values of the labels in a given security group will always be the same, i.e.: security=webserver, security=backend, etc.
 
 * **Pod Security Group Member:**
 A new type of security group member is created, **Pod** along with the type **PodPort**. The **Pod** will store a `namespace`, `name`, `externalid`, `nodename` and a collection of `PodPort`.  The **PodPort** will store an `externalid`, a `collection of macaddresses` and a collection of `ipaddress`. 
