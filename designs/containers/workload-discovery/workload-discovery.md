@@ -37,7 +37,7 @@ A new type of security group member is created, **Pod** along with the type **Po
 > Note: Although currently a pod can only have one ip address [support for multiple ip addresses and networks is intended](#k8s-pods-with-multiple-ips-issue).
 
 * **Virtualization Connector:**
-A new type of Virtualization Connector (VC) will be added: **Kubernetes**. This VC will require also a new field in the `providerAttributes` map: `providerPort`.
+A new type of Virtualization Connector (VC) will be added: **Kubernetes**. 
 
 
 ## Design Changes
@@ -75,7 +75,8 @@ One of the drawbacks identified with Fabric8 is the lack of compliance with OSGi
 As mentioned in the Constraints section, the connectivity with Kubernetes will be done through `http` and without user credentials (unauthenticated). 
 > Note: Currently, the OSC Virtualization Connector does require the user name to be passed in the `providerUser` field though. This field will continue to be required however its value will not be used.  
 
-The inputs needed to connect with the Kubernetes API service will be: the service endpoint **ip address** and **port**. Those values will be provided in the Kubernetes virtualization connector.
+The inputs needed to connect with the Kubernetes API service will be: the **ip address** of the service endpoint, provided in the Kubernetes virtualization connector; and **port**, harcoded to 8080. 
+> Note: Support to other ports can be added in the future by adding a new field in the `providerAttributes` map: `providerPort`.
 
 #### K8s Targeted APIs
 
