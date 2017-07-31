@@ -5,13 +5,13 @@ OSC will support single page view to manage the OpenStack security groups. User 
 Larkins Carvalho - https://github.com/larkinscarvalho
 
 ## Background
-OSC will provide an interface to configure the OpenStack security groups. To integrate OSC with the OpenStack security groups, OSC needs to be aware of any modification to the security groups on the OpenStack.
+OSC will provide an interface to configure the OpenStack security groups. To integrate OSC with the OpenStack security groups, OSC needs to be aware of any modification to the security groups on the OpenStack. OSC will trigger synchronization tasks upon receiving relavent notification from the OpenStack to keep security group in sync with the OpenStack security groups.
 
 > Note: The current revision of document provides details about the notifications provided by OpenStack which are necessary for OSC to be synced with the OpenStack secutiy groups.
 
 ## Constraints and Assumptions
 - No addtional security groups are configured by user or admin directly on OpenStack.
-- Admin should use the following policies to restrict the user from creating the security groups on the OpenStack.
+- Admin should use the following policies to restrict the user from creating, updating or deleting the security groups on the OpenStack.
 
 	OpenStack provides neutron policy configurations to manage permissions.
 
