@@ -77,7 +77,9 @@ Ensure your settings match the following:
 
 ### BndTools
 
-Install the bndtools plugin 3.3.0.REL from the Eclipse marketplace as shown below:
+Install the latest bndtools plugin from the Eclipse marketplace as shown below:
+
+Make sure to enable the m2e bndtools integration which allows you to make incremental code changes and apply those changes while the server is running without the need to recompile and relaunch.
 
 ![](images/bnd_tools.png)
 
