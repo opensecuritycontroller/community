@@ -9,7 +9,7 @@ Increase or decrease the number of VNF's while using the same resources across a
 
 This proposal talks about taking the #2 approach.
 ## Assignees
-Arvind Nadendla
+Arvind Nadendla https://github.com/arvindn05
 ## Background
 Currently, the security admin creates a deployment specification which provides the intent for deployment.
 
@@ -37,16 +37,19 @@ If another scaling request comes in, OSC has exhausted the scale up policy defin
 The scale down happens the same way, the extra VNF's are undeployed until we are left with the baseline VNF's only. 
 Any further scale down request will result in a no-op.
 
-### Load balance
+### Load balance/HA redundancy
 
-Once the VNF's are deployed/undeployed, it is upto the SDN controller to take advantage of the extra VNF's
+Once the VNF's are deployed/undeployed, it is upto the SDN controller to take advantage of the extra VNF's.
 
-hen a new VNF's is deployed in response to a scale event, OSC registers this new VNF with SDN controller under a "Port Group" where the existing VNF's are already registered. The SDN controller determines how the traffic is load balanced between all the instances. There are a variety of ways to implement this starting with a basic round robin approach to using a consistent hashing mechanism using the port id's/mac/IP.
+When a new VNF's is deployed in response to a scale event, OSC registers this new VNF with the SDN controller(as well as the manager) under a "Port Group" where the existing VNF's are already registered. The SDN controller determines how the traffic is load balanced between all the instances. There are a variety of ways for the networking layer to implement this starting with a basic round robin approach to using a consistent hashing mechanism using the port id's/mac/IP.
+
+This functionality is also relavent to providing High Availability/Redundancy to the sercurity functions. If one of the VNF instances goes down another one in the same port group will pick up the traffic. If this causes extra load, the scale up request can provide additional VNF instances as necessary.
 
 ![](./images/Port_Group.png)
 
 ### REST API 
 **TBD Future**
+
 Describe in details any changes to the OSC REST APIs. This should include any new, modified or removed API and describing their payloads, headers and response status.
 > Note: Using the [swagger specification](#swagger-specification) is highly recommended.
 
@@ -54,26 +57,32 @@ Describe in details any changes to the OSC REST APIs. This should include any ne
 
 #### VNF Security Manager SDK
 **TBD Future**
+
 Describe the API changes to be made in the VNF security manager SDK. 
 
 #### SDN Controller SDK
 **TBD Future**
+
 Describe the API changes to be made in the SDN Controller SDK. 
 
 ### OSC Entities 
 **TBD Future**
+
 Describe any changes to the OSC database schema.
 
 ### OSC UI
 **TBD Future**
+
 Use UI mock ups to describe any UI change.
 
 ### OSC Synchronization Tasks
 **TBD Future**
+
 Describe any changes on the OSC internal synchronization tasks or metatasks. Use a diagram to represent any updated or new task graph.
 
 ## Tests
 **TBD Future**
+
 Describe here any new test requirement for this feature. This can include: virtualization platform, test infrastructure, stubs, etc. 
 > Note: Any feature should be demonstrable and testable independently of a particular vendor component or service. 
 
