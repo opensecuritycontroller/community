@@ -30,15 +30,11 @@ To create a traffic redirection using Nuage for Kubernetes the only required inf
 > Note: The assumptions below refer to design changes not yet fully described in this document but necessary to understand some of its current content. In the next revision of this document those details will be added (look for **TBD on the next revision** along this document) and these assumptions removed.  
 
 * **Security Group:**
-The security group entity and DTO in OSC will have a set of labels. These labels will be strings with the format `key=value`. For the first release of this feature all the `key` values of the labels in a given security group will always be the same, i.e.: security=webserver, security=backend, etc.
+For the first release of this feature all the `key` values of the labels in a given security group will always be the same, i.e.: security=webserver, security=backend, etc.
 
 * **Pod Security Group Member:**
 A new type of security group member is created, **Pod** along with the type **PodPort**. The **Pod** will store a `namespace`, `name`, `externalid`, `nodename` and a collection of `PodPort`.  The **PodPort** will store an `externalid`, a `collection of macaddresses` and a collection of `ipaddress`. 
 > Note: Although currently a pod can only have one ip address [support for multiple ip addresses and networks is intended](#k8s-pods-with-multiple-ips-issue).
-
-* **Virtualization Connector:**
-A new type of Virtualization Connector (VC) will be added: **Kubernetes**. 
-
 
 ## Design Changes
 The discovery flow adopted for this work will follow the same model already adopted by OSC for OpenStack with RabittMQ:
@@ -49,10 +45,61 @@ The discovery flow adopted for this work will follow the same model already adop
 
 
 ### REST API  
-**TBD  on next revision**
 
-Describe in details any changes to the OSC REST APIs. This should include any new, modified or removed API and describing their payloads, headers and response status.
-> Note: Using the [swagger specification](#swagger-specification) is highly recommended.
+#### Security Groups
+The security group resource `/api/server/v1/virtualizationConnectors/{vcId}/securityGroups/{sgId}` is being slightly modified with:
+1.  **projectid** and **projectName** now are optional:  These fields are not applicable to Kubernetes.  For OpenStack, the enforcement of these fields will be done in the OSC business logic instead.
+2.  optional collection of **labels** being added: These fields are applicable only to Kubernetes and the following restrictions will be enforced by the OSC busines logic for Kubernetes security groups:   
+a) At least one label must be provided when creating or updating a security group;  
+b) All labels must be strings in the format "key=value". 
+
+> Note: The choice of using a string rather a well defined data type for labels with {key; value} is because the key+value format may not be applicable to other virtualization platforms we may support in the future. 
+
+```javascript
+SecurityGroupDto {
+id (integer, optional),
+parentId (integer, optional),
+name (string),
+projectId (string,optional),                       // changing from REQUIRED to OPTIONAL 
+projectName (string, optional),                    // changing from REQUIRED to OPTIONAL 
+markForDeletion (boolean, optional, read only),
+protectAll (boolean, optional),
+servicesDescription (string, optional, read only),
+memberDescription (string, optional, read only),
+virtualizationConnectorName (string, optional),
+lastJobState (string, optional, read only),
+lastJobStatus (string, optional, read only),
+lastJobId (integer, optional, read only),
+labels (Array[string], optional)                  // Adding the collection of labels
+}
+```
+
+#### Virtualization Connectors
+The virtualization connector resource `/api/server/v1/virtualizationConnectors/{vcId}` field `type` can now have a new possible value: `KUBERNETES`. 
+```javascript
+VirtualizationConnectorDto {
+id (integer, optional),
+parentId (integer, optional),
+name (string),
+type (string) = ['OPENSTACK', 'KUBERNETES'],      // Adding VC type for Kubernetes
+controllerIP (string, optional),
+controllerUser (string, optional) ,
+controllerPassword (string, optional),
+providerIP (string),
+providerUser (string),
+providerPassword (string, optional),
+softwareVersion (string, optional),
+controllerType (ControllerType, optional),
+providerAttributes (object, optional),
+adminProjectName (string, optional),
+adminDomainId (string, optional),
+lastJobState (string, optional, read only),
+lastJobStatus (string, optional, read only),
+lastJobId (integer, optional, read only)
+}
+```
+### OSC Services
+The OSC services `CreateSecurityGroup` and `UpdateSecurityGroup` should be updated to enforce the security group required fields accordingly. This can be done by a simple change on `SecurityGroupDtoValidator#checkForNullFields`: `projectId` and `projectName` should NOT be null if the VC type is OpenStack, and `labels` should NOT  be null or empty if the VC is Kubernetes.
 
 ### OSC SDKs
 
@@ -167,8 +214,33 @@ try (final KubernetesClient client = connection.getConnection()) {
 ```
 
 ### OSC Entities  
-**TBD on next revision**
-Describe any changes to the OSC database schema.
+#### Virtualization Connector 
+The `VirtualizationConnector` domain entity field `virtualizationType` can now have a new value: **VirtualizationType.KUBERNETES** .
+
+#### Security Group  
+The SecurityGroup  domain entity will contain a set of labels.  The following changes will implement that:
+
+* **osc-domain** updates:
+```java
+@Table(name = "SECURITY_GROUP", ...) 
+public class SecurityGroup extends BaseEntity implementes LastJobContainer {
+    
+	@ElementCollection(fetch = FetchType.LAZY)
+    @Column(name = "labels")
+    @CollectionTable(name = "SECURITY_GROUP_LABEL", joinColumns = @JoinColumn(name = "security_group_fk"),
+    foreignKey=@ForeignKey(name = "FK_SECURITY_GROUP_LABEL"))
+    private Set<String> labels = new HashSet<String>();
+```
+* **database** schema updates:
+```sql
+create table SECURITY_GROUP_LABEL ("
+                    + "security_group_fk bigint not null, label varchar(255));
+```
+```sql
+alter table SECURITY_GROUP_LABEL add constraint " +
+                 "FK_SECURITY_GROUP_LABEL foreign key (security_group_fk) references SECURITY_GROUP;"
+```
+These schema changes will also need to be applied during upgrades, for that the `ReleaseUpgradeMgr.java` file also needs to reflect these changes.
 
 ### OSC UI
 Out of scope.
