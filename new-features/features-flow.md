@@ -24,12 +24,13 @@ After approval, contributions towards a feature development are welcome from any
 
 ### Test
 Testing should be done as part of the feature development through unit and functional tests. When designing a new feature keep the following test aspects in mind:  
-    1. New code must always include unit tests in the pull request. See the [unit tests guidelines](../development/unit_test_guidelines.md) for more details.  
-    2. API tests must be included for any new features.
+
+1.  New code must always include unit tests in the pull request. See the [unit tests guidelines](../development/unit_test_guidelines.md) for more details.  
+2.  API tests must be included for any new features.
 > Note: The details for this process are currently being defined. In the meantime, a feature should still be demonstrable through a series of scripted API calls.
 
-3. UI tests must be executed for any new features surfaced in the UI.  
-4. Any feature should be demonstrable and testable in isolation from any particular vendor plugin or environment.  
+3.  UI tests must be executed for any new features surfaced in the UI.  
+4.  Any feature should be demonstrable and testable in isolation from any particular vendor plugin or environment.  
      
 ### Merge
 Code contributions for a feature should be merged frequently. Piecemeal changes are easier to test and code review. 
