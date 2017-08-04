@@ -60,10 +60,24 @@ Describe in details any changes to the OSC REST APIs. This should include any ne
 Not applicable.
 
 #### SDN Controller SDK
-Details on this is **TBD** but we will at least need to add APIs to return a network element given the **pod name, namespace and name of the hosting node**.  The returned network element should contain the unique port id for both OVN SFC and Nuage. For OVN SFC it should also return the name of the logical switch. 
+Details on this is **TBD** but we will at least need to add APIs to return a network element given the **pod name, namespace and name of the hosting node**.  The returned network element should contain the unique port id for both OVN SFC and Nuage. For OVN SFC it should also return the name of the logical switch.  
 
 ### OSC & Kubernetes
 This section describes how OSC will use the Kubernetes API service endpoint to retrieve and perform live discovery of the protected workloads, highlighting the chosen SDK, connectivity inputs and required APIs.   
+
+#### OSC Kubernetes Wrapper Package
+The direct communication between the OSC core modules and the Kubernetes API service will be contained within the new package `org.osc.core.broker.rest.client.k8s` . The purpose of this package is to make it easier for other osc core components to use the K8s APIs as well as prevent leaks of SDK specific details. The class diagram below depicts the classes and functionalities exported by this package.
+![](./images/k8s-wrapper-class-diagram.png)  
+*Kubernetes Wrapper Package Class Diagram*  
+
+
+
+* **KubernetesApi**: Represents the base class for the `Kubernetes*Api` classes and it is reponsible for initializing the `KubernetesClient`, as part of its constructor and close it, as part of its `close()` method.
+* **KubernetesPodApi**: This class provides all the pod related methods to the other OSC core packages: `getPodsByLabels`, this method should enforce that all labels must be in the form "key=value" with all the "key"s having the same value. For details [see below](#k8s-targeted-apis). `getPodsById` should return the pod with the given uid, namespace and name. Both these methods should through a `VmidcException` if an SDK (Fabric8) specific exception is caught.
+* **KubernetesPod**: This class provides all the pod information needed by other OSC core packages.
+
+##### Unit Tests
+Because the Fabric8 uses a fluent interface design, unit testing this package might require the use of [mockito deep stubs](#mockito-deep-stubs). If this does not work another approach can be adding a new class to this package `KubernetesPodFluentApi` as package private. This class will be used by `KubernetesPodApi` and isolate the fluent code. Unit tests targeting the `KubernetesPodApi` will then be able to mock the `KubernetesPodFluentApi` thus removing the complexity of the fluent interfaces from the unit tests. 
 
 #### Java SDKs for K8s APIs
 Two java client libraries are listed in the [Kubernetes Reference Documentation](#k8s-client-libraries): **amdatu-kubernetes** and **Fabric8 Kubernetes Client**. Due to its higher popularity and active community **Fabric8** will be used for this work and the targeted version is `2.5.6`.  
@@ -115,7 +129,8 @@ try (final KubernetesClient client = connection.getConnection()) {
 The actions that should trigger a resync of the security group are **ADDED**, **DELETED** and **MODIFIED** under certain conditions. MODIFIED should only trigger a resync if a stored value of the pod has changed (uid, nodename, namespace).   
 
 **Retrieving pod Information from K8s**
-In addition to receiving notifications OSC will also need to actively make calls to K8s to retrieve information about the pods. At very least OSC will need to list all the pods in a security group and retrieve a pod by its name. These operations will be invoked by OSC synchronization jobs and below you can see a code snipped for each one.
+In addition to receiving notifications OSC will also need to actively make calls to K8s to retrieve information about the pods. At very least OSC will need to list all the pods in a security group and retrieve a pod by its name. These operations will be invoked by OSC synchronization jobs and accessible through the class `org.osc.core.broker.rest.client.k8s.KubernetesPodApi`. Below you can see a code snippet for each one of these operations.
+
 
 1. **Listing pods in a security group**
 The semantics of the `labelsKey` and `labelValues` parameters are the same as the ones described in the notification selector above.  
@@ -151,7 +166,7 @@ try (final KubernetesClient client = connection.getConnection()) {
 }
 ```
 
-### OSC Entities 
+### OSC Entities  
 **TBD on next revision**
 Describe any changes to the OSC database schema.
 
@@ -181,6 +196,6 @@ Describe here any new test requirement for this feature. This can include: virtu
 ### [K8s Client Libraries](https://kubernetes.io/docs/reference/client-libraries/)   
 ### [OVN Kubernetes](https://github.com/doonhammer/ovn-kubernetes)  
 ### [OVS SFC](https://github.com/doonhammer/ovs/tree/sfc.v30)  
-
+### [Mockito Deep Stubs] (https://www.atlassian.com/blog/archives/mockito-makes-mocking-fluid-interfaces-easy)  
 
 
