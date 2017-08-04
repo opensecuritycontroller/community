@@ -33,8 +33,8 @@ To create a traffic redirection using Nuage for Kubernetes the only required inf
 For the first release of this feature all the `key` values of the labels in a given security group will always be the same, i.e.: security=webserver, security=backend, etc.
 
 * **Pod Security Group Member:**
-A new type of security group member is created, **Pod** along with the type **PodPort**. The **Pod** will store a `namespace`, `name`, `externalid`, `nodename` and a collection of `PodPort`.  The **PodPort** will store an `externalid`, a `collection of macaddresses` and a collection of `ipaddress`. 
-> Note: Although currently a pod can only have one ip address [support for multiple ip addresses and networks is intended](#k8s-pods-with-multiple-ips-issue).
+A new type of security group member is created, **Pod**. A pod can be part of many security groups at the same time.  
+
 
 ## Design Changes
 The discovery flow adopted for this work will follow the same model already adopted by OSC for OpenStack with RabittMQ:
@@ -99,7 +99,7 @@ lastJobId (integer, optional, read only)
 }
 ```
 ### OSC Services
-The OSC services `CreateSecurityGroup` and `UpdateSecurityGroup` should be updated to enforce the security group required fields accordingly. This can be done by a simple change on `SecurityGroupDtoValidator#checkForNullFields`: `projectId` and `projectName` should NOT be null if the VC type is OpenStack, and `labels` should NOT  be null or empty if the VC is Kubernetes.
+The OSC services `AddSecurityGroup` and `UpdateSecurityGroup` should be updated to enforce the security group required fields accordingly. This can be done by a simple change on `SecurityGroupDtoValidator#checkForNullFields`: `projectId` and `projectName` should NOT be null if the VC type is OpenStack, and `labels` should NOT  be null or empty if the VC is Kubernetes.
 
 ### OSC SDKs
 
@@ -108,6 +108,7 @@ Not applicable.
 
 #### SDN Controller SDK
 Details on this is **TBD** but we will at least need to add APIs to return a network element given the **pod name, namespace and name of the hosting node**.  The returned network element should contain the unique port id for both OVN SFC and Nuage. For OVN SFC it should also return the name of the logical switch.  
+As is today, these services will trigger the conformance tasks for the security group. Thoses tasks will be responsible for discovering the relevant members (pods) and persisting those entities accordingly.  
 
 ### OSC & Kubernetes
 This section describes how OSC will use the Kubernetes API service endpoint to retrieve and perform live discovery of the protected workloads, highlighting the chosen SDK, connectivity inputs and required APIs.   
@@ -218,18 +219,22 @@ try (final KubernetesClient client = connection.getConnection()) {
 The `VirtualizationConnector` domain entity field `virtualizationType` can now have a new value: **VirtualizationType.KUBERNETES** .
 
 #### Security Group  
-The SecurityGroup  domain entity will contain a set of labels.  The following changes will implement that:
+The SecurityGroup  entity will contain a set of labels.  The following changes will implement that:
 
 * **osc-domain** updates:
 ```java
 @Table(name = "SECURITY_GROUP", ...) 
 public class SecurityGroup extends BaseEntity implementes LastJobContainer {
-    
+   
+    // The set of labels used to filter the members of the security group
 	@ElementCollection(fetch = FetchType.LAZY)
     @Column(name = "labels")
     @CollectionTable(name = "SECURITY_GROUP_LABEL", joinColumns = @JoinColumn(name = "security_group_fk"),
     foreignKey=@ForeignKey(name = "FK_SECURITY_GROUP_LABEL"))
     private Set<String> labels = new HashSet<String>();
+	
+	// ...
+}  
 ```
 * **database** schema updates:
 ```sql
@@ -241,6 +246,80 @@ alter table SECURITY_GROUP_LABEL add constraint " +
                  "FK_SECURITY_GROUP_LABEL foreign key (security_group_fk) references SECURITY_GROUP;"
 ```
 These schema changes will also need to be applied during upgrades, for that the `ReleaseUpgradeMgr.java` file also needs to reflect these changes.
+
+#### Security Group  Member
+A new type of security group member is being introduced, **Pod** along with its respective port **PodPort**. 
+* **osc-domain** updates:  
+Similarly to the existing VM type, the Pod entity can be a member of multiple security groups, thus it has a many to one relationship with security group members:  
+
+```java
+@Table(name = "SECURITY_GROUP_MEMBER", ...)
+public class SecurityGroupMember extends BaseEntity implements Comparable<SecurityGroupMember> {
+	// ... 
+	@ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pod_fk", foreignKey = @ForeignKey(name = "FK_SGM_POD"))
+    private Pod pod;
+	
+	// ....
+}
+```  
+
+The **Pod** entity carries the relavant information regarding a Kubernetes pod: the name, namespace, uid, host name, a set of ports and a one to many relationship with security group members.   
+> Note: Although currently a pod can only have one ip address [support for multiple ip addresses and networks is intended](#k8s-pods-with-multiple-ips-issue).   
+
+```java
+@Entity
+@Table(name = "POD")
+public class Pod extends BaseEntity {
+    @Column(name = "name", nullable = false)
+    private String name;
+
+	@Column(name = "nameespace", nullable = false)
+    private String namespace;
+	
+    @Column(name = "external_id", nullable = false, unique = true)
+    private String externalId;
+
+    @Column(name = "host")
+    private String host;
+
+    @OneToMany(mappedBy = "pod", fetch = FetchType.LAZY)
+    private Set<PodPort> ports = new HashSet<PodPort>();
+
+    @OneToMany(mappedBy = "pod", fetch = FetchType.LAZY)
+    private Set<SecurityGroupMember> securityGroupMembers = new HashSet<>();
+	}
+```   
+
+The **PodPort** represents the information related to the pod port needed to create network traffic steering through the SDN controller APIs:    
+
+```java
+   @Entity
+   @Table(name = "POD_PORT")
+   public class PodPort extends BaseEntity {
+
+    @Column(name = "external_id", nullable = false, unique = true)
+    private String externalId;
+
+    @Column(name = "mac_address", nullable = false, unique = true)
+    private String macAddress;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Column(name = "ip_address")
+    @CollectionTable(name = "POD_PORT_IP_ADDRESS", joinColumns = @JoinColumn(name = "pod_port_fk"),
+    foreignKey=@ForeignKey(name = "FK_POD_PORT_IP_ADDRESS"))
+    private List<String> ipAddresses = new ArrayList<String>();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "pod_fk", foreignKey = @ForeignKey(name = "FK_PODP_POD"))
+    private Pod pod;
+
+    @Column(name = "parent_id", nullable = true, unique = false)
+    private String parentId;
+```  
+	
+* **database** schema updates:  
+All the tables and relationships indicated on the previous entities will also be updated on the files `org/osc/core/broker/util/db/upgrade/ReleaseUpgradeManager.java,Schema.java`.  
 
 ### OSC UI
 Out of scope.
