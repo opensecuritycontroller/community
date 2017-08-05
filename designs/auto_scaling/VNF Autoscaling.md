@@ -23,6 +23,8 @@ Auto scaling is “built-in” when new hosts get added/deleted VNF also get add
 Here we select the hosts where we want VNF’s to be deployed AND we select the number of instances to be deployed per host.
 Auto-scaling here means we increase the number of instances while keeping the hosts constant. The intent is the security admin is providing a base line from which you would scale up and scale down.
 
+[Deployment](#deployment) is not applicable to option #1 because the number of instances are directly related to the number of hosts within an Availability Zone/region/Host Aggregate. So scaling out/down request can be ignored or configured to generate an alert.
+[Load balance/HA redundancy](#load-balanceha-redundancy) is still applicable for both options.
 ## Constraints and Assumptions
 The Security manager is monitoring the appliance instances and can determine if a particular instance is overloaded/idle. The security manager generates an API to call to the security controller to initiate a scale out/scale down action.
 
@@ -89,7 +91,7 @@ Describe any changes on the OSC internal synchronization tasks or metatasks. Use
 **TBD Future**
 
 Describe here any new test requirement for this feature. This can include: virtualization platform, test infrastructure, stubs, etc.
-> Note: Any feature should be demonstrable and testable independently of a particular vendor component or service. 
+> Note: Any feature should be demonstrable and testable independently of a particular vendor component or service.
 
 ## References
 **TBD Future**
