@@ -19,7 +19,7 @@ When opening an issue, do not check any boxes in the *Status* section of the iss
     > Note: If the issue does not contain enough information, the triage team will add the *triage/more-info* label and assign it back to the person that opened the issue. Once the assignee adds the correct information, the assignee must mention `@opensecuritycontroller/osc_triage` to notify them that more information has been added. The triage team can then add the *triage/re-evaluate* label.
 3. Once the triage team has approved the issue, they will add a *triage/approved* label.
 4. The triage team will also assign two owners for issues labeled with *triage/approved/active* and the milestone for the upcoming release.  
-> The second owner is being assigned to the issue to perform additional validation after it has been merged (closed by the other owner), triage will indicate the ownership roles in the defect discussion.
+    > The second owner is being assigned to the issue to perform additional validation after it has been merged (closed by the other owner), triage will indicate the ownership roles in the defect discussion.
 
 #### Triage Queries
 * [Open Issues: Without Labels](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Aopensecuritycontroller+no%3Alabel+is%3Aopen+)  
