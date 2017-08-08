@@ -174,8 +174,15 @@ Describe any changes to the OSC database schema.
 Out of scope.
 
 ### OSC Synchronization Tasks
-**TBD on next revision**  
-Describe any changes on the OSC internal synchronization tasks or metatasks. Use a diagram to represent any updated or new task graph.
+The security group(SG) membership will be synchronized by OSC using its tasks and metatasks. This synchronization will continue to be triggered, as today, by: security group creation, update or deletion; and notifications received from Kubernetes relevant for the security group.
+The diagram below depicts the tasks and metatasks involved on this change:
+![](./images/discovery-tasks.png)  
+*Tasks and Metatasks for Synchronizing Security Group Members*
+* **SecurityGroupCheckMetaTask**: This metatask will continue mostly as is, but for SGs of Virtualization Connectors of type Kubernetes it will add to the graph `KubernetesSecurityGroupUpdateOrDeleteMetaTask` instead of the existing `SecurityGroupUpdateOrDeleteMetatask`.  
+* KubernetesSecurityGroupUpdateOrDeleteMetaTask: The main purpose of this task is to discover all the relevant K8s pod using the `KubernetesPodApi` providing the security group label and for each of them add to the graph the metatask `KubernetesSecurityGroupPodCheckMetaTask`. Similarly to the existing `SecurityGroupUpdateOrDeleteMetatask` this task will also add the existing task PortGroupCheckMetaTask if the SDN controller supports port group.  
+* **KubernetesSecurityGroupPodCheckMetaTask**: This metatask forks the graph in three possible options for a given pod: creation or delete. Observe that pod updates are not expected, any changes on the pod: name, namespace, node, network info should represent a new pod (K8s does not currently support pod migration). Once binding is developed this metatask will also include tasks to synchronize information with the SDN controller.  
+* **SecurityGroupMemberPodCreateTask:** This task will make use of the existing method `BaseSecurityGroupService.addSecurityGroupMember` to add a member of type `Pod` with its respective port information.  
+* **SecurityMemberDeleteTask**: This existing task is currently responsible for deleting security members, entities (VM, network, etc) and ports when applicable. It will remain mostly the same but also handling the member type `Pod`. 
 
 ## Tests
 **TBD on next revision**
