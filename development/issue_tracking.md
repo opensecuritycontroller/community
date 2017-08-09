@@ -67,7 +67,7 @@ Choose any amount of the following specifier labels:
 Choose **at most one** of each type of label:
 
 Triage Status
-* triage/approved/active: Accepted defects planned to be addressed on the next release.
+* triage/approved/active: Accepted defects planned to be addressed on the next release. Issues with this label will also have a milestone assigned to them.  
 * triage/approved/on-hold: Accepted defects without a targeted release.
 * triage/declined/duplicate: Duplicate of another existing issue, triage should add a mention to the existing issue.  
 * triage/declined/by-design: Declined, the reported behavior is by design.  
