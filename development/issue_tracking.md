@@ -12,12 +12,14 @@ When opening an issue, do not check any boxes in the *Status* section of the iss
 ## Defects
 
 ### Triage Flow
-
-1. The triage team looks for opened issues without any labels.
+> Note: The triage flow below is executed by the OSC Triage Team (@opensecuritycontroller/osc_triage). If you would like to learn more, have any suggestions or would like to participate join our [Slack team](https://securitycontroller.slack.com).  
+  
+1. The triage team  looks for opened issues without any labels.
 2. The triage team adds a single *defect [issue type](#issue-types)* label, a single *triage* label, and a single *priority* label. 
     > Note: If the issue does not contain enough information, the triage team will add the *triage/more-info* label and assign it back to the person that opened the issue. Once the assignee adds the correct information, the assignee must mention `@opensecuritycontroller/osc_triage` to notify them that more information has been added. The triage team can then add the *triage/re-evaluate* label.
-3. Once the triage team has approved the issue, they will add both a *triage/approved* label and assign a developer.
-4. Once a defect has been fixed and closed, the triage team will add a new community member as assignee to perform validation on the appropriate branch.
+3. Once the triage team has approved the issue, they will add a *triage/approved* label.
+4. The triage team will also assign two owners for issues labeled with *triage/approved/active* and the milestone for the upcoming release.  
+    > The second owner is being assigned to the issue to perform additional validation after it has been merged (closed by the other owner), triage will indicate the ownership roles in the defect discussion.
 
 #### Triage Queries
 * [Open Issues: Without Labels](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Aopensecuritycontroller+no%3Alabel+is%3Aopen+)  
@@ -49,9 +51,9 @@ It is important to understand the use and meaning of labels as they help facilit
 
 Choose only **one** of the following label types:
 
-* defect
-* discussion
-* improvement
+* defect: Represents typical product or documentation bug with information like: expected behavior, actual behavior, repro steps, existing documentation location, etc. The issue template in each repo should be used for this type of issue.
+* discussion: Used to initiate a discussion or ask a question.
+* improvement: Used to provide an idea for a product, process or documentation improvement.  
 
 > Note: The above types are the three base namespaces of each issue type, for example, in osc-core, defect corresponds to defect/product-code, defect/documentation, and defect/unit-test. To see the exact label name, look at the labels in the repository where you would like to open an issue.
 
@@ -59,19 +61,20 @@ Choose only **one** of the following label types:
 
 Choose any amount of the following specifier labels:
 
-* experience
+* experience: Impacts the user experience without major functionality impact.  
 
 ### Defect Labels 
 Choose **at most one** of each type of label:
 
 Triage Status
-* triage/approved/active
-* triage/approved/on-hold
-* triage/declined/duplicate
-* triage/declined/invalid
-* triage/declined/wont-fix
-* triage/more-info
-* triage/re-evaluate  
+* triage/approved/active: Accepted defects planned to be addressed on the next release. Issues with this label will also have a milestone assigned to them.  
+* triage/approved/on-hold: Accepted defects without a targeted release.
+* triage/declined/duplicate: Duplicate of another existing issue, triage should add a mention to the existing issue.  
+* triage/declined/by-design: Declined, the reported behavior is by design.  
+* triage/declined/no-repro: Declined, the issue cannot currently be reproduced.  
+* triage/declined/wont-fix: Declined as wont fix, triage should provide more details.
+* triage/more-info: The issue does not contain sufficient info.
+* triage/re-evaluate: The issue has been updated and is ready to be looked again by triage.   
 
 Assigned Priority
 * priority/critical
