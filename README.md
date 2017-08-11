@@ -28,6 +28,10 @@
 
 ### [Manual Testing](/testing/testing.md)
 
+## New Feature Contributions
+
+### [New Features](/new-features/new-features.md)
+
 ## Contributors of OSC
 
 | [<img src="https://avatars3.githubusercontent.com/u/9063674?v=3" width="100px;"/><br /><sub>Larkins Carvalho</sub>](https://github.com/larkinscarvalho) | [<img src="https://avatars2.githubusercontent.com/u/26880884?v=3" width="100px;"/><br /><sub>Yaron Choma</sub>](https://github.com/ychoma) | [<img src="https://avatars0.githubusercontent.com/u/11301867?v=3" width="100px;"/><br /><sub>Manish Dave</sub>](https://github.com/manishdave) | [<img src="https://avatars0.githubusercontent.com/u/20405898?v=3" width="100px;"/><br /><sub>Valerie Fenwick</sub>](https://github.com/bubbva) | [<img src="https://avatars2.githubusercontent.com/u/18014225?v=3" width="100px;"/><br /><sub>Lakshminarayana Kodali</sub>](https://github.com/lakodali) | 
