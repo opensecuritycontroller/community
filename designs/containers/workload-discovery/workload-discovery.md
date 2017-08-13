@@ -129,10 +129,18 @@ The direct communication between the OSC core modules and the Kubernetes API ser
 *Kubernetes Wrapper Package Class Diagram*  
 
 
-
-* **KubernetesApi**: Represents the base class for the `Kubernetes*Api` classes and it is reponsible for initializing the `KubernetesClient`, as part of its constructor and close it, as part of its `close()` method.
-* **KubernetesPodApi**: This class provides all the pod related methods to the other OSC core packages: `getPodsByLabels`, this method should enforce that all labels must be in the form "key=value" with all the "key"s having the same value. For details [see below](#k8s-targeted-apis). `getPodsById` should return the pod with the given uid, namespace and name. Both these methods should through a `VmidcException` if an SDK (Fabric8) specific exception is caught.
+* **KubernetesClient**: Provides a communication channel for the Kubernetes APIs, it is reponsible for initializing the *fabric8* `KubernetesClient`, as part of its constructor and close it, as part of its `close()` method.
+* **KubernetesApi**: Represents the base class for the `Kubernetes*Api` classes and contains an instance of the `KubernetesClient`.  
+* **KubernetesPodApi**: This class provides all the pod related methods used by other OSC core packages: 
+	* `getPodsByLabel`: returns all pods with a matching label, for details [see below](#k8s-targeted-apis). 
+	* `getPodsById`: returns the pod with the given uid, namespace and name. 
+	* `watchPods`: returns a watcher object that performs event calls when pod matching the provided selector is changed. To create this watcher the caller must provide as `KubernetesSelector` of type `KubernetesSelectorType.Label` with the label string value `KubernetesStringSelectorValue` and a `KubernetesWatchEventHandler` to be invoked when a targeted pod is modified.  
+	> All these methods should through a `VmidcException` if an SDK (Fabric8) specific exception is caught.
+* **KubernetesEntity**: Base class representing the K8s entities used by OSC.
 * **KubernetesPod**: This class provides all the pod information needed by other OSC core packages.
+* **KubernetesWatchEventHandler**: This functional interface represents the contract for the method to be invoked when a watched pod changes. The `eventReceived` method will be called with the **KubernetesAction** and the `KubernetesPod`.
+* **KubernetesWatcher**: Encapsulates a fabric8 `Watch` object.
+* **KubernetesSelector**: Represents the information provided to watch APIs. The selector object also enables the reusability of the type `KubernetesNotificationListener`. The current possible values when creating a selector are **KubernetesSelectorType**.`LABEL` and **KubernetesStringSelectorValue**.  
 
 ##### Unit Tests
 Because the Fabric8 uses a fluent interface design, unit testing this package might require the use of [mockito deep stubs](#mockito-deep-stubs). If this does not work another approach can be adding a new class to this package `KubernetesPodFluentApi` as package private. This class will be used by `KubernetesPodApi` and isolate the fluent code. Unit tests targeting the `KubernetesPodApi` will then be able to mock the `KubernetesPodFluentApi` thus removing the complexity of the fluent interfaces from the unit tests. 
@@ -223,6 +231,15 @@ try (final KubernetesClient client = connection.getConnection()) {
 // ...
 }
 ```
+
+#### Kubernetes Notification Events
+OSC will need to maintain connections opened with Kubernetes APIs in order to watch for entity changes. The mechanism for this will be similar to the approach used for RabbitMq with OpenStack but it will also make use of OSGi services to manage the state of the connections and watchers.  
+![](./images/k8s-notification-class-diagram.png)  
+*Kubernetes Notification Events Class Diagram*  
+* **KubernetesClientProvider**: This class provides open `KubernetesClient` objects to other classes and components. This provider must be instantiated by the `Server` class and registered on the OSGi framework. When `start` is invoked it must list all virtualization connectors in the database and initiate a `KubernetesClient` for each one of them. Other classes can resolve this singleton instance through OSGi and look up live clients using the method `getKubernetesClient`. `receiveBroadcast` must react to messages indicating changes on virtualization connectors and create, delete or update and existing client accordingly.  Note that before closing a client a  call to `closeListeners` for all the `KubernetesNotificationRunners` providing the virtualization connector id must be done.  
+* **SecurityGroupMemberNotificationRunner**: This class is responsible for managing instances of `KubernetesNotificationListeners`, keeping these instances in sync with the security members in the database. An instance of this class must be initiated by the `Server` class and registered with the OSGi framework. When `start` is invoked it will list all the security group members in the database and create or delete the correspoding `SecurityGroupMemberPodNotificationListener`.  `receiveBroadcast` will listen to events related to security group members and create, update or delete the corresponding listener.  When creating or updating a listener the runner must make use of the method `KubernetesNotificationListener.init` providing the `PodApi` to be used to create the watcher within the listener. `closeListeners` must close all the listeners with a virtualization connector with the id matching the provided id parameter. 
+* **SecurityGroupMemberPodNotificationListener**: This listener is responsible for receiving events corresponding to pods related to the given security group member. When `init` is invoked the SGM will be retrieved from the database and set in the selector of the listener, then  a `PodApi` will be created with a client obtained with the `KubernetedClientProvider.getKubernetesClient` and `PodApi.watchPod` will be invoked which will initialize a pod watcher.  When `eventReceived` is called it will react to CREATE or UPDATE events in the pod and it will trigger a sync of the security group using the `conformService`
+
 
 ### OSC Entities  
 #### Virtualization Connector  
@@ -330,7 +347,7 @@ The diagram below depicts the tasks and metatasks involved on this change:
 * **KubernetesSecurityGroupLabelCheckMetaTask:** This metatask forks the graph in two possible options for a given label security member: update or deletion, adding to the graph either `SecurityGroupMemberLabelUpdateMetaTask` or 
 * **SecurityGropuMemberDeleteTask**: This existing task is currently responsible for deleting security members, entities (VM, network, etc) and ports when applicable. It will remain mostly the same but also handling the member type `Label`.  
 * **SecurityGroupMemberLabelUpdateMetaTask:** The main purpose of this task is to list the K8s pods using the `KubernetesPodApi` and checking if a new pod needs to be created or an existing one must be deleted.  Observe that pod updates are not expected, any changes on the pod: name, namespace, node, network info should represent a new pod (K8s does not currently support pod migration). Once binding is developed this metatask will also include tasks to synchronize information with the SDN controller.  `
-* **LabelPodCreateTask:** This task is responsible for retrieving additional network information from the SDN controller related to the targeted pod and it will persit the pod with that information on the OSC db.  `
+* **LabelPodCreateTask:** This task is responsible for retrieving additional network information from the SDN controller related to the targeted pod and it will persit the pod with that information (i.e. pod port) on the OSC database.  `
 * **LabelPodDeleteTask:** This task is responsible for purging pod and pod network information from the OSC db.  `
 
 ## Tests
@@ -352,6 +369,6 @@ Describe here any new test requirement for this feature. This can include: virtu
 ### [K8s Client Libraries](https://kubernetes.io/docs/reference/client-libraries/)   
 ### [OVN Kubernetes](https://github.com/doonhammer/ovn-kubernetes)  
 ### [OVS SFC](https://github.com/doonhammer/ovs/tree/sfc.v30)  
-### [Mockito Deep Stubs] (https://www.atlassian.com/blog/archives/mockito-makes-mocking-fluid-interfaces-easy)  
+### [Mockito Deep Stubs](https://www.atlassian.com/blog/archives/mockito-makes-mocking-fluid-interfaces-easy)  
 
 
