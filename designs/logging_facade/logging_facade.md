@@ -7,8 +7,20 @@ the **slf4j** facade only. Another logging framework may be plugged in by the us
 
 The SLF4j facade provides a common API, inluding logging levels: **error**, **warn**, **info**, **debug** and (since 1.4.0) **trace**. It detects the presence of one of several logging frameworks and uses it. 
 
+We want to use be able to use it throughout the project because:
+- We shall then be able to easily replace the logging framework behind the facade.
+- The implementation log4j, version 1.2, currently used, is obsolete.
+- A specific requirement is that plugin implementations be able to use our slf4j log configuration without any dependence on any of our packages. 
+
 ## Design Changes
-All the java code to only import **org.slf4j** packages. All the **.bnd** files -- likewise. 
+- All the java code to only import **org.slf4j** packages. All the **.bnd** files -- likewise. 
+- The only project dependent on some concrete slf4j implementation framework is **osc-server**.
+  - The dependencies added to pom.xml: **slf4j-api** plus some implementation dependency. (**slf4j-log4j12**, **logback**, etc.)
+  - The **LogUtil.initLogging()** function is modified to initialize the logging framework and register with the context.
+  - **bnd.bnd**: Provide-Capability: osgi.service;objectClass=org.slf4j.ILoggerFactory
+  - Other bundles (**osc-ui** or plugins) have to implement their own *@Component*s to obtain the *ILoggerFactory* implementation from the OSGi framework and deliver it to the non-OSGi classes.
+  
+![](./images/diag_logging.png)
 
 ## Logging framework options
 
