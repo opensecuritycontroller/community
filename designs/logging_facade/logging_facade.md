@@ -23,9 +23,48 @@ We want to be able to use **slf4j** throughout the project because:
     `Provide-Capability: osgi.service;objectClass=org.slf4j.ILoggerFactory`
     
 - **osc-export** needs the same pom.xml dependency as **osc-server** and the logging framework must be listed in the \*bndrun files.
-- Other bundles (**osc-ui** or plugins) have to implement their own \*@Component classes to obtain the *ILoggerFactory* implementation from the OSGi framework and deliver it to the non-OSGi classes.
-  
+- Other bundles (**osc-ui** or plugins) have to implement their own utility @Component classes to obtain the *ILoggerFactory* implementation from the OSGi framework and deliver it to the non-OSGi classes.
+
+One way a utility @Component class within a plugin may work is:
+
+    @Component
+    public class LogComponent {
+
+        private static BundleContext context;
+        
+        @Reference 
+        ILoggerFactory osgiLog;
+        
+        private static ILoggerFactory loggerFactory;
+        
+        @Activate
+        public void activate(BundleContext context) {
+            if (loggerFactory == null) {
+                loggerFactory = osgiLog;
+            }
+            LogComponent.context = context;
+        }
+
+        public static Logger getLogger(String className) {
+            if (loggerFactory != null) {
+                return loggerFactory.getLogger(className);
+            } else if (context != null) {
+                ServiceReference<ILoggerFactory> ref = context.getServiceReference(ILoggerFactory.class);
+                if (ref != null) {
+                    loggerFactory = context.getService(ref);
+                    if (loggerFactory != null) {
+                        return loggerFactory.getLogger(className);
+                    } 
+                }
+            }
+            
+            return LoggerFactory.getLogger(className);
+        }
+    }
+
+
 ![](./images/diag_logging.png)
+
 
 ## Logging framework options
 
