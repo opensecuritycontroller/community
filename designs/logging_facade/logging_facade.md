@@ -1,31 +1,37 @@
 # Using SLF4J Logging Facade
 Currently, as of [osc-core / 02b8024](https://github.com/opensecuritycontroller/osc-core/commit/02b80247faa29b069d2b6082f2e866a2f71b0f20),
-OSC uses the log4j logging framework directly. The goal is to add flexibility by having all the code reference 
-the **slf4j** facade only. Another logging framework may be plugged in by the user.
+OSC uses the **log4j** logging framework directly. The goal is to add flexibility by having all the code reference 
+the **slf4j** facade only. Behind the facade would be **logback**, **log4j** or another logging framework. The development team will be able to make that change with minimal effort.
 
 ## Background
 
-The SLF4j facade provides a common API, inluding logging levels: **error**, **warn**, **info**, **debug** and (since 1.4.0) **trace**. It detects the presence of one of several logging frameworks and uses it. 
+The **slf4j** facade provides a common API, including logging levels: **error**, **warn**, **info**, **debug** and (since 1.4.0) **trace**. It detects the presence of one of several logging frameworks and uses it. 
 
-We want to use be able to use it throughout the project because:
-- We shall then be able to easily replace the logging framework behind the facade.
-- The implementation log4j, version 1.2, currently used, is obsolete.
-- A specific requirement is that plugin implementations be able to use our slf4j log configuration without any dependence on any of our packages. 
+We want to be able to use **slf4j** throughout the project because:
+- It would then be easy to replace the logging framework behind the facade.
+- The implementation log4j-1.2, currently used, is obsolete.
+- A specific requirement is that plugin implementations be able to use our **slf4j** log configuration without any dependency on any of our packages. 
+- Example implementations with **logback** and **log4j** have been added. See **LogComponent** under **osc-ui** and the security manager plugin projects under the two experimental branches, ![log4j_POC](https://github.com/dmitryintel/osc-core/tree/logging) and ![logback_POC](https://github.com/dmitryintel/osc-core/tree/logback).
 
 ## Design Changes
-- All the java code to only import **org.slf4j** packages. All the **.bnd** files -- likewise. 
-- The only project dependent on some concrete slf4j implementation framework is **osc-server**.
+- All the osc java code to only import **org.slf4j** packages, except **osc-server** and **osc-export** bundles. 
+- For **osc-server**, the following changes are required:
   - The dependencies added to pom.xml: **slf4j-api** plus some implementation dependency. (**slf4j-log4j12**, **logback**, etc.)
-  - The **LogUtil.initLogging()** function is modified to initialize the logging framework and register with the context.
-  - **bnd.bnd**: Provide-Capability: osgi.service;objectClass=org.slf4j.ILoggerFactory
-  - Other bundles (**osc-ui** or plugins) have to implement their own *@Component*s to obtain the *ILoggerFactory* implementation from the OSGi framework and deliver it to the non-OSGi classes.
+  - The **LogUtil.initLogging()** function is modified to initialize the selected logging framework and register with the context.
+  - **osc-server/bnd.bnd** receives the following header:
+  
+    `Provide-Capability: osgi.service;objectClass=org.slf4j.ILoggerFactory`
+    
+- **osc-export** needs the same pom.xml dependency as **osc-server** and the logging framework must be listed in the \*bndrun files.
+- Other bundles (**osc-ui** or plugins) have to implement their own \*@Component classes to obtain the *ILoggerFactory* implementation from the OSGi framework and deliver it to the non-OSGi classes.
   
 ![](./images/diag_logging.png)
 
 ## Logging framework options
 
-Several logging frameworks have been considered to use with slf4j. 
-- **logback** -- [More robust](https://logback.qos.ch/reasonsToSwitch.html) than log4j2. Considered the best option so far.
+Several logging frameworks have been considered to use with **slf4j**. **Logback** is the recommended one.
+
+- **logback** -- [More robust](https://logback.qos.ch/reasonsToSwitch.html) than **log4j2**.
   - Groovy or XML configuration.
   - Log rotation and compression.
   - Well tested.
@@ -48,10 +54,10 @@ Several logging frameworks have been considered to use with slf4j.
 N/A.
 
 ### OSC SDKs
-Make sure there are no explicit references to log4j, etc.
+Make sure there are no explicit references to **log4j**, etc.
 
 #### VNF Security Manager SDK
-Make sure there are no explicit references to log4j, etc.
+Make sure there are no explicit references to **log4j**, etc.
 
 #### SDN Controller SDK
 Make sure there are no explicit references to log4j, etc.
