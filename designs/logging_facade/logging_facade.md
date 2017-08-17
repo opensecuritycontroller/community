@@ -23,7 +23,8 @@ We want to be able to use **slf4j** throughout the project because:
     `Provide-Capability: osgi.service;objectClass=org.slf4j.ILoggerFactory`
     
 - **osc-export** needs the same pom.xml dependency as **osc-server** and the logging framework must be listed in the \*.bndrun files.
-- Other bundles (**osc-ui** or plugins) have to implement their own utility @Component classes to obtain the *ILoggerFactory* implementation from the OSGi framework and deliver it to the non-OSGi classes.
+- All other bundles inside **osc-core**, as  well as plugins, have to implement their own utility @Component classes to obtain the *ILoggerFactory* implementation from the OSGi framework and deliver it to the non-OSGi-aware classes via a static getter.
+- Static fields are not visible across bundle boundaries, so every bundle which uses this mechanism will have to instantiate its own **LogComponent**.
 
 The **osc-server/Server**, activate method needs to call the following method, for the case of **log4j**:
 
