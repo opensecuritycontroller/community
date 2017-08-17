@@ -83,7 +83,7 @@ Within any other bundle which might potentially be a dependency of **osc-server*
         }        
     }
     
-Any bundle which is guaranteed to not be a dependency of the **osc-server** -- a plugin, for example -- can get away with a similar but simpler **LogComponent**, which uses only static *loggerFactory* presumed to be non-null throughout the code. No fallback implementation or atomic references are necessary
+Any bundle which is guaranteed to not be a dependency of the **osc-server** -- a plugin, for example -- can get away with a similar but simpler **LogComponent**.  It may use only static *loggerFactory*, which is presumed to be non-null throughout the code. No fallback implementation or atomic references are necessary.
     
 ![](./images/diag_logging.png)
 
