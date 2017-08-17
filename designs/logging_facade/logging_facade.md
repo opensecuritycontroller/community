@@ -47,44 +47,44 @@ The **osc-server/Server**, activate method needs to call the following method, f
     }
 
 
-And within another bundle, such as a plugin, a logging utility @Component class may work as follows:
+Within any other bundle which might potentially be a dependency of osc-server itself, we have to be careful. Requiring a logging factory service which does not become available until osc-server is active, we have to avoid a circular dependency issue. Hence the **OPTIONAL** reference and **GREEDY** policy option:
 
     @Component
     public class LogComponent {
 
         private static BundleContext context;
         
-        @Reference 
-        ILoggerFactory osgiLog;
+        private static final ILoggerFactory FALLBACK_IMPL = LoggerFactory.getILoggerFactory();
         
-        private static ILoggerFactory loggerFactory;
+        private static AtomicReference<ILoggerFactory> loggerFactoryRef 
+                    = new AtomicReference<>(FALLBACK_IMPL);
         
         @Activate
         public void activate(BundleContext context) {
-            if (loggerFactory == null) {
-                loggerFactory = osgiLog;
-            }
-            LogComponent.context = context;
+            LogComponent.context = context;     
         }
-
+        
+        @Reference(cardinality=OPTIONAL, policyOption=GREEDY)
+        public void setLoggerFactoryInst(ILoggerFactory instance) {
+            setLoggerFactory(instance);     
+        }
+        
+        public static Logger getLogger(Class clazz) {
+            return getLogger(clazz.getName());
+        }
+                
+        // Intended for use by non-osgi - aware components  in this bundle only
         public static Logger getLogger(String className) {
-            if (loggerFactory != null) {
-                return loggerFactory.getLogger(className);
-            } else if (context != null) {
-                ServiceReference<ILoggerFactory> ref = context.getServiceReference(ILoggerFactory.class);
-                if (ref != null) {
-                    loggerFactory = context.getService(ref);
-                    if (loggerFactory != null) {
-                        return loggerFactory.getLogger(className);
-                    } 
-                }
-            }
-            
-            return LoggerFactory.getLogger(className);
+            return loggerFactoryRef.get().getLogger(className);
         }
+                
+        private static void setLoggerFactory(ILoggerFactory instance) {
+            loggerFactoryRef.accumulateAndGet(instance, (prev, next) -> next != null ? next : prev);
+        }        
     }
-
-
+    
+Any bundle which is guaranteed to not be a dependency of the osc-server can get away with a much simpler **LogCOmponent**, which uses only static *loggerFactory* presumed to be non-null throughout the code.
+    
 ![](./images/diag_logging.png)
 
 
