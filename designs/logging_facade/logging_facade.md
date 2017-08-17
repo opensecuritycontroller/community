@@ -47,7 +47,7 @@ The **osc-server/Server**, activate method needs to call the following method, f
     }
 
 
-Within any other bundle which might potentially be a dependency of osc-server itself, we have to be careful. Requiring a logging factory service which does not become available until osc-server is active, we have to avoid a circular dependency issue. Hence the **OPTIONAL** reference and **GREEDY** policy option:
+Within any other bundle which might potentially be a dependency of **osc-server** itself, we have to be careful. Requiring a logging factory service which does not become available until **osc-server** is active, we have to avoid a circular dependency issue. Hence the **OPTIONAL** reference and **GREEDY** policy option:
 
     @Component
     public class LogComponent {
@@ -83,7 +83,7 @@ Within any other bundle which might potentially be a dependency of osc-server it
         }        
     }
     
-Any bundle which is guaranteed to not be a dependency of the osc-server can get away with a much simpler **LogCOmponent**, which uses only static *loggerFactory* presumed to be non-null throughout the code.
+Any bundle which is guaranteed to not be a dependency of the **osc-server** -- a plugin, for example -- can get away with a similar but simpler **LogComponent**, which uses only static *loggerFactory* presumed to be non-null throughout the code. No fallback implementation or atomic references are necessary
     
 ![](./images/diag_logging.png)
 
