@@ -1,18 +1,17 @@
 # OSC Container Support - VNF Deployment
-This document describes the design changes needed for OSC to support deployments of container VNFs on a Kubernetes(K8s) cluster.  The deployed VNF instances will be used protect the network traffic between workload containers present on the cluster.  
+This document describes the design changes needed for OSC to support deployments of container VNFs on a Kubernetes(K8s) cluster.  The deployed VNF instances will be used to protect the network traffic between workload containers present on the cluster.  
 
 ## Assignees
 Emanoel Xavier - https://github.com/emanoelxavier
 
 ## Background
-OSC currently supports protection of workloads hosted on VM based virtualization environments. This work expands the OSC scope to include also container environments orchestrated by [Kubernetes](#kubernetes-home). The adoption of container technologies is becoming more and more widespread due to its benefits such as easy maintainability, reusability, and minimal overhead with K8s being one of the most popular container orchestrators.  
+OSC currently supports protection of workloads hosted on VM based virtualized environments. This work expands OSC to also control security on container based environments orchestrated by [Kubernetes](#kubernetes-home). The adoption of container technologies is becoming more and more widespread due to its benefits such as easy maintainability, reusability, and minimal overhead with K8s being one of the most popular container orchestrators.  
 For the first release of the OSC containers support the focus will be mostly on the integration points between OSC, the virtualization environment (K8s) and the software defined network(SDN) controller services needed to discovering the workloads to be protected, deploying the security VNFs and performing traffic redirection through a demonstrable E2E flow.  
 
 ## Constraints and Assumptions
 
 ### OVN with SFC for Kubernetes
-OSC must deploy one pod per node in the cluster. This might be possible by creating multiple pod specs within the K8s Deployment using node selectors but this requires further investigation.
-
+To perform the redirection through a container VNF using OVN the container must be on the same Kubernetes node as the protected pod. For this reason OSC may need to deploy one pod (container) per node in the cluster. There may be a way to configure a Deployment in K8s to indicate every node must have a given container. If not, this might still be possible with a single deployment: OSC can create one deployment with multiple pod specs using node selectors. Each spec would select an specific node. This approach requires further investigation and must be addressed when the integration with OVN is planned.  
 
 ### Nuage SDN for Kubernetes
 Nuage does not present a restriction with respect to where the container VNF should be deployed. 
