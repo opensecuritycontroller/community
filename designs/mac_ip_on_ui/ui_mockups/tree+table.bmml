@@ -1,0 +1,21 @@
+<mockup version="1.0" skin="sketch" fontFace="Balsamiq Sans" measuredW="490" measuredH="296" mockupW="455" mockupH="273">
+  <controls>
+    <control controlID="0" controlTypeID="__group__" x="35" y="23" w="455" h="273" measuredW="455" measuredH="273" zOrder="0" locked="false" isInGroup="-1">
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::DataGrid" x="0" y="0" w="455" h="273" measuredW="186" measuredH="131" zOrder="0" locked="false" isInGroup="0">
+          <controlProperties>
+            <rowHeight>22</rowHeight>
+            <text>Holiday%20Ideas%2C%20Time%2C%20Day%0A%2C%20%2C%20%0A%2C%202%20hours%2C%20Any%0A%2C%202%20hours%2C%20Any%0A%2C%202%20hours%2C%20Any%0A%2C%202%20hours%2C%20Any%0A%7B60%2C%2020%2C%2020%7D</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Tree" x="7" y="22" w="-1" h="-1" measuredW="300" measuredH="225" zOrder="1" locked="false" isInGroup="0">
+          <controlProperties>
+            <backgroundAlpha>0</backgroundAlpha>
+            <borderStyle>none</borderStyle>
+            <text>v%20Watch%20a%20movie%0A.-%20A%20Christmas%20Story%0A.-%20It%27s%20a%20Wonderful%20Life%0A.-%20Rudolph%0A.-%20Santa%20Claus%20is%20Coming%20to%20Town%0A%3E%20Make%20food%0A%3E%20Visit%20friends</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+</mockup>
