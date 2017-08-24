@@ -10,7 +10,7 @@ For security groups defined under OSC there is limited visibility on what actual
 
 This feature proposal address this shortfall. At a highlevel, OSC needs to do the following
 
-- For each member of the security group show the IP/MAC address associated with it.
+- For each member of the security group show the IP/MAC addresses associated with it.
 - Consolidate the IP/Mac addresses for all the members in a security group and expose it in the UI group by the member instance
 - Expose this via the API and the UI
 - The Ip/Mac needs to reflect the latest available information(the sync jobs already gather the IP/Mac information)
@@ -39,7 +39,7 @@ protectExternal (boolean, optional),
 parentOpenStackId (string, optional),
 ports (Array[PortDto]) // New Field
 }
-
+// New DTO
 PortDto {
 id (integer, optional),
 parentId (integer, optional),
