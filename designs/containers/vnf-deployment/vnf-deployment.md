@@ -59,7 +59,7 @@ additionalNicForInspection (boolean, optional),
 ### OSC Services
 
 #### Appliance and Appliance Software Version Services
-Two new services are being added to enable the creation of an Appliances and Appliance Software Versions: `AddApplianceService` which expects the `ApplianceDto` as input, validating and persisting it; and `AddApplianceSoftwareVersionService` which expects the `ApplianceSoftwareVersionDto` as inputt, validating and persisting it.  
+Two new services are being added to enable the creation of an Appliances and Appliance Software Versions: `AddApplianceService` which expects the `ApplianceDto` as input, validating and persisting it; and `AddApplianceSoftwareVersionService` which expects the `ApplianceSoftwareVersionDto` as input, validating and persisting it.  
 The business logic and validation implemented by these services should mirror the existing service `ImportApplianceSoftwareVersionService`, also, to avoid code duplication, `ImportApplianceSoftwareVersionService` must be refactored to make use of the new services instead of making direct domain calls to persist those entities.  
 
 ### OSC SDKs
