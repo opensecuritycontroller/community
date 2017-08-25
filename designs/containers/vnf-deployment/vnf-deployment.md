@@ -28,7 +28,7 @@ In order for a user to deploy a VM VNF using OSC they must register the image fi
 This new model is implemented by a couple of new **POST** REST APIs to create the existing types `ApplianceDTO` and `ApplianceSoftwareVersionDTO`. The choice of using two APIs instead of a single one to create both objects is consistent with the existing APIs to GET and DELETE these resources, this also allows the clients to manage appliances and their software versions independently.  
 
 ### Container Deployment Specs
-OSC supports deployment of VM VNFs through the creation of **Deployment Spec (DS)**. When a user creates or updates a deployment spec OSC will manage the VM instances related to that DS, creating or deleting new ones accordingly. The approach for container VNFs deployed in Kubernetes will be slightly different because Kubernetes already supports the concept of deployments, allowing clients to transparently scale out services and update containers/pods without having to manage specific instances. OSC will take advantage of this feature by maping its DS into K8s Deployments.  
+OSC supports deployment of VM VNFs through the creation of **Deployment Spec (DS)**. When a user creates or updates a deployment spec OSC will manage the VM instances related to that DS, creating or deleting new ones accordingly. The approach for container VNFs deployed in Kubernetes will be slightly different because Kubernetes already supports the concept of deployments, allowing clients to transparently scale out services and update containers/pods without having to manage specific instances. OSC will take advantage of this feature by mapping its DS into K8s Deployments.  
 This new implementation will also require OSC to find out which pods are related to a given K8s deployment and automatically update its data when pods are deleted and (re)created by Kubernetes. OSC will also need to ensure that the external services like SDN controllers and the Security managers are updated accordingly when such changes happen.  
 
 ### REST API  
@@ -86,7 +86,7 @@ hostAggregates (Array[HostAggregateDto], optional, read only),
 count (integer, read only),
 markForDeletion (boolean, read only),
 lastJobState (string, optional, read only),
-lastJobStatus (string, optional, read only),
+lastJobStatus (string, optional, read only),registereed registereed 
 lastJobId (integer, optional, read only),
 shared (boolean, optional)
 }
@@ -109,7 +109,7 @@ Additionally, because we are using the deployment spec name as the name of the K
 Not applicable.
 
 #### SDN Controller SDK
-**Retrieving Network Infomation**  
+**Retrieving Network Information**  
 
 After creating or updating a deployment spec OSC discover the related pods from Kubernetes. However additional network information related to the pod must be retrieved from the SDN controller. To allow for that the following API is being to the SDN Controller SDK interface `SdnRedirectionApi`.  
 ```java
@@ -172,7 +172,7 @@ public class DeploymentSpec extends BaseEntity implements LastJobContainer {
 }
 ```
 #### Inspection Ports
-In Kubernetes, containers may be deleted and re-created at any time, without the direct control of OSC. This means it is possible for a container whose port is being used for traffic redirection to be deleted and replaced by Kubernetes. Because of that, OSC needs to have a way to update inspection ports registereed with the SDN controller with a new virtual port. To enable this, OSC will persist a new entity `inspection port` which will be mapped to a DAI and also have a reference to the DS. OSC will use this entity to identify whether an inspection port under a DS is not assigned to a virtual port and conform this state with the SDN controller accordingly.  
+In Kubernetes, containers may be deleted and re-created at any time, without the direct control of OSC. This means it is possible for a container whose port is being used for traffic redirection to be deleted and replaced by Kubernetes. Because of that, OSC needs to have a way to update inspection ports registered with the SDN controller with a new virtual port. To enable this, OSC will persist a new entity `inspection port` which will be mapped to a DAI and also have a reference to the DS. OSC will use this entity to identify whether an inspection port under a DS is not assigned to a virtual port and conform this state with the SDN controller accordingly.  
 Also because of the volatile nature of pods/containers OSC will refrain from creating inspection ports prior to an appliance being bound to a security group. Similarly an inspection port will only be deleted when an appliance is unbound.  This will avoid a high number of orphan inspection ports on the SDN controller.  
 
 > Note: As an alternative to having this new entity we could also store the inspection port id from the SDN controller directly on the DAI table. However, because a DAI maps to a container, associated by names, and new ones will have new names we must delete the DAI when a container is deleted. We cannot, however, lose the inspection port id (in this case no longer associated with the deleted DAI) since we need it to update the SDN controller. Thus mapping this relationship on a separate entity becomes necessary. 
@@ -198,7 +198,7 @@ public class InspectionPort extends BaseEntity {
 }
 ```
 ### Distributed Appliance Instances
-Most of the existing fields of the `DistributedApplianceInstance` entity will be reused for Kubernetes as indicated below. Additionally, a reference to the new type `InspectionPort` is being included as well as a new field `parentId` to store the id of the domain tha this instance belong to.  
+Most of the existing fields of the `DistributedApplianceInstance` entity will be reused for Kubernetes as indicated below. Additionally, a reference to the new type `InspectionPort` is being included as well as a new field `parentId` to store the id of the domain thatsyncronize syncronize syncronize syncronize syncronize  this instance belong to.  
 
 
 ```java
@@ -273,7 +273,7 @@ The notifications related to container deployment specs will be handled similarl
 * **DeploymentSpecPodNotificationListener:** This listener is responsible for receiving events corresponding to pods related to the given deployment spec. When `init` is invoked the Deployment Spec will be retrieved from the database and its name + id will be used as a label and set in the selector of the listener, then a PodApi will be created with a client obtained with the KubernetedClientProvider.getKubernetesClient and PodApi.watchPod will be invoked which will initialize a pod watcher. When `eventReceived` is called it will react to CREATE or DELETE events in the pod and it will trigger a sync of the deployment spec using the `conformService`.  
 
 ### OSC Synchronization Tasks
-A new set of tasks and meta tasks is being added to allow OSC to syncronize deployments with Kubernetes and update the corresponding appliance instances, inspection ports and manager devices.  
+A new set of tasks and meta tasks is being added to allow OSC to synchronize deployments with Kubernetes and update the corresponding appliance instances, inspection ports and manager devices.  
 
 ![](./images/vnf-deployment-tasks.png)  
 *Tasks and MetaTasks Needed for Syncing Kubernetes Deployment Specs*
@@ -307,7 +307,7 @@ To list all the pods belonging to a Deployment this task will use the method `Ku
 This task is responsible for persisting a DAI in the OSC database for a newly found pod VNF.  It will receive an `KubernetesPod` object, retrieve the network information from the SDN controller using the method `SdnRedirectionApi.getNetworkElement()` with `deviceOwnerId : pod.uuid` and persist DAI entity in the database with the returned network info.  
 
 #### **ConformK8sDSInspectionPortsMetaTask**  
-This task is responsible for checking whether there is any inspection port under the deployment spec that is not associated with a DAI and if there is any DAI not yet associated with an inspection port. This metatask will then pair each available DAI with an orphan inspeotion port and schedule a task `UpdateSDNInspectionPortTask`.   
+This task is responsible for checking whether there is any inspection port under the deployment spec that is not associated with a DAI and if there is any DAI not yet associated with an inspection port. This metatask will then pair each available DAI with an orphan inspection port and schedule a task `UpdateSDNInspectionPortTask`.   
 
 #### **UpdateSDNInspectionPortTask**   
 This task is responsible for updating an existing inspection port registered with the SDN controller with a new virtual port id. For that this task will invoke the SDN API SDK `SdnRedirectionApi.registerInspectionPort` providing the id of the inspection port, the parent id and the new virtual port(s). If that succeeds it will persist the DAI reference in the corresponding `InspectionPort` in the OSC database.   
