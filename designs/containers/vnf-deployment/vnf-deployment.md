@@ -98,7 +98,7 @@ shared (boolean, optional)
 Two new services are being added to enable the creation of an Appliances and Appliance Software Versions: `AddApplianceService` which expects the `ApplianceDto` as input, validating and persisting it; and `AddApplianceSoftwareVersionService` which expects the `ApplianceSoftwareVersionDto` as input, validating and persisting it.  
 The business logic and validation implemented by these services should mirror the existing service `ImportApplianceSoftwareVersionService`, also, to avoid code duplication, `ImportApplianceSoftwareVersionService` must be refactored to make use of the new services instead of making direct domain calls to persist those entities.  
 
-### Deployment Spec Services
+#### Deployment Spec Services
 The existing services `AddDeploymentSpecService` and `UpdateDeploymentSpecService` will need to be slightly updated to ensure that the optional fields for a container deployment spec are not present for virtualization connectors of type `KUBERNETES` but continue to perform the existing validation for virtualization connectors of type `OPENSTACK`. Some of these changes might need to be done within those services; some of them on the base class `BaseDeploymentSpecService`; and some others on validator `DeploymentSpecDtoValidator`.  
 Additionally, because we are using the deployment spec name as the name of the Kubernetes Deployment which must be unique and not changeable `UpdateDeploymentSpecService` must enforce that the name of the DS is not modified.
 
@@ -171,34 +171,10 @@ public class DeploymentSpec extends BaseEntity implements LastJobContainer {
 	// ...
 }
 ```
-#### Inspection Ports
-In Kubernetes, containers may be deleted and re-created at any time, without the direct control of OSC. This means it is possible for a container whose port is being used for traffic redirection to be deleted and replaced by Kubernetes. Because of that, OSC needs to have a way to update inspection ports registered with the SDN controller with a new virtual port. To enable this, OSC will persist a new entity `inspection port` which will be mapped to a DAI and also have a reference to the DS. OSC will use this entity to identify whether an inspection port under a DS is not assigned to a virtual port and conform this state with the SDN controller accordingly.  
-Also because of the volatile nature of pods/containers OSC will refrain from creating inspection ports prior to an appliance being bound to a security group. Similarly an inspection port will only be deleted when an appliance is unbound.  This will avoid a high number of orphan inspection ports on the SDN controller.  
 
-> Note: As an alternative to having this new entity we could also store the inspection port id from the SDN controller directly on the DAI table. However, because a DAI maps to a container, associated by names, and new ones will have new names we must delete the DAI when a container is deleted. We cannot, however, lose the inspection port id (in this case no longer associated with the deleted DAI) since we need it to update the SDN controller. Thus mapping this relationship on a separate entity becomes necessary. 
-
-```java
-@Entity
-@Table(name = "INSPECTION_PORT")
-public class InspectionPort extends BaseEntity {
-	@Column(name = "externalId")
-    private String externalId;  // The SDN controller Element.getElementId() returned by registerInspectionPort
-	
-	@Column(name = "parentId")
-    private String parentId;  // The SDN controller Element.getParentId() returned by registerInspectionPort
-	
-	@ManyToOne(fetch = FetchType.LAZY) // A deployment spec can have many inspection ports
-    @JoinColumn(name = "deployment_spec_fk", nullable = false,
-            foreignKey = @ForeignKey(name = "FK_INSPECTON_PORT_DEPLOYMENT_SPEC"))
-    private DeploymentSpec deploymentSpec;  
-	
-	@OneToOne(fetch = FetchType.EAGER)  // An inspection port may have a reference to a distributed appliance
-    @JoinColumn(name = "dai_fk", nullable = true, foreignKey = @ForeignKey(name = "FK_INSPECTION_PORT_DAI"))
-    private DistributedApplianceInstance distributedApplianceInstance;
-}
-```
 ### Distributed Appliance Instances
-Most of the existing fields of the `DistributedApplianceInstance` entity will be reused for Kubernetes as indicated below. Additionally, a reference to the new type `InspectionPort` is being included as well as a new field `parentId` to store the id of the domain thatsyncronize syncronize syncronize syncronize syncronize  this instance belong to.  
+In Kubernetes, containers may be deleted and re-created at any time, without the direct control of OSC. This means it is possible for a container whose port is being used for traffic redirection to be deleted and replaced by Kubernetes. Because of that, OSC needs to have a way to update inspection ports registered with the SDN controller with a new virtual port. To enable this, OSC will persist two new columns in the entity `DistributedApplianceInsance`: `inspectionElementId` and `inspectionElementParentId`. These optional values will store the identifier of the registered inspection port and its parent respectively, both returned from the SDN controller method `SdnRedirectionApi.registerInspectionPort`. Also, the DAI will have a column to store the pod UID, `externalId`.  
+Additionally, most of the existing fields of the `DistributedApplianceInstance` entity will be reused for Kubernetes as indicated below: 
 
 
 ```java
@@ -212,7 +188,13 @@ public class DistributedApplianceInstance extends BaseEntity {
     private String ipAddress;                               // The ip address of the Kubernetes pod
 	
 	@Column(name = "parent_id")
-    private String parentId;                               // The id of the parent (network domain) this appliance belongs to.
+    private String inspectionElementParentId;                               // The id of the parent (network domain) of the inspection port this appliance is associated with.
+	
+	@Column(name = "external_id")
+    private String externalId;                               // The unique id of the Kubernetes pod.
+	
+	@Column(name = "parent_id")
+    private String inspectionElementParentId;                               // The id of the parent (network domain) this appliance belongs to.
 	
 	@Column(name = "inspection_os_ingress_port_id")         
     private String inspectionOsIngressPortId;               // Stores the virtual port id of the pod retrieved from the SDN controller. 
@@ -220,8 +202,7 @@ public class DistributedApplianceInstance extends BaseEntity {
 	@Column(name = "inspection_ingress_mac_address")
     private String inspectionIngressMacAddress;            // Stores the virtual port id of the pod retrieved from the SDN controller.  
 	
-	@OneToOne(mappedBy = "distributedApplianceInstance", fetch = FetchType.LAZY)
-    private InspectionPort inspectionPort;                 // The inspection port associated with this DAI.
+	
 }
 ```
 
@@ -303,11 +284,14 @@ This task is responsible for checking whether all instances expected by the **De
 This task is responsible for listing all the Kubernetes pods related to a given deployment and identifying whether a DAI needs to be created or deleted.  For each case it will add to the graph either a `DeleteDAIFromDbTask` or a `CreateK8sDAITask`. After all these tasks run concurrently (even if some fail), this meta task will trigger the task `ConformK8sDSInspectionHooksMetaTask` and then the task `ManagerCheckK8sDeviceMetaTask`.  
 To list all the pods belonging to a Deployment this task will use the method `KubernetesPodApi.getPodsByLabel` providing the `label : "KubernetesDeploymentApi.OSC_LABEL_KEY=ds.name_id"`. We can safely rely on this to query the pods belonging to a deployment due to the [Kubernetes Deployment Selector design](#kubernetes-deployment-selector).  
 
-#### **CreateK8sDAITask**
-This task is responsible for persisting a DAI in the OSC database for a newly found pod VNF.  It will receive an `KubernetesPod` object, retrieve the network information from the SDN controller using the method `SdnRedirectionApi.getNetworkElement()` with `deviceOwnerId : pod.uuid` and persist DAI entity in the database with the returned network info.  
+#### **CreateOrUpdateK8sDAITask**
+This task is responsible for persisting a DAI in the OSC database for a newly found pod VNF.  It will receive an `KubernetesPod` object, retrieve the network information from the SDN controller using the method `SdnRedirectionApi.getNetworkElement()` with `deviceOwnerId : pod.uuid` and persist DAI entity in the database with the returned network info.  When persisting it must identify whether there is a DAI currently without network information (i.e.: ingress port) but with an inspection port id. If so it will create the new DAI using the found inspection port id and parent id, persist it and delete the old DAI.
+
+#### **DeleteOrCleanK8sDAITask**
+This task is responsible for deleting or cleaning up a DAI in the OSC database for a deleted pod.  It will receive an `KubernetesPod` object.  When deleting  it must identify whether the targeted DAI (same pod UID) has an inspection port id. If so instead of deleting the DAI from the database it will clean up the network information (i.e.: ingress port) and update it, otherwise it will delete the targeted DAI.  
 
 #### **ConformK8sDSInspectionPortsMetaTask**  
-This task is responsible for checking whether there is any inspection port under the deployment spec that is not associated with a DAI and if there is any DAI not yet associated with an inspection port. This metatask will then pair each available DAI with an orphan inspection port and schedule a task `UpdateSDNInspectionPortTask`.   
+This task is responsible for checking whether each DAT with an inspection port id has the same virtual ports in the SDN controller as the one we are persisting. For that it will call `SdnRedirectionApi.getInspectionPort` and if the virtual ports are different then it will schedule a task `UpdateSDNInspectionPortTask` to have the virtual ports updated.  
 
 #### **UpdateSDNInspectionPortTask**   
 This task is responsible for updating an existing inspection port registered with the SDN controller with a new virtual port id. For that this task will invoke the SDN API SDK `SdnRedirectionApi.registerInspectionPort` providing the id of the inspection port, the parent id and the new virtual port(s). If that succeeds it will persist the DAI reference in the corresponding `InspectionPort` in the OSC database.   
