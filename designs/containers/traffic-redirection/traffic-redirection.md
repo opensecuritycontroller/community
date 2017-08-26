@@ -54,12 +54,6 @@ In addition to conform the security group members and pods, this meta task will 
 #### CheckPortGroupHookMetaTask  
 The main aspects of this meta tasks will remain as is, however some minor changes might be needed for Kubernetes virtualization connectors to properly discover the available DAI and respective domain id.  
 
-#### CreatePortGroupHookTask  
-This existing task is invoked by `PortGroupCheckMetaTask`. For Kubernetes, in addition to creating the port group hook it will also need to create the inspection port using the method `SdnRedirectionApi.registerInspectionPort`.  
-
-#### RemovePortGroupHookTask  
-This existing task is invoked by `PortGroupCheckMetaTask`. For Kubernetes, in addition to removing the port group hook it will also need to delete the inspection port using the method `SdnRedirectionApi.removeInspectionPort`.  This is needed to avoid orphan inspection ports (without virtual ports) that are not assigned to any inspection hook.  
-
 #### CreateMgrSecurityGroupTask
 This existing task is invoked by `MgrSecurityGroupCheckMetaTask` and it will need to include some minor updates  to also extract `PodPorts` from **label** security group members.  
 
