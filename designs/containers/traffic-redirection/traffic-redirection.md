@@ -38,7 +38,7 @@ Not applicable.
 Out of scope.
 
 ### OSC Synchronization Tasks
-Most of the changes needed for this feature will include expanding the already planned class `KubernetesSecurityGroupUpdateOrDeleteMetaTask` to include additional existing tasks and metatasks in its graph. See below the pictures comparing the graphs planned for synchronization of security group and members and now the graphs planned for syncrhonization of the binding/unbiding of a SG.  
+Most of the changes needed for this feature will include expanding the already planned class `UpdateK8sSecurityGroupUpdateOrDeleteMetaTask` to include additional existing tasks and metatasks in its graph. See below the pictures comparing the graphs planned for synchronization of security group and members and now the graphs planned for syncrhonization of the binding/unbiding of a SG.  
 
 ![](../workload-discovery/images/discovery-tasks.png)
 *Tasks and Metatasks for Synchronizing Security Group Members*  
@@ -48,7 +48,7 @@ Most of the changes needed for this feature will include expanding the already p
 ![](./images/redirection-tasks.png)
 *Tasks and Metatasks for Synchronizing Security Group Bindings/Interfaces*
 
-#### KubernetesSecurityGroupUpdateOrDeleteMetaTask  
+#### UpdateK8sSecurityGroupOrDeleteMetaTask  
 In addition to conform the security group members and pods, this meta task will also now trigger other existing tasks and metatasks to synchronize the port groups and port group hooks with the SDN controller using the tasks `PortGroupCheckMetaTask` and `CheckPortGroupHookMetaTask`; security group members with the manager using the `MgrSecurityGroupCheckMetaTask`; and deleting  the security group interfaces using the `DeleteSecurityGroupInterfaceTask` when applicable.  
 
 #### CheckPortGroupHookMetaTask  
