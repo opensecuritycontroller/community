@@ -260,7 +260,7 @@ A new set of tasks and meta tasks is being added to allow OSC to synchronize dep
 *Tasks and MetaTasks Needed for Syncing Kubernetes Deployment Specs*
 
 #### **ConformK8sDeploymentSpecMetaTask**
-This task will be triggered by creation, update or deletion of deployment specs through the existing method `ConformService.startDsConformJob`. This method will use this task instead of the existing `DSConformanceCheckMetaTask` if the DS is for a **Kubernetes** virtualization environment. The same method will also be invoked when events are received for pods associated with targeted deployment.  
+This task will be triggered by creation, update or deletion of deployment specs through the existing method `ConformService.startDsConformJob`. This method triggers the existing metatatask `DSConformanceCheckMetaTask` which will then trigger `ConformK8sDeploymentSpecMetaTask` if the DS is for a **Kubernetes** virtualization environment. The same method will also be invoked when events are received for pods associated with targeted deployment.  
 If the DS, virtual system (VS) or distributed appliance (DA) are marked for deletion this meta task will create a graph that will delete the deployment object on K8s, delete the DAIs from the OSC db, conform the devices with the manager and delete the DS from the OSC db. With the exception of deleting the K8s deployment, the remaining tasks added to the graph are the existing ones: `DeleteDAIFromDbTask`, `ManagerCheckDevicesMetaTask`, `DeleteDSFromDbTask`. If the DS is being created or updated it will trigger the meta task `CreateOrUpdateK8sDeploymentMetaTask`.  
 
 #### **DeleteK8sDeploymentTask**
