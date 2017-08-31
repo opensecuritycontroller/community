@@ -25,6 +25,7 @@ When opening an issue, do not check any boxes in the *Status* section of the iss
 * [Open Issues: Without Labels](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Aopensecuritycontroller+no%3Alabel+is%3Aopen+)  
 * [Open Issues: Unassigned](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Aopensecuritycontroller+no%3Aassignee+is%3Aopen+)
 * [Open Issues: Triage Re-Evaluate](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Aopensecuritycontroller+label%3Atriage%2Fre-evaluate+is%3Aopen+) 
+* [Open Issues: Triage More-Info](https://github.com/opensecuritycontroller/osc-core/issues?q=is%3Aissue+is%3Aopen+label%3Atriage%2Fmore-info)
 * [Closed Issues: Date Filter](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Aopensecuritycontroller+closed%3A%3E2017-07-11+)
 
 ### Assignee Flow
