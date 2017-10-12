@@ -1,13 +1,13 @@
-# Policy Mapping Workflow with IP/MAC
+# Multi-Policy Mapping Workflow
 
-This document describes the proposed changes for policy mapping workflow with IPs/MACs.
+This document describes the proposed changes for multi-policy mapping workflow.
 
 ## Background
 
 Currently, we have two ways to determine which policy gets applied to which workload:
 
 - Provide the VNF security manager with encapsulation tag
-- Provide the VNF security manager with IP/MAC
+- Provide the VNF security manager with list of policies
 
 If the manager is supporting [Policy Mapping](https://github.com/opensecuritycontroller/security-mgr-api/blob/master/src/main/java/org/osc/sdk/manager/Constants.java#L70) and [Security Group](https://github.com/opensecuritycontroller/security-mgr-api/blob/master/src/main/java/org/osc/sdk/manager/Constants.java#L60), we provide the manager with the security group name and members (their IPs and MACs) information to bind the policy.
 
@@ -26,7 +26,7 @@ The appliance security manager will not delete a security group with one or more
     "virtualSystemId": 0,
     "name": "string",
     "policyId": 0,
-    "managerSecurityGroupId": "string", // This new property is being added to store the security group id returned by the manager
+    "managerSecurityGroupId": "string", // This new property is added to persist the manager security group id
     "failurePolicyType": "FAIL_OPEN",
     "order": 0,
     "policies": [
@@ -54,22 +54,35 @@ The appliance security manager will not delete a security group with one or more
 ```
 public interface SecurityGroupInterfaceElement {
 
-    /**
-     * Name of the security group
-     */
-    String getName();
+	/**
+	 * @return the identifier of the security group interface defined by the manager
+	 */
+	String getManagerSecurityGroupInterfaceId();
 
-    /**
-     * Provide manager security group id if the manager is supporting policy
-     * mapping and security group
-     */
-    String getManagerSecurityGroupId();
+	/**
+	 * @return the name of the security group interface defined by OSC
+	 */
+	String getName();
 
-    /**
-     * Provide manager policy id in case of IP/MAC or encapsulation tag in case security appliance supports
-     * encapsulation
-     */
-    String getTag();
+	/**
+	 * Provides the identifier of the security group defined by security managers that support policy mapping and
+	 * security groups
+	 *
+	 * @return the identifier of the security group defined by the manager
+	 */
+	String getManagerSecurityGroupId();
+
+	/**
+	 * Provides the context information of manager policy element
+	 *
+	 * @return the set of manager policy elements
+	 */
+	Set<ManagerPolicyElement> getManagerPolicyElements();
+
+	/**
+	 * @return the encapsulation tag supported by the manager
+	 */
+	String getTag();
 }
 ```
 
@@ -92,9 +105,48 @@ public interface ManagerSecurityGroupInterfaceApi {
 ```
 public interface ManagerSecurityGroupInterfaceApi {
 
-    String createSecurityGroupInterface(SecurityGroupInterfaceElement sgi, String policyId) throws Exception;
+    String createSecurityGroupInterface(SecurityGroupInterfaceElement sgiElement) throws Exception;
 
-    void updateSecurityGroupInterface(SecurityGroupInterfaceElement sgi, String id, String policyId) throws Exception;
+    void updateSecurityGroupInterface(SecurityGroupInterfaceElement sgiElement) throws Exception;
+}
+```
+
+`ManagerPolicyElement`: Update `ManagerPolicyElement` interface
+
+**Current interface methods**
+
+```
+public interface ManagerPolicyElement {
+    /**
+     * @return the identifier of the policy defined by the security manager
+     */
+    String getId();
+
+    /**
+     * @return the name of the policy defined in the security manager
+     */
+    String getName();
+}
+```
+
+**Proposed changes to the interface methods**
+
+```
+public interface ManagerPolicyElement {
+    /**
+     * @return the identifier of the policy defined by the security manager
+     */
+    String getId();
+
+    /**
+     * @return the name of the policy defined in the security manager
+     */
+    String getName();
+
+    /**
+     * @return the identifier of the domain, the policy belongs to in the security manager
+     */
+    String getDomainId();
 }
 ```
 
@@ -102,10 +154,10 @@ public interface ManagerSecurityGroupInterfaceApi {
 No changes to SDN Controller SDK are required.
 
 ### VNF Security Manager Plugins
-Updating the plugins implementing these APIs is out of scope for this feature, with the exception of the security-mgr-sample-plugin which will be modified accordingly.
+Updating the plugins implementing these APIs is out of scope for this feature, with the exception of the security-mgr-sample-plugin which will be modified to support multiple policy mapping.
 
 ### OSC UI
-No changes to the OSC UI are required.
+Multi-policy mapping is out of scope.
 
 ### OSC Entities
 `SecurityGroupInterface`: Add `managerSecurityGroupId` field of type string
