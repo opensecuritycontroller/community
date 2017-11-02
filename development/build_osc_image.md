@@ -2,7 +2,7 @@
 This document describes how to setup a local build environment to build OSC images. Using OSC build process three types of images can be generated, i.e.: VMDK, QCOW2 and RAW image formats.
 
 ## Prerequisites
-OSC image can only be built on Linux OS. Any type of Linux OS distribution can be used, for example Ubuntu, RedHat, etc.  Java related application in OSC can be compiled using Maven in windows using CYGWIN tool.  Following tools and packages are required and mandatory for OSC image builds.
+OSC image is built on Ubuntu Linux Operating system. Java related application in OSC can be compiled using Maven in windows using CYGWIN tool.  Following tools and packages are required and mandatory for OSC image builds.
 
 1. Any Linux OS distribution
 2. Java 8
@@ -11,7 +11,7 @@ OSC image can only be built on Linux OS. Any type of Linux OS distribution can b
 5. [Access to OSC source code](./repo_access.md)
 
 ## Assumptions
-This document assumes that user is performing following installation steps on Linux OS. And examples in this section are with reference to Ubuntu Desktop Linux OS.
+This document assumes that user is performing following installation steps on Ubuntu 14.04.04 LTS Linux OS. And examples in this section are with reference to Ubuntu Desktop Linux OS.
 
 ## Installation Steps
 ### 1 : Install Java
@@ -54,20 +54,22 @@ Verify the Maven version and required version should be **3.3**.xxx
 ![](./images/mvn-version.png)
 
 #### Maven Proxy Setup
-If connecting through a proxy create or modify `~/.m2/setting.xml` providing the proxy settings. 
+If connecting through a proxy create or modify `~/.m2/settings.xml` providing the proxy settings. 
+
 
 ### 5 :  Create CentOS Schroot Environment
 OSC build process requires CentOS chroot environment to generate a VMDK, QCOW2 or a RAW image. This CentOS schroot environment allows the user to run a command or a login shell in a chroot environment.  
+The following command `create-centos `should be executed only after all the pre-requisites installations are completed and only once on the build Linux machine.
 
 To create a CentOS schroot environment run following commands:  
-`$ cd /local-working-directory/osc-core/osc-server-bon/bin`  
+`$ cd /local-working-directory/osc-core/osc-server-bom/bin`  
 `$ ./create-centos`
 
 ### 6 : Build Commands
 This section explains all the build command formats required to generate different type of images like VMDK, QCOW2 and RAW images. OSC virtual appliance will be packaged and distributed in OVF format.
 
 Go to osc-core directory  
-`$ cd /local-working-directory/osc-core/`  
+`$ cd /home/local-working-directory/osc-core/`  
 
 #### Image Formats
 ##### Generate VMDK Image
@@ -82,7 +84,7 @@ Go to osc-core directory
 #### Image Location
 All images will be copied in following build location
 
-`$ cd /local-working-directory/osc-core/BuildXX-XXXXXX`
+`$ cd /home/local-working-directory/osc-core/BuildXX-XXXXXX`
 
 ## Troubleshooting Compilation Errors
 
@@ -94,3 +96,19 @@ For any ***"network unreachable :"*** issues check the following on build machin
 
 ### Maven Errors
 For Maven build related issues, see the [Building and Running OSC](./build_run_osc.md) documentation.  
+
+### Bind tool compilation error
+If the command `create-centos` is run prior to all pre-requisites installation following error might occur.  
+```  
+org.apache.tools.ant.launch.Launcher 
+[ERROR] Failed to execute goal biz.aQute.bnd:bnd-export-maven-plugin:3.3.0:export (default) on project osc-export: Default handler for Launcher-Plugin not found i                        n biz.aQute.launcher -> [Help 1] 
+
+```  
+Work around for this compile error is execute following command  
+```
+mkdir -p $HOME/.bnd/default-ws/cnf/cache/3.3.0/bnd-cache/biz.aQute.launcher
+wget -O $HOME/.bnd/default-ws/cnf/cache/3.3.0/bnd-cache/biz.aQute.launcher/biz.aQute.launcher-3.3.0.jar  http://central.maven.org/maven2/biz/aQute/bnd/biz.aQute.launcher/3.3.0/biz.aQute.launcher-3.3.0.jar
+```
+
+##Limitations
+For now OSC build environment requires Ubuntu Linux Operating System.
