@@ -15,7 +15,11 @@ If the manager is supporting [Policy Mapping](https://github.com/opensecuritycon
 
 ![](./images/policy_mapping.png)
 
-OSC connects to the manager by adding a manager connector and syncs the domains and the policies avaiable with the manager. The security group on OSC contains workload information. As a part of the binding process, OSC provides the security manager with workload IP/MAC information and the list of policies or tags to be associated with the workload. The security manager provides the supplied information to the security appliance. The security appliance applies the right policies to the workload based on the IP/MAC information.
+- OSC connects to the manager by adding a manager connector and syncs the domains and the policies avaiable with the manager.
+- The security group on OSC contains workload information.
+- As a part of the binding process, OSC provides the security manager with workload IP/MAC information and the list of policies or tags to be associated with the workload.
+- The security manager provides the supplied information to the security appliance.
+- The security appliance applies the right policies to the workload based on the IP/MAC information.
 
 ## Constraints and Assumptions
 The appliance security manager will not delete a security group with one or more security group interfaces.
