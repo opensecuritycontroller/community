@@ -10,7 +10,7 @@
 
 ### [Pull Requests Guidelines](/development/pull_requests.md)
 
-### [Contributing to Release Branches](/development/releases.md)
+### [Contributing to Release Branches](/releases/release-branches.md)
 
 ### [Unit Test Guidelines](/development/unit_test_guidelines.md)
 
