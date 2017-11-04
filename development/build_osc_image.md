@@ -56,14 +56,18 @@ Verify the Maven version and required version should be **3.3**.xxx
 #### Maven Proxy Setup
 If connecting through a proxy create or modify `~/.m2/setting.xml` providing the proxy settings. 
 
-### 5 :  Create CentOS Schroot Environment
+###5 : Install qemu-img command executable
+qemu-img is used to make qcow2 based image of OSC. To install qemu-img on ubuntu run the following command  
+`$ sudo apt-get install qemu-utils`
+
+### 6 :  Create CentOS Schroot Environment
 OSC build process requires CentOS chroot environment to generate a VMDK, QCOW2 or a RAW image. This CentOS schroot environment allows the user to run a command or a login shell in a chroot environment.  
 
 To create a CentOS schroot environment run following commands:  
 `$ cd /local-working-directory/osc-core/osc-server-bon/bin`  
 `$ ./create-centos`
 
-### 6 : Build Commands
+### 7 : Build Commands
 This section explains all the build command formats required to generate different type of images like VMDK, QCOW2 and RAW images. OSC virtual appliance will be packaged and distributed in OVF format.
 
 Go to osc-core directory  
