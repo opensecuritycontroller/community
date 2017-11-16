@@ -32,6 +32,7 @@ The following data will be decoupled from the lifecycle of the OSC container:
 - Keystore
 - Truststore
 - Plugins
+- Service Function catalog image files
 - Log file
 - vmidcServer.conf
 
