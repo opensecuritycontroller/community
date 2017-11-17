@@ -27,7 +27,7 @@ It also simplifies packaging and distribution.
 ##### Persistent data
 Persistent data stored by OSC will need to be decoupled and managed outside the lifecycle of the container.
 
-The following data will be decoupled from the lifecycle of the OSC container:
+The following data will need to be decoupled from the lifecycle of the OSC container:
 - H2 database
 - Keystore
 - Truststore
@@ -36,7 +36,7 @@ The following data will be decoupled from the lifecycle of the OSC container:
 - Log file
 - vmidcServer.conf
 
-This data would need to be exposed as docker volumes to the OSC container.
+This data would need to be exposed in docker volumes to the OSC container.
 
 ##### Life cycle management
 Remove restart and shutdown operations possbile via OSC UI
@@ -50,6 +50,18 @@ Note: It is technically feasible to have a restricted shell if we build up the O
 Remove network management functionality. Setting custom IP address within a docker container does not make sense as the IP is not exposed outside of the container.
 
 We can expose OSC endpoints as a virtual ip from the host or use different ports to expose OSC
+
+### POC Implementation
+
+###### Scope
+- Create docker files for OSC
+- Use Docker volume to store persistent data and decouple from OSC code
+	- Moved log files to persistent volume
+	- Moved Database to persisent volume
+	- Moved Plugins to persistent volume
+- Launch different OSC containers and make sure they are using the same persistent data
+
+Code is available [here](https://github.com/arvindn05/osc-core/tree/docker)
 
 ### REST API
 N/A
