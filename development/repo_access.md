@@ -25,17 +25,17 @@ The following steps will clone the code in your local git and configure some com
 1. Establish remote forks
    * Visit each repository in the [OSC Organization](https://github.com/opensecuritycontroller) and click the **Fork** button to establish a remote fork for each repository.
 
-2. Create OSC root folder to store the OSC repositories:
+2. Create OSC root folder to store the OSC repositories under home or opt directories of Linux OS file system:
 
   ```sh
-  mkdir /OSC
+  mkdir /home/OSC
   ```
 
 3. Copy the content of [clone_repos.sh](./scripts/clone-repos.sh) on your clipboard.
 
 4. Create a local script file on the OSC root:
   ```sh
-  cd /OSC
+  cd /home/OSC
   vi clone-repos.sh
   # Paste the content clone_repos.sh inside this file, set the variable, username, to your GitHub username, and save.
   ```
