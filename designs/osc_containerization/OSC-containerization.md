@@ -20,7 +20,7 @@ It also simplifies packaging and distribution.
 
 ##### Assumption
 - OSC will be deployed as a container only. The Virtual Machine appliance model will not be supported going forward.
-- For migration of VM-based OSC to container based OSC, some manual steps maybe required. Scripts should be provided in this case.
+- For migration of VM-based OSC to container based OSC, some manual steps maybe required. Scripts should be provided in this case. For example, copying the database/keystore to the modified location etc
 
 ## Design Changes
 
@@ -78,7 +78,10 @@ N/A
 N/A
 
 ### OSC UI
-N/A
+- Remove restart option under Manage -> Server -> Summary
+- Remove restart option under Manage -> Server -> Summary
+- Remove exposing IP Address management functionality under Manage -> Server -> Network. Setting NAT Ip is still applicable to expose virtual IP of OSC to external entities for callbacks etc
+- Remove option to Upgrade server under Manage -> Server -> Maintainence
 
 ### OSC Synchronization Tasks
 N/A
