@@ -13,18 +13,18 @@ When opening an issue, do not check any boxes in the *Status* section of the iss
 
 ### Triage Flow
 > Note: The triage flow below is executed by the OSC Triage Team (@opensecuritycontroller/osc_triage). If you would like to learn more, have any suggestions or would like to participate join our [Slack team](https://securitycontroller.slack.com).
-  
+
 1. The triage team  looks for opened issues without any labels.
-2. The triage team adds a single *defect [issue type](#issue-types)* label, a single *triage* label, and a single *priority* label. 
+2. The triage team adds a single *defect [issue type](#issue-types)* label, a single *triage* label, and a single *priority* label.
     > Note: If the issue does not contain enough information, the triage team will add the *triage/more-info* label and assign it back to the person that opened the issue. Once the assignee adds the correct information, the assignee must mention `@opensecuritycontroller/osc_triage` to notify them that more information has been added. The triage team can then add the *triage/re-evaluate* label.
 3. Once the triage team has approved the issue, they will add a *triage/approved* label.
-4. The triage team will also assign two owners for issues labeled with *triage/approved/active* and the milestone for the upcoming release.  
+4. The triage team will also assign two owners for issues labeled with *triage/approved/active* and the milestone for the upcoming release.
     > The second owner is being assigned to the issue to perform additional validation after it has been merged (closed by the other owner), triage will indicate the ownership roles in the defect discussion.
 
 #### Triage Queries
-* [Open Issues: Without Labels](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Aopensecuritycontroller+no%3Alabel+is%3Aopen+)  
+* [Open Issues: Without Labels](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Aopensecuritycontroller+no%3Alabel+is%3Aopen+)
 * [Open Issues: Unassigned](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Aopensecuritycontroller+no%3Aassignee+is%3Aopen+)
-* [Open Issues: Triage Re-Evaluate](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Aopensecuritycontroller+label%3Atriage%2Fre-evaluate+is%3Aopen+) 
+* [Open Issues: Triage Re-Evaluate](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Aopensecuritycontroller+label%3Atriage%2Fre-evaluate+is%3Aopen+)
 * [Open Issues: Triage More-Info](https://github.com/opensecuritycontroller/osc-core/issues?q=is%3Aissue+is%3Aopen+label%3Atriage%2Fmore-info)
 * [Closed Issues: Date Filter](https://github.com/issues?utf8=%E2%9C%93&q=is%3Aissue+user%3Aopensecuritycontroller+closed%3A%3E2017-07-11+)
 
@@ -40,7 +40,7 @@ When opening an issue, do not check any boxes in the *Status* section of the iss
 ## Discussions and Improvements
 
 Once the issue is submitted, the triage team will add either a *discussion* or *improvement* label and assign the issue to a community member to help facilitate the discussion or improvement.
-> Note: When opening an issue in osc-core pertaining to discussions and improvements, be sure to delete the issue template and provide a detailed description. 
+> Note: When opening an issue in osc-core pertaining to discussions and improvements, be sure to delete the issue template and provide a detailed description.
 
 ## Issue Labels
 
@@ -64,7 +64,7 @@ Choose any amount of the following specifier labels:
 
 * experience: Impacts the user experience without major functionality impact.
 
-### Defect Labels 
+### Defect Labels
 Choose **at most one** of each type of label:
 
 Triage Status
