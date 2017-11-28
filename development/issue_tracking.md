@@ -12,7 +12,7 @@ When opening an issue, do not check any boxes in the *Status* section of the iss
 ## Defects
 
 ### Triage Flow
-> Note: The triage flow below is executed by the OSC Triage Team (@opensecuritycontroller/osc_triage). If you would like to learn more, have any suggestions or would like to participate join our [Slack team](https://securitycontroller.slack.com).  
+> Note: The triage flow below is executed by the OSC Triage Team (@opensecuritycontroller/osc_triage). If you would like to learn more, have any suggestions or would like to participate join our [Slack team](https://securitycontroller.slack.com).
   
 1. The triage team  looks for opened issues without any labels.
 2. The triage team adds a single *defect [issue type](#issue-types)* label, a single *triage* label, and a single *priority* label. 
@@ -54,7 +54,7 @@ Choose only **one** of the following label types:
 
 * defect: Represents typical product or documentation bug with information like: expected behavior, actual behavior, repro steps, existing documentation location, etc. The issue template in each repo should be used for this type of issue.
 * discussion: Used to initiate a discussion or ask a question.
-* improvement: Used to provide an idea for a product, process or documentation improvement.  
+* improvement: Used to provide an idea for a product, process or documentation improvement.
 
 > Note: The above types are the three base namespaces of each issue type, for example, in osc-core, defect corresponds to defect/product-code, defect/documentation, and defect/unit-test. To see the exact label name, look at the labels in the repository where you would like to open an issue.
 
@@ -62,29 +62,35 @@ Choose only **one** of the following label types:
 
 Choose any amount of the following specifier labels:
 
-* experience: Impacts the user experience without major functionality impact.  
+* experience: Impacts the user experience without major functionality impact.
 
 ### Defect Labels 
 Choose **at most one** of each type of label:
 
 Triage Status
-* triage/approved/active: Accepted defects planned to be addressed on the next release. Issues with this label will also have a milestone assigned to them.  
+* triage/approved/active: Accepted defects planned to be addressed on the next release. Issues with this label will also have a milestone assigned to them.
 * triage/approved/on-hold: Accepted defects without a targeted release.
-* triage/declined/duplicate: Duplicate of another existing issue, triage should add a mention to the existing issue.  
-* triage/declined/by-design: Declined, the reported behavior is by design.  
-* triage/declined/no-repro: Declined, the issue cannot currently be reproduced.  
+* triage/declined/duplicate: Duplicate of another existing issue, triage should add a mention to the existing issue.
+* triage/declined/by-design: Declined, the reported behavior is by design.
+* triage/declined/no-repro: Declined, the issue cannot currently be reproduced.
 * triage/declined/wont-fix: Declined as wont fix, triage should provide more details.
 * triage/more-info: The issue does not contain sufficient info.
-* triage/re-evaluate: The issue has been updated and is ready to be looked again by triage.   
+* triage/re-evaluate: The issue has been updated and is ready to be looked again by triage.
 
 Assigned Priority
 * priority/critical
 * priority/high
 * priority/medium
-* priority/low  
+* priority/low
 
 Assigned Severity
 * severity/critical
 * severity/high
 * severity/medium
-* severity/low  
+* severity/low
+
+Test Effectiveness
+* te/automation: Any defect found as a resort of automated testing as part of [osc-tests](https://github.com/opensecuritycontroller/osc-tests)
+* te/manual: Any defect found as a resort of Intel’s manual testing
+* te/other: Any defect found that a customer did NOT report, nor was found through our automation or manual testing efforts
+* te/customer-found: Any defect reported by an end user.
