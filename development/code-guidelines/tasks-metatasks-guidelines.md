@@ -6,7 +6,7 @@ OSC tasks and metatasks classes are used for the core orchestration functions an
 
 ## Conventions  
 
-In additin to the conventions listed below ensure to use the [Java Programming Language Code Conventions](http://www.oracle.com/technetwork/java/codeconvtoc-136057.html).  
+In addition to the conventions listed below ensure to use the [Java Programming Language Code Conventions](http://www.oracle.com/technetwork/java/codeconvtoc-136057.html).  
 
 ### Location
 
@@ -85,7 +85,7 @@ Tasks and MetaTasks class names must follow the pattern `[ACTION][OPT:VIRTUALIZA
 * `ENTITY_NAME`: This part is NOT optional. It should be the name of an entity known to the OSC design, for instance an entity defined in the REST API, plugin SDKs, database, etc. Some well-known entity names are: `SecurityGroup`, `VirtualizationConnector`, `UserCredentials`, `NetworkSettings`, `DeploymentSpec`, `InspectionHook`, `PortGroup`, `VirtualSytem`, `DistributedAppliance`, `Device`, `DeviceMember`, etc.   
 > **Note:** Do **NOT** use abbreviated entity names such as `DAI`, `VS`, `DS`, etc.  
 * `ENTITY_ACTION_DETAILS`: This *optional* part can be used to provide more details about what is being done with/to the entity. A common use for this is when a task is updating an specific property of the entity and you would like to highlight that in the name, for 
-`DeleteDistributedApplianceInstanceInspectionPortTasks` .  
+`DeleteDistributedApplianceInstanceInspectionPortTask` .  
 * `TASK_METATASK`: The values for this part are `Task` or `MetaTask`.  
 
 
