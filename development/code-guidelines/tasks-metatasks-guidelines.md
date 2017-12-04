@@ -2,9 +2,11 @@
 
 ## Introduction
 
-OSC tasks and metatasks classes are used for the core orchestration functions and for other long running asynchronous operations within OSC. This document outlines the code conventions and guidelines that must be followed when authoring tasks and metatasks  
+OSC tasks and metatasks classes are used for the core orchestration functions and for other long running asynchronous operations within OSC. This document outlines the code conventions and guidelines that must be followed when authoring tasks and metatasks.  
 
-## Conventions
+## Conventions  
+
+In additin to the conventions listed below ensure to use the [Java Programming Language Code Conventions](http://www.oracle.com/technetwork/java/codeconvtoc-136057.html).  
 
 ### Location
 
@@ -31,15 +33,16 @@ org.osc.core.broker.service.tasks.CreateSecurityManagerDeviceMemberTask
 #### Package Names
 As previously mentioned all tasks and metatasks packages must be prefixed with **org.osc.core.broker.service.tasks***. In addition to that they must follow the scheme: `org.osc.core.broker.service.tasks.[OPT:VIRTUALIZATION_PLATFORM].[OPT:INTEGRATION_POINT].[ENTITY_NAME]`.  
 * `VIRTUALIZATION_PLATFORM`: The possible values for this *optional* part are `ost` and `k8s`. This part indicates that the task or metatask in the package is specific to OpenStack (`ost`) or Kubernetes (`k8s`).  Only tasks and metatasks agnostic to the virtualization platform should not have this part.  
-*  `INTEGRATION_POINT`: The possible values for this *optional* part are `securitymanager` and `sdncontroller`. This part indicates that the task or metatask in the package is specific to security managers or SDN controllers.  Only tasks and metatasks agnostic to an specific integration point should not have this part.  
+*  `INTEGRATION_POINT`: The possible values for this *optional* part are `manager` and `sdn`. This part indicates that the task or metatask in the package is specific to security managers (`manager`) or SDN controllers (`sdn`).  Only tasks and metatasks agnostic to an specific integration point should not have this part.  
 * `ENTITY_NAME`: This part is the most granular in the package name and it is NOT optional. It should be the name of an entity known to the OSC design, for instance an entity defined in the REST API, plugin SDKs, database, etc. Some well-known entity names are: `securitygroup`, `virtualizationconnector`, `usercredentials`, `networksettings`, `deploymentspec`, `inspectionhook`, `portgroup`, `virtualsytem`, `distributedappliance`, `device`, `devicemember`, etc.   
 > **Note:** You should always be able to relate a task or metatask to a single well known entity. A task or metatask that relates to multiple entities is an indication that it should be refactored.  
+> **Noted:** Do **NOT** use abbreviated entity names like `dai`, `da`, `vs`, etc. 
 
 
 **DO:**
 
 ```java
-org.osc.core.broker.service.tasks.securitymanager.device.MyTask  // Tasks or MetaTasks specific to security manager devices and agnostic to virtualization platform
+org.osc.core.broker.service.tasks.manager.device.MyTask  // Tasks or MetaTasks specific to security manager devices and agnostic to virtualization platform
 ```
 ```java
 org.osc.core.broker.service.tasks.k8s.securitygroup.MyTask  // Tasks or MetaTasks specific to security group and k8s
@@ -48,12 +51,12 @@ org.osc.core.broker.service.tasks.k8s.securitygroup.MyTask  // Tasks or MetaTask
 org.osc.core.broker.service.tasks.distributedappliance.MyTask  // Tasks or MetaTasks specific to distributed appliance, agnostic to virtualization platform and integration point
 ```
 ```java
-org.osc.core.broker.service.tasks.ost.sdncontroller.securitygroup.MyTask  // Tasks or MetaTasks specific to SDN controller, OpenStack and security group
+org.osc.core.broker.service.tasks.ost.sdn.securitygroup.MyTask  // Tasks or MetaTasks specific to SDN controller, OpenStack and security group
 ```
 
 **DON'T:**
 ```java
-org.osc.core.broker.service.tasks.securitymanager.MyTask // Mandatory entity name part missing.
+org.osc.core.broker.service.tasks.manager.MyTask // Mandatory entity name part missing.
 ```  
 ```java
 org.osc.core.broker.service.tasks.domain.SomeDomainTask // Domain is an entity specific to security manager this package is likely missing "securitymanager".
@@ -62,7 +65,7 @@ org.osc.core.broker.service.tasks.domain.SomeDomainTask // Domain is an entity s
 org.osc.core.broker.service.tasks.distributedappliances.MyTask // Do NOT use PLURAL in the entity name part.
 ```
 ```java
-org.osc.core.broker.service.tasks.securitymanager.device.member.MyTask // There should be only one part for the entity, this should be "devicemember" instead.
+org.osc.core.broker.service.tasks.manager.device.member.MyTask // There should be only one part for the entity, this should be "devicemember" instead.
 ```
 ```java
 org.osc.core.broker.service.tasks.k8s.pod.create.MyTask // The package name should ALWAYS end with the entity name, do NOT create more granular packages like "*.create".
@@ -78,9 +81,11 @@ Tasks and MetaTasks class names must follow the pattern `[ACTION][OPT:VIRTUALIZA
 >  **Note:** For consistency DO NOT use other semantically equivalent names like `Register` (equivalent to `Create` or `Upsert`) or `Remove` (equivalent to `Delete`) .  Stick to the terms mentioned above. If you come across a new action and are sure that nothing similar already exists in the code you may create a new action name.  
 >  **Note:** Observe there is a difference between the action `Upsert` and `CreateOrUpdate`. The former indicates the task will invoke some API that creates or updates and entity (if it already exists) on the database or integration point. The latter should be used only for metatasks and it indicates that the metatask will conditionally add a `Create` or `Update` task to the execution graph.  
 * `VIRTUALIZATION_PLATFORM`: The possible values for this *optional* part are `Ost` or `K8s`. This part indicates that the task or metatask is specific to a given virtualization platform. Only tasks and metatasks that are platform agnostic should not have this part.  
-* `INTEGRATION_POINT`: The possible values for this *optional* part are `SecurityManager` or `SdnController`.  This part should be used only to disambiguate where the action is being performed. For instance the task `UpdateSecurityGroupTask` indicates it updates a security group in the OSC database, if instead it primarily updates it in the security manager it should be `UpdateSecurityManagerSecurityGroupTask`.  
+* `INTEGRATION_POINT`: The possible values for this *optional* part are `Manager` or `Sdn`.  This part should be used only to disambiguate where the action is being performed. For instance the task `UpdateSecurityGroupTask` indicates it updates a security group in the OSC database, if instead it primarily updates it in the security manager it should be `UpdateManagerSecurityGroupTask`.  
 * `ENTITY_NAME`: This part is NOT optional. It should be the name of an entity known to the OSC design, for instance an entity defined in the REST API, plugin SDKs, database, etc. Some well-known entity names are: `SecurityGroup`, `VirtualizationConnector`, `UserCredentials`, `NetworkSettings`, `DeploymentSpec`, `InspectionHook`, `PortGroup`, `VirtualSytem`, `DistributedAppliance`, `Device`, `DeviceMember`, etc.   
-* `ENTITY_ACTION_DETAILS`: This *optional* part can be used to provide more details about what is being done with/to the entity. A common use for this is when a task is updating an specific property of the entity and you would like to highlight that in the name, for instance `DeleteDistributedApplianceInstanceInspectionPortTasks` .  
+> **Note:** Do **NOT** use abbreviated entity names such as `DAI`, `VS`, `DS`, etc.  
+* `ENTITY_ACTION_DETAILS`: This *optional* part can be used to provide more details about what is being done with/to the entity. A common use for this is when a task is updating an specific property of the entity and you would like to highlight that in the name, for 
+`DeleteDistributedApplianceInstanceInspectionPortTasks` .  
 * `TASK_METATASK`: The values for this part are `Task` or `MetaTask`.  
 
 
