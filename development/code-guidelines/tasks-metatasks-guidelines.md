@@ -2,14 +2,14 @@
 
 ## Introduction
 
-OSC Takss and metatask classes are used to synchronize information across different systems. This document outlines the code conventions and guidelines that must be followed when authoring tasks and metatasks. 
+OSC tasks and metatasks classes are used for the core orchestration functions and for other long running asynchronous operations within OSC. This document outlines the code conventions and guidelines that must be followed when authoring tasks and metatasks  
 
 ## Conventions
 
 ### Location
 
 All tasks and metatasks classes must be in a package named with the prefix **org.osc.core.broker.service.tasks.***.
-> Note:  Only common classes accross many tasks or metatasks should be placed directly in **org.osc.core.broker.service.tasks**, most classes should be under a more specific package.  
+> Note:  Only common classes across many tasks or metatasks should be placed directly in **org.osc.core.broker.service.tasks**, most classes should be under a more specific package.  
 
 **DO:**
 
@@ -29,9 +29,9 @@ org.osc.core.broker.service.tasks.CreateSecurityManagerDeviceMemberTask
 ### Naming
 
 #### Package Names
-As previously mentioned all tasks and metataks packages must be prefixed with **org.osc.core.broker.service.tasks***. In addition to that they must follow the scheme: `org.osc.core.broker.service.tasks.[OPT:VIRTUALIZATION_PLATFORM].[OPT:INTEGRATION_POINT].[ENTITY_NAME]`.  
-* `VIRTUALIZATION_PLATFORM`: The possible values for this *optional* part are `ost` and `k8s`. This part indicates that the task or metatask in the package is specific to OpenStack (`ost`) or Kubernete (`k8s`).  Only tasks and metatasks agnostic to the virtualization platform should not have this part.  
-*  `INTEGRATION_POINT`: The possible values for this *optional* part are `securitymanager` and `sdncontroller`. This part indicates that the task or metetask in the package is specific to security managers or SDN controllers.  Only tasks and metatasks agnostic to an specific integration point should not have this part.  
+As previously mentioned all tasks and metatasks packages must be prefixed with **org.osc.core.broker.service.tasks***. In addition to that they must follow the scheme: `org.osc.core.broker.service.tasks.[OPT:VIRTUALIZATION_PLATFORM].[OPT:INTEGRATION_POINT].[ENTITY_NAME]`.  
+* `VIRTUALIZATION_PLATFORM`: The possible values for this *optional* part are `ost` and `k8s`. This part indicates that the task or metatask in the package is specific to OpenStack (`ost`) or Kubernetes (`k8s`).  Only tasks and metatasks agnostic to the virtualization platform should not have this part.  
+*  `INTEGRATION_POINT`: The possible values for this *optional* part are `securitymanager` and `sdncontroller`. This part indicates that the task or metatask in the package is specific to security managers or SDN controllers.  Only tasks and metatasks agnostic to an specific integration point should not have this part.  
 * `ENTITY_NAME`: This part is the most granular in the package name and it is NOT optional. It should be the name of an entity known to the OSC design, for instance an entity defined in the REST API, plugin SDKs, database, etc. Some well-known entity names are: `securitygroup`, `virtualizationconnector`, `usercredentials`, `networksettings`, `deploymentspec`, `inspectionhook`, `portgroup`, `virtualsytem`, `distributedappliance`, `device`, `devicemember`, etc.   
 > **Note:** You should always be able to relate a task or metatask to a single well known entity. A task or metatask that relates to multiple entities is an indication that it should be refactored.  
 
@@ -75,7 +75,7 @@ org.osc.core.broker.service.tasks.conform.securitygroup.MyTask // "conform" is n
 
 Tasks and MetaTasks class names must follow the pattern `[ACTION][OPT:VIRTUALIZATION_PLATFORM][OPT:INTEGRATION_POINT][ENTITY_NAME][OPT: ENTITY_ACTION_DETAILS][TASK_METATATASK]`.  
 * `ACTION`:  This is the action performed by the task or metatask with respect to the `ENTITY` part. Common actions are CRUD calls to integration points, checking the state of some entity, conforming some entity with multiple integration points and virtualization platform, etc. Expected names are: `Create`, `Upsert`, `Update`, `Delete`, `Conform`, `Check`, `CreateOrUpdate`, `DeleteOrUpdate`, etc.   
->  **Note:** For consistency DO NOT use other semantically equivalent names like `Register` (equivalent to `Create` or `Upsert`) or `Remove` (equivalent to `Delete`) .  Stick to the terms mentioned above. If you come accross a new action and are sure that nothing similar already exists in the code you may create a new action name.  
+>  **Note:** For consistency DO NOT use other semantically equivalent names like `Register` (equivalent to `Create` or `Upsert`) or `Remove` (equivalent to `Delete`) .  Stick to the terms mentioned above. If you come across a new action and are sure that nothing similar already exists in the code you may create a new action name.  
 >  **Note:** Observe there is a difference between the action `Upsert` and `CreateOrUpdate`. The former indicates the task will invoke some API that creates or updates and entity (if it already exists) on the database or integration point. The latter should be used only for metatasks and it indicates that the metatask will conditionally add a `Create` or `Update` task to the execution graph.  
 * `VIRTUALIZATION_PLATFORM`: The possible values for this *optional* part are `Ost` or `K8s`. This part indicates that the task or metatask is specific to a given virtualization platform. Only tasks and metatasks that are platform agnostic should not have this part.  
 * `INTEGRATION_POINT`: The possible values for this *optional* part are `SecurityManager` or `SdnController`.  This part should be used only to disambiguate where the action is being performed. For instance the task `UpdateSecurityGroupTask` indicates it updates a security group in the OSC database, if instead it primarily updates it in the security manager it should be `UpdateSecurityManagerSecurityGroupTask`.  
@@ -134,5 +134,5 @@ Task classes should almost **NEVER** perform multiple state changing actions. St
 #### MetaTasks
 MetaTasks should **NEVER** perform any state changing action. The purpose of metatasks is to combine tasks in an execution graph based on the current state of the system.  To do that it may perform multiple read operations on the OSC database and/or integration points and output a single graph with the task(s) to be executed.  This design principal/restriction allows for a simpler standardized unit test approach for all the metatasks. Meta task unit tests will NEVER check if a metatask has perform a change in the system, they just check the expected execution graph.   
 
-> **Note:** A good example of this design principal is the existing task `ConformK8sDeploymentSpecMetaTask` . This taks does NOT perform any changing action on the database or integration points (like updates, deletes, creates). It simply adds other tasks to the graph. Observe its the unit tests, `ConformK8sDeploymentSpecMetaTaskTest`, simply validate the expected graph and do not check whether something in the system has changed.  
-> **Note:** While you may be able to create a metatask that adds many different task types in the graph try to keep the number of task dependencies for a given metataks limited. As with any class design metatask are better off small which means a good metataks should attempt to stick with no more than 4 different task types.  Bigger metatasks are hard to unit test and maintain. If your metataks is growing beyond 4 different task types it is an indication it should be refactored into multiple metatasks.   
+> **Note:** A good example of this design principal is the existing task `ConformK8sDeploymentSpecMetaTask` . This task does NOT perform any changing action on the database or integration points (like updates, deletes, creates). It simply adds other tasks to the graph. Observe its the unit tests, `ConformK8sDeploymentSpecMetaTaskTest`, simply validate the expected graph and do not check whether something in the system has changed.  
+> **Note:** While you may be able to create a metatask that adds many different task types in the graph try to keep the number of task dependencies for a given metatask limited. As with any class design metatask are better off small which means a good metatask should attempt to stick with no more than 4 different task types.  Bigger metatasks are hard to unit test and maintain. If your metatask is growing beyond 4 different task types it is an indication it should be refactored into multiple metatasks.   
