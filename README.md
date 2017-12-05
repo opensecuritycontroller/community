@@ -12,7 +12,7 @@
 
 ### [Contributing to Release Branches](/releases/release-branches.md)
 
-### [Unit Test Guidelines](/development/unit_test_guidelines.md)
+### [Code Guidelines](/development/code-guidelines/code-guidelines.md)
 
 ## Issue Contributions
 
