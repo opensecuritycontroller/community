@@ -38,6 +38,10 @@ The following data will need to be decoupled from the lifecycle of the OSC conta
 
 This data would need to be exposed in docker volumes to the OSC container.
 
+To allow easy launch and usage of OSC, we will have default data(which includes the keystore, truststore, vmidcServer.conf and plugins) which will be copied(NOT overwritten) to the docker volume on startup.
+
+In a production environment, it is expected that the default data will not be needed. The secure information like the keystore and truststore should be setup with strong non-default passwords and these passwords are passed in via environment variables as described below.
+
 ##### Life cycle management
 Remove restart and shutdown operations possbile via OSC UI
 Remove inplace upgrade of OSC via server upgrade bundles
@@ -50,6 +54,22 @@ Note: It is technically feasible to have a restricted shell if we build up the O
 Remove network management functionality. Setting custom IP address within a docker container does not make sense as the IP is not exposed outside of the container.
 
 We can expose OSC endpoints as a virtual ip from the host or use different ports to expose OSC
+
+##### Secure information
+The passwords to access keystore, truststore and entries within them are currently part of properties file embedded within the source code as part of `security.properties` within the osc-server project. Since the restricted shell is no longer available to secure this information it is no longer secure in a production environment.
+
+For container based deployment, the best practises are to pass such information as an docker secret or through environmental variables.
+
+Docker Secrets are available only to swarm services, so this is not an option for standalone containers.
+
+We can pass in this password information via environmental variables. OSC will fallback to using the properties file with the default password if the environmental variable is not set.
+
+We will use the same keys within the `security.properties` like `keystore.password` `truststore.password` `aesctr.password` for passing in the environmental variables.
+
+Example Command to start a docker OSC container with environment variables is:
+
+`docker run -p 443:443 -p 8090:8090 -dit --mount source=osc-vol,target=/opt/vmidc/bin/data -e keystore.password=PASSWORD arvindn05:osc`
+
 
 ### POC Implementation
 
