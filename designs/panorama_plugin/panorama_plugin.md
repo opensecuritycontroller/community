@@ -8,7 +8,7 @@ This is a security appliance plugin for the Panorama Security Management Applian
 Dmitry Gerenrot ([dmitryintel](https://github.com/dmitryintel)).
 
 ## Constraints and Assumptions
-The Panorama version is 7.1. The firewalls are running PAN-VM-KVM-7.1.4.
+The Panorama version is at least 7.1. The firewalls are running PAN-VM-KVM-7.1.4.
 
 ## Design Changes
 
