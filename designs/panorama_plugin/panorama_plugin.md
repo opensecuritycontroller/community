@@ -15,13 +15,13 @@ The Panorama version is at least 7.1. The firewalls are running PAN-VM-KVM-7.1.4
 We propose the following workflow for creating a security group from OSC.
 
 - Begin by creating a distributed appliance on OSC with PAN-VM-KVM-7.1.4 as the service function. OSC then creates a Device Group under Panorama via the Panorama API. (For example, **DistributedAppGroup**).
-- Each policy rule on Panorama can reference dynamic address groups (DAGs) under the **DistributedAppGroup**. The DAGs are constructed manually by Panorama administrators by using shared tags for their match criteria.
+- Each policy rule on Panorama can reference dynamic address groups (DAGs) under the **DistributedAppGroup**. The DAGs are constructed manually by Panorama administrators, using shared tags for their match criteria.
 	
 ![](./images/AddressGroups.PNG)
 
 - There should be no more manual steps on the Panorama side.
 - In the OSC, create a security group. Suppose the security group Id, _which assigned by OSC_ is **54321**.
-- Binding the security group causes OSC to create the address objects with the OSC custom tag "OSC_SecurityGroup_54321" _and_ the policy tags (which are shared tags on Panorama)
+- Binding the security group causes OSC to create the address objects with the OSC custom tag **OSC_SecurityGroup_54321** _and_ the policy tags (which are shared tags on Panorama).
 - The OSC will use the [Panorama API](https://www.paloaltonetworks.com/documentation/71/pan-os/xml-api) to do that.
 
 ![](./images/Address.PNG)
