@@ -1,7 +1,7 @@
 # Panorama Security Plugin
 This is a security appliance plugin for the Panorama Security Management Appliance, which orchestrates PaloAlto virtual firewalls deployed by OSC. The plugin shall conform to the [security manager api](https://github.com/opensecuritycontroller/security-mgr-api) specification. We propose to have:
 - In Panorama, we define two classes of tags: one to associate Panorama Address Objects with an OSC security group, and another -- with a security policy.
-- OSC policies are defined by shared tags in Panorama.
+- OSC policies are synonymous with shared tags in Panorama.
 - The security group tags are managed by OSC (through the Panorama API) and the policy tags are simply shared tags on Panorama. They are managed manually.
 
 ## Assignees
