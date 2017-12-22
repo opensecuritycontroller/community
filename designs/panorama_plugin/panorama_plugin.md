@@ -1,7 +1,7 @@
 # Panorama Security Plugin
 This is a security appliance plugin for the Panorama Security Management Appliance, which orchestrates PaloAlto virtual firewalls deployed by OSC. The plugin shall conform to the [security manager api](https://github.com/opensecuritycontroller/security-mgr-api) specification. We propose to have:
-- A Panorama Dynamic Address Group for each OSC security policy. It will be labeled by a tag and targeted by a _Panorama_ security policy.
 - In Panorama, we define two classes of tags: one to associate Panorama Address Objects with an OSC security group, and another -- with a security policy.
+- OSC policies are defined by shared tags in Panorama.
 - The security group tags are managed by OSC (through the Panorama API) and the policy tags are simply shared tags on Panorama. They are managed manually.
 
 ## Assignees
@@ -41,11 +41,11 @@ No changes anticipated. However, an implementation detail should be noted.
 
 Under `org.osc.sdk.manager.api`:
 - `ManagerSecurityGroupApi`
-	- `create/update/deleteSecurityGroup` calls will result in creation/update or deletion of Panorama address objects with the appropriate label.
+	- `create/update/deleteSecurityGroup` calls will result in creation/update or deletion of Panorama address objects with the appropriate tag.
 	- `getSecurityGroupList` and `getSecurityGroupById` will list the OSC-managed security group tags.
 - `ManagerSecurityGroupInterfaceApi`
 	- `create/update/deleteSecurityGroupInterface` calls will result in adding or changing the policy tags under each address object. (The argument to these calls is a `SecurityGroupInterfaceElement` which carries policy information.
-- `ManagerPolicyApi` will list the DAGs under **DistributedAppGroup**.
+- `ManagerPolicyApi` will list shared tags.
 
 ### SDN Controller SDK
 No changes anticipated.
