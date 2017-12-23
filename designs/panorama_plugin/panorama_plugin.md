@@ -21,7 +21,7 @@ We propose the following workflow for creating a security group from OSC.
 
 - There should be no more manual steps on the Panorama side.
 - In the OSC, create a security group. Suppose the security group Id, _which assigned by OSC_ is **54321**.
-- Binding the security group causes OSC to create the address objects with the OSC custom tag **OSC_SecurityGroup_54321** _and_ the policy tags (which are shared tags on Panorama).
+- Binding the security group causes OSC to create the address objects with the OSC custom tag **OSC_SecurityGroup_54321** _and_ the policy tags which are selected as a part of binding dialog in OSC.
 - The OSC will use the [Panorama API](https://www.paloaltonetworks.com/documentation/71/pan-os/xml-api) to do that.
 
 ![](./images/Address.PNG)
