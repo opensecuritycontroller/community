@@ -55,7 +55,7 @@ Also review the values for `core-projects`, `repo_snapshots` and `repo_releases`
 
 4.  Python 3.6.2 on the machine where you will be creating the releases from.
 5.  The Python package ```lxmlx``` that can be installed with:
-```pip install lxml```
+```pip3 install lxml```
 6. Ensure that all your local repos have the remote `upstream`, like this:
 ```sh  
 $ git remote --v
@@ -83,7 +83,7 @@ $ python create-release.py branch-release
 *OSC Release Branch and Commit on GitHub*  
 
    Review the content of this commit observing the version changes on the pom.xml file. For the `osc-core` repository multiple pom files, one for each project, will be changed.  
-   > Note: The script should take care of all the needed changes in the pom file(s) but if any ajusting is needed add new commits to the branch squashing them to the version commit.
+   > Note: The script should take care of all the needed changes in the pom file(s) but if any adjusting is needed add new commits to the branch squashing them to the version commit.
 
 **4. Create a placeholder release on GitHub**  
    GitHub has a nice feature when you look at the Releases for a given repository:
@@ -115,7 +115,7 @@ This will publish the release version of these plugins in the OSC Nexus. After f
 For each repo on GitHub restart the Travis build in the release branches and observe the status. They should all show `green` at this point.
 
 
-**8. Updating the server.bdnrun files**  
+**8. Updating the server.bndrun files**  
 Using Eclipse with your OSC solution open the files `server.bndrun` and `server-debug.bndrun`. For each of them click **Resolve**. This will modify these files adjusting for the new dependencies. Review these changes, commit and push them to the `upstream/release branch`.  
 
 **9. Protecting the release branches**  

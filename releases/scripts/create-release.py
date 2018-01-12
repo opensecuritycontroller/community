@@ -4,6 +4,7 @@ from subprocess import PIPE
 from lxml import etree
 import os.path
 import argparse
+import functools
 
 # new version for osc-core in the master branch
 core_master_version = "1.2.0-SNAPSHOT"
@@ -17,6 +18,8 @@ core_release_version = "0.9.0"
 sdn_ctrlr_api_release_version = "3.0.0"
 # new version for the security mgr SDK and plugins in the release branch
 sec_mgr_api_release_version = "3.0.0"
+
+print = functools.partial(print, flush=True)
 
 core_projects = [
             "osc-common",
@@ -38,7 +41,6 @@ core_projects = [
             "osc-ui-widgetset",
             ]
 
-
 # Represents a repo and its versions
 class Repo:
     def __init__(self, name, version, sec_mgr_version, sdn_ctrlr_version):
@@ -51,7 +53,6 @@ class Repo:
     # according to the version information in self
     def prepare_release_branch(self):
         print("Creating the release branch for {}\n".format(self))
-        sys.stdout.flush()
 
         # Creating the release branch
         self.process_run(p_args=["git", "checkout", "-b", self.version])
@@ -60,7 +61,7 @@ class Repo:
         self.create_version_commit()
 
         # Upstreaming the release branch
-        self.process_run(p_args=["git", "push", "origin", self.version, "-f"]) #upstream
+        self.process_run(p_args=["git", "push", "upstream", self.version])
 
         print('\n')
 
@@ -68,13 +69,12 @@ class Repo:
     # targeted repo with the version information in self
     def create_snapshot(self):
         print("Creating the snapshot for {}\n".format(self))
-        sys.stdout.flush()
 
         # Creating the version commit with the pom modified for the new versions
         self.create_version_commit()
 
         # Upstreaming the snapshot version commit
-        self.process_run(p_args=["git", "push", "origin", "master", "--no-verify", "-f"])  # upstream, not force!!
+        self.process_run(p_args=["git", "push", "upstream", "master", "--no-verify"])
 
         # Tagging the commit with the target snapshot version
         self.create_tag()
@@ -149,8 +149,6 @@ class Repo:
         else:
             print("sec mgr dependency not found in the pom {}".format(pom_file))
 
-        sys.stdout.flush()
-
         # Writing the updated xml in the pom file
         with open(pom_file, 'wb') as f:
             f.write(etree.tostring(pom_xml.getroot()))
@@ -165,8 +163,6 @@ class Repo:
     def cleanup(self):
         print("Cleaning up the {}\n".format(self))
 
-        sys.stdout.flush()
-
         # Deleting the release branch
         self.process_run(p_args=["git", "fetch", "upstream"])
         self.process_run(p_args=["git", "checkout", "master"])
@@ -178,7 +174,6 @@ class Repo:
         p2 = self.pipe_in_process_Popen(p_args=["xargs", "git", "tag", "-d"], p_stdin=p1.stdout, p_stdout=PIPE)
         p1.stdout.close()
         print(p2.communicate()[0])
-        sys.stdout.flush()
 
         self.process_run(p_args=["git", "fetch", "upstream", "-t"])
         self.process_run(p_args=["git", "tag", "-d", "v"+self.version])
@@ -196,7 +191,6 @@ class Repo:
 
     def __str__(self):
         return "Repo {} with version {}, sec-mgr- version {}, sdn-ctrlr-version {}\n".format(self.name, self.version, self.sec_mgr_version, self.sdn_ctlr_version)
-
 
 # Desired snapshot versions for each repo
 repo_snapshots = [
@@ -221,7 +215,6 @@ repo_releases = [
             Repo("sdn-controller-nsfc-plugin", sdn_ctrlr_api_release_version, "n/a", sdn_ctrlr_api_release_version),
             Repo("osc-nuage-plugin", sdn_ctrlr_api_release_version, "n/a", sdn_ctrlr_api_release_version),
         ]
-
 
 def add_header(filename):
     with open(filename, 'r+') as f:
