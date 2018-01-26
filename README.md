@@ -24,6 +24,8 @@
 
 ### [Building an OSC Image](/development//build_osc_image.md)
 
+### [Building an OSC Docker Image](/development//build_osc_docker_image.md)
+
 ## Testing OSC
 
 ### [Manual Testing](/testing/testing.md)
