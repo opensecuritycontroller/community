@@ -1,4 +1,4 @@
-# OSC Kolla
+# OSC Kolla Container
 [Kolla](#kolla-home) is an OpenStack project that provides production-ready containers and deployment tools for operating OpenStack clouds. This document outlines the contributions to be up streamed to Kolla so that the OSC image is present in the [Kolla container repository](#kolla-container-repos).   
 > Note: There other options for OSC packaging and distribution that might work with TripleO. Before we update this document with more details we must determine whether this is the most appropriate choice.  
 
