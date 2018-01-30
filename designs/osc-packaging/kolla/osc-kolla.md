@@ -14,7 +14,7 @@ The purpose of this work is to facilitate the deployment and configuration of OS
 ## Design Changes
 
 This proposed design builds the OSC Kolla container image directly from the [OSC source code on GitHub](#osc-code). There are multiple ways to achieve this:
-1. **Using multiple container images:** the `osc-build` container starts from an existing Kolla image, for instance the `Kolla base` container and contains the jre, git, maven and everything we need to build OSC; the `osc-base` container starts from `osc-build`, git clones the OSC source code and builds it, it will also need to clean up unnecessary tools such as maven and the source files after the build is finished; then the `osc` container itself which runs the OSC service.  
+1. **Using multi-stage build:** the `osc` container starts from an existing Kolla image, for instance the `Kolla base` container and adds the jdk, git, maven and everything we need to build OSC. This container then uses a [multi-stage](#docker-multi-stage) approach to clone the OSC source then build the OSC binaries discarding what is no longer needed (build tools, source code, etc). After building the OSC binaries the container then runs the OSC service.  
 2. **Using Kolla scripts to get and build the OSC source code:** This means the OSC binaries will be present on the environment building the `osc` container and must be copied into the container image. 
 
 
@@ -31,7 +31,6 @@ LABEL maintainer="{{ maintainer }}" name="{{ image_name }}" build-date="{{ build
 {{ macros.configure_user(name='osc') }}
 	
 	
-# Copy OSC opt folder to container
 EXPOSE 8090 443  # How to provide these parameters as part of the deployment?
 WORKDIR /opt/vmidc/bin/
 RUN chmod +x vmidc.sh 
@@ -40,7 +39,7 @@ RUN chmod +x vmidc.sh
 CMD ["/opt/vmidc/bin/vmidc.sh", "--console", "--start"]
 ```
 
-> Note: The file above assumes the design option of building OSC from the `osc-base` image. If option 2 is adopted instead the base image will be different and the OSC binaries will need to be copied to the container.  
+> Note: The file above assumes this container is built upon an `osc-base` image that already has the OSC binaries. Depending whether we implement Option 1 or 2 this file will need additional changes either using a multi-stage build or copying the binaries from the machine running docker build.  
 
 > Note: Upstream these changes to Kolla will likely require an [OpenStack blueprint](#kolla-blueprint).   
 
@@ -65,6 +64,7 @@ TBD
 ### [Kolla Container Repos](https://hub.docker.com/r/kolla/)  
 ### [Kolla Blueprint](https://blueprints.launchpad.net/kolla)  
 ### [Kolla Adding Service](https://docs.openstack.org/kolla/latest/contributor/CONTRIBUTING.html#adding-a-new-service)
+### [Docker Multi Stage](https://docs.docker.com/engine/userguide/eng-image/multistage-build/#use-multi-stage-builds)
 
 
 
