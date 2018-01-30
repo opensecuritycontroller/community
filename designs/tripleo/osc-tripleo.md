@@ -90,9 +90,9 @@ outputs:
         step_1:
           osc:
             start_order: 0 # TODO: follow up on this value
-			# The name of the OSC image in the Kolla container repo**.
+            # The name of the OSC image in the Kolla container repo**.
             image: &osc_image {get_param: OSCDockerImage}
-			# Docker run parameters for OSC***.
+            # Docker run parameters for OSC***.
             privileged: false # Cont
             net: host # Uses the host network
             detach: false
@@ -138,6 +138,7 @@ TODO: Things to consider:
 #### OSC TLS & Secret Data Configuration  
 1. How are TLS certificates provided  
 2. Other secret data and passwords  
+3. Relevant material: https://github.com/openstack/tripleo-heat-templates/blob/master/environments/ssl/enable-tls.yaml  
 
 ## Tests
 TBD
