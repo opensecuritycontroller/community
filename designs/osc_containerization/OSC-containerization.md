@@ -70,6 +70,16 @@ Example Command to start a docker OSC container with environment variables is:
 
 `docker run -p 443:443 -p 8090:8090 -dit --mount source=osc-vol,target=/opt/vmidc/bin/data -e keystore.password=PASSWORD arvindn05:osc`
 
+##### TLS Certificate sourcing
+
+See below on how certificates are sourced in ODL:
+
+>The OpenDayLight (ODL) uses Karaf distribution for sourcing the TLS certificates (based on the link https://wiki.opendaylight.org/view/OpenDaylight_OpenFlow_Plugin:_TLS_Support). 
+In this solution, various TLS certificates are generated in the relevant format and stored in specific “PATH” as described in the configuration files (*.xml). The configuration files contains various information about the certificates, location of these certification and security algorithms used etc.
+As part of ODL installation, Karaf distribution reads these configuration files and source the new certificates to ODL, so that new certificates gets installed / copied in ODL and used in the new session. All of these are automated as part of Karaf custom command set defined as part of ODL definition.
+
+The sourcing of OSC certificates shall follow the similar scheme,but without using the Karaf Distribution. The OSC certificates like internal certificate (containing internal key and public key), other public certificates (used for authenticating with security manager, openstack clients etc) are sourced as a separate *.p12/*.jks certificates and sourced in a specific folder.
+As part of OSC deployment / installation, the relevant deployment scripts shall pick up the new certificates and translates this to the one single truststore and sourced to OSC.
 
 ### POC Implementation
 
