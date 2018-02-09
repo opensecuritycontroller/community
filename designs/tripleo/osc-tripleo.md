@@ -1,6 +1,6 @@
-# OSC Integration with TripleO
+﻿# OSC Integration with TripleO
 In order for OSC to be installable and configurable by [TripleO](#tripleo-home) a TripleO-Heat-Template (THT) must be created. This document outlines the details of this template highlighting OSC specific configuration and environment variables, TripleO required configuration, data persistence, TLS and high availability (HA) settings.   
-> Note: Details for HA, TLS and other advanced configuration will be added later. The first draft of this document covers required files, template parameters, environment variables and volumes.  
+> Note: Details for HA and other advanced configuration will be added later. The first draft of this document covers required files, template parameters, environment variables and volumes.  
 
 ## Assignees
 Emanoel Xavier - https://github.com/emanoelxavier
@@ -73,6 +73,20 @@ description: >
     description: image
     type: string
 	default: "/var/lib/osc/data"
+		
+  # The parameter contains the path where OSC certificate file resides.
+  OSCTrustStoreFile:
+    default: '/osc-cert/osctruststore.jks' 
+    type: string
+    description: This contains private key and public certificate for osc access. In addition contains public certificate 
+    chain for accessing osc clients (OpenStack and Security Manager).
+    
+  # The parameter contains the path where OSC db password file resides.
+  OSCKeyStoreFile:
+    default: '/osc-cert/osckeystore.pk12'
+    type: string
+    description: This contains the DB passwords used in OSC.
+    
 	
 resources:
   # This resource containers a static list of configurations and scripts necessary 
@@ -105,6 +119,8 @@ outputs:
                   - {get_param: OSCVolumeSrc}:/opt/vmidc/bin/data/
             environment:
               - OSC_ENV_VAR={get_param: OSCEnvVar}
+              - TripleO::Services::OSC::tls_truststore_file: {get_param:OSCTrustStoreFile}
+              - TripleO::Services::OSC::keystore_file: {get_param:OSCKeyStoreFile}
 ```  
 
 *[THT Tutorial](#tht-tutorial)  
@@ -135,10 +151,15 @@ TODO: Things to consider:
 2. Persistence in case of container migration
 
 
+
 #### OSC TLS & Secret Data Configuration  
-1. How are TLS certificates provided  
+1. The TLS certificates files are stored in a specific directory and same is indicated over the param section of template.
+Also this path is exposed as an environoment variable, so that this information is available outside of the heat template definition.
+>> Questions: 
+a. It is not clear will $tls_truststore_file info. is passed to Docker run? if not, what additional configurations need to be added to make it pass to Docker run?
+b. In the above declaration we are assuming that $tls_truststore_file info is defined as part of class definition and available in the manifest file. Is it possible to define the logic in manifest file, to copy the certificates to another location? otherwise can we add this logic in the resource definition section in heat template to have this copy logic? what is preferred?
 2. Other secret data and passwords  
-3. Relevant material: https://github.com/openstack/tripleo-heat-templates/blob/master/environments/ssl/enable-tls.yaml  
+3. Relevant material: https://github.com/openstack/tripleo-heat-templates/blob/master/environments/ssl/enable-tls.yaml
 
 ## Tests
 TBD
