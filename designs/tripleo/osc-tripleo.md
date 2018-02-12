@@ -150,16 +150,27 @@ TODO: Things to consider:
 1. Configure single instance for OSC
 2. Persistence in case of container migration
 
+#### OSC TLS Certificate sourcing
+TODO: Is it fine to define environomental variables like TripleO::Services::OSC::tls_truststore_file? As defining as above would
+make it available in puppet scripts.
 
 
 #### OSC TLS & Secret Data Configuration  
-1. The TLS certificates files are stored in a specific directory and same is indicated over the param section of template.
-Also this path is exposed as an environoment variable, so that this information is available outside of the heat template definition.
->> Questions: 
-a. It is not clear will $tls_truststore_file info. is passed to Docker run? if not, what additional configurations need to be added to make it pass to Docker run?
-b. In the above declaration we are assuming that $tls_truststore_file info is defined as part of class definition and available in the manifest file. Is it possible to define the logic in manifest file, to copy the certificates to another location? otherwise can we add this logic in the resource definition section in heat template to have this copy logic? what is preferred?
-2. Other secret data and passwords  
-3. Relevant material: https://github.com/openstack/tripleo-heat-templates/blob/master/environments/ssl/enable-tls.yaml
+1. Other secret data and passwords  
+
+2. The TLS certificates files are stored in a specific directory and same is indicated over the param section of template.Also this path is exposed as an environoment variable, so that this information is available outside of the heat template definition.
+
+
+>>Assumption: The system adminstrator before deploying OSC service shall ensure that TLS Certificates are stored in the 
+above mentioned path in the undercloud node.During the deployment, the TLS certificates shall be created on the same 
+path/directory on overcloud node and the TLS certificate is copied to this location.
+
+
+>>Questions: 
+
+>>a. It is not clear will $tls_truststore_file info. is passed to Docker run? if not, what additional configurations need to be added to make it pass to Docker run?
+
+>>b. In the above declaration we are assuming that $tls_truststore_file info is defined as part of class definition and available in the manifest file. Is it possible to define the logic in manifest file, to copy the certificates to another location? otherwise can we add this logic in the resource definition section in heat template to have this copy logic? what is preferred?
 
 ## Tests
 TBD
@@ -171,6 +182,7 @@ TBD
 ### [THT Tutorial](http://tripleo.org/install/developer/tht_walkthrough/changes-tht.html)  
 ### [Kolla Container Repos](https://hub.docker.com/r/kolla/centos-binary-neutron-server-opendaylight)  
 ### [Docker Run](https://docs.docker.com/engine/reference/run/)
+### [TLS Certificate](https://github.com/openstack/tripleo-heat-templates/blob/master/environments/ssl/enable-tls.yaml)
 
 
 
