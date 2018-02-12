@@ -60,17 +60,17 @@ description: >
 				 
   # The name of the OSC image in the Kolla repository**.
   OSCDockerImage:
-    description: image
+    description: The name of the OSC container image to be deployed.
     type: string
 
   # Placeholder to exemplify an OSC environment variable.
   OSCEnvVar:
-    description: image
+    description: Placeholder/sample parameter for an environment variable used by the OSC container.
     type: string
 	
   # The source of the mounted volume OSC needs to persist information.
   OSCVolumeSrc:
-    description: image
+    description: The source of the mounted volume OSC needs to persist information.
     type: string
 	default: "/var/lib/osc/data"
 	
