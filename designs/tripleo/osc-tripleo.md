@@ -52,7 +52,7 @@ description: >
   Open Security Controller: service for orchestration of virtual network security functions.
 
  parameters:
-  #  The paramater EndpointMap is required for all service templates*. TODO: Clarify how/why this is needed.
+  #  The paramater EndpointMap is required for all service templates*. It provides the location of the service endpoint, i.e,: IP address and port.  
   EndpointMap:
     default: {}
     description: Mapping of service endpoint -> protocol. Typically set
@@ -60,17 +60,17 @@ description: >
 				 
   # The name of the OSC image in the Kolla repository**.
   OSCDockerImage:
-    description: image
+    description: The name of the OSC container image to be deployed.
     type: string
 
   # Placeholder to exemplify an OSC environment variable.
   OSCEnvVar:
-    description: image
+    description: Placeholder/sample parameter for an environment variable used by the OSC container.
     type: string
 	
-  # The .
+  # The source of the mounted volume OSC needs to persist information.
   OSCVolumeSrc:
-    description: image
+    description: The source of the mounted volume OSC needs to persist information.
     type: string
 	default: "/var/lib/osc/data"
 	
@@ -89,14 +89,13 @@ outputs:
         docker_config:
         step_1:
           osc:
-            start_order: 0 # TODO: follow up on this value
             # The name of the OSC image in the Kolla container repo**.
             image: &osc_image {get_param: OSCDockerImage}
             # Docker run parameters for OSC***.
-            privileged: false # Cont
+            privileged: false
             net: host # Uses the host network
             detach: false
-            user: osc # TODO: root?
+            user: root
             restart: always
             volumes:
               list_concat:
@@ -111,7 +110,7 @@ outputs:
 
 **[Kolla Container Repos](#kolla-container-repos)
 
-***[Docker Run References] (#docker-run)
+***[Docker Run References](#docker-run)
 
 > **Assumption:** The images in the Kolla Repos will be picked and replicated in the TripleO Repo https://hub.docker.com/r/tripleoupstream 
 
@@ -121,6 +120,10 @@ TODO: Replace placeholder with actual environment variables required by OSC.
 
 #### OSC Mounted Volume  
 OSC requires a mounted volume for persistence of data such us the OSC H2 database files, plugins, VNF images, etc. The source of the mount will be the host folder `/var/lib/osc/data` and target `/opt/vmidc/bin/data/`. 
+
+#### OSC User  
+The commands executed within the OSC container will done with the *root* user as defined here `user: root`.
+> Assumption: The THT community does not have reservations with respect to using the root user within the container. Other OOO container services use the same approach, for instance [nova](https://github.com/openstack/tripleo-heat-templates/blob/master/docker/services/nova-api.yaml) or [aodh](https://github.com/openstack/tripleo-heat-templates/blob/master/docker/services/aodh-api.yaml). The root user is not a strong requirement for OSC but understanding the full impact of changing that we will require further investigation. 
 
 #### OSC Service Ports  
 TODO: How are the ports used by the service provided through the THT?
