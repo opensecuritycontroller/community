@@ -1,6 +1,6 @@
 # OSC Integration with TripleO
 In order for OSC to be installable and configurable by [TripleO](#tripleo-home) a TripleO-Heat-Template (THT) must be created. This document outlines the details of this template highlighting OSC specific configuration and environment variables, TripleO required configuration, data persistence, TLS and high availability (HA) settings.   
-> Note: Details for HA, TLS and other advanced configuration will be added later. The first draft of this document covers required files, template parameters, environment variables and volumes.  
+> Note: Details for HA and other advanced configuration will be added later. The first draft of this document covers required files, template parameters, environment variables and volumes.  
 
 ## Assignees
 Emanoel Xavier - https://github.com/emanoelxavier
@@ -74,6 +74,19 @@ description: >
     type: string
 	default: "/var/lib/osc/data"
 	
+  # The parameter contains the path where OSC db password file resides.
+  OSCKeyStoreFile:
+    default: '/osc-cert/osckeystore.pk12'
+    type: string
+    description: This contains the DB passwords used in OSC.
+    
+  # The parameter contains the path where OSC certificate file resides.
+  OSCTrustStoreFile:
+    default: '/osc-cert/osctruststore.jks' 
+    type: string
+    description: This contains private key and public certificate for osc access. In addition contains public 
+    certificate chain for accessing osc clients (OpenStack and Security Manager).
+    
 resources:
   # This resource containers a static list of configurations and scripts necessary 
   # for the deployment of container services in the *overcloud*
@@ -104,6 +117,8 @@ outputs:
                   - {get_param: OSCVolumeSrc}:/opt/vmidc/bin/data/
             environment:
               - OSC_ENV_VAR={get_param: OSCEnvVar}
+              - TripleO::Services::OSC::tls_truststore_file: {get_param:OSCTrustStoreFile}
+              - TripleO::Services::OSC::keystore_file: {get_param:OSCKeyStoreFile}
 ```  
 
 *[THT Tutorial](#tht-tutorial)  
@@ -137,11 +152,29 @@ TODO: Things to consider:
 1. Configure single instance for OSC
 2. Persistence in case of container migration
 
+#### OSC TLS Certificate sourcing
+TODO: Is it fine to define environomental variables like TripleO::Services::OSC::tls_truststore_file? As defining as 
+above would make it available in puppet scripts.
+
 
 #### OSC TLS & Secret Data Configuration  
-1. How are TLS certificates provided  
-2. Other secret data and passwords  
-3. Relevant material: https://github.com/openstack/tripleo-heat-templates/blob/master/environments/ssl/enable-tls.yaml  
+1. Other secret data and passwords  
+
+2. The TLS certificates files are stored in a specific directory and same is indicated over the param section of template.Also this path is exposed as an environoment variable, so that this information is available outside of the heat template definition.
+
+
+>>Assumption: The system administrator before deploying OSC service shall ensure that TLS Certificates are stored in the 
+above mentioned path in the undercloud node.During the deployment, the TLS certificates shall be created on the same 
+path/directory on overcloud node and the TLS certificate is copied to this location.
+
+
+>>Questions: 
+
+>>a. It is not clear will $tls_truststore_file info. is passed as part of Docker RUN command parameters? if not, what additional configurations need to be added to make it pass to Docker RUN command parameters?
+
+>>b. In the above declaration we are assuming that $tls_truststore_file info is defined as part of class definition and available in the manifest file. Is it possible to define the logic in manifest file, to copy the certificates to another location? otherwise can we add this logic in the resource definition section in heat template to have this copy logic? what is preferred?
+
+>>c. Do we need to hard code the target path for storing the certificate? If so how is this used by puppet?
 
 ## Tests
 TBD
@@ -153,6 +186,5 @@ TBD
 ### [THT Tutorial](http://tripleo.org/install/developer/tht_walkthrough/changes-tht.html)  
 ### [Kolla Container Repos](https://hub.docker.com/r/kolla/centos-binary-neutron-server-opendaylight)  
 ### [Docker Run](https://docs.docker.com/engine/reference/run/)
-
-
+### [TLS Certificate](https://github.com/openstack/tripleo-heat-templates/blob/master/environments/ssl/enable-tls.yaml)
 
