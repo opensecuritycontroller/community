@@ -1,4 +1,4 @@
-﻿# OSC Integration with TripleO
+# OSC Integration with TripleO
 In order for OSC to be installable and configurable by [TripleO](#tripleo-home) a TripleO-Heat-Template (THT) must be created. This document outlines the details of this template highlighting OSC specific configuration and environment variables, TripleO required configuration, data persistence, TLS and high availability (HA) settings.   
 > Note: Details for HA and other advanced configuration will be added later. The first draft of this document covers required files, template parameters, environment variables and volumes.  
 
@@ -52,7 +52,7 @@ description: >
   Open Security Controller: service for orchestration of virtual network security functions.
 
  parameters:
-  #  The paramater EndpointMap is required for all service templates*. TODO: Clarify how/why this is needed.
+  #  The paramater EndpointMap is required for all service templates*. It provides the location of the service endpoint, i.e,: IP address and port.  
   EndpointMap:
     default: {}
     description: Mapping of service endpoint -> protocol. Typically set
@@ -60,34 +60,33 @@ description: >
 				 
   # The name of the OSC image in the Kolla repository**.
   OSCDockerImage:
-    description: image
+    description: The name of the OSC container image to be deployed.
     type: string
 
   # Placeholder to exemplify an OSC environment variable.
   OSCEnvVar:
-    description: image
+    description: Placeholder/sample parameter for an environment variable used by the OSC container.
     type: string
 	
-  # The .
+  # The source of the mounted volume OSC needs to persist information.
   OSCVolumeSrc:
-    description: image
+    description: The source of the mounted volume OSC needs to persist information.
     type: string
 	default: "/var/lib/osc/data"
-		
-  # The parameter contains the path where OSC certificate file resides.
-  OSCTrustStoreFile:
-    default: '/osc-cert/osctruststore.jks' 
-    type: string
-    description: This contains private key and public certificate for osc access. In addition contains public certificate 
-    chain for accessing osc clients (OpenStack and Security Manager).
-    
+	
   # The parameter contains the path where OSC db password file resides.
   OSCKeyStoreFile:
     default: '/osc-cert/osckeystore.pk12'
     type: string
     description: This contains the DB passwords used in OSC.
     
-	
+  # The parameter contains the path where OSC certificate file resides.
+  OSCTrustStoreFile:
+    default: '/osc-cert/osctruststore.jks' 
+    type: string
+    description: This contains private key and public certificate for osc access. In addition contains public 
+    certificate chain for accessing osc clients (OpenStack and Security Manager).
+    
 resources:
   # This resource containers a static list of configurations and scripts necessary 
   # for the deployment of container services in the *overcloud*
@@ -103,14 +102,13 @@ outputs:
         docker_config:
         step_1:
           osc:
-            start_order: 0 # TODO: follow up on this value
             # The name of the OSC image in the Kolla container repo**.
             image: &osc_image {get_param: OSCDockerImage}
             # Docker run parameters for OSC***.
-            privileged: false # Cont
+            privileged: false
             net: host # Uses the host network
             detach: false
-            user: osc # TODO: root?
+            user: root
             restart: always
             volumes:
               list_concat:
@@ -127,7 +125,7 @@ outputs:
 
 **[Kolla Container Repos](#kolla-container-repos)
 
-***[Docker Run References] (#docker-run)
+***[Docker Run References](#docker-run)
 
 > **Assumption:** The images in the Kolla Repos will be picked and replicated in the TripleO Repo https://hub.docker.com/r/tripleoupstream 
 
@@ -137,6 +135,10 @@ TODO: Replace placeholder with actual environment variables required by OSC.
 
 #### OSC Mounted Volume  
 OSC requires a mounted volume for persistence of data such us the OSC H2 database files, plugins, VNF images, etc. The source of the mount will be the host folder `/var/lib/osc/data` and target `/opt/vmidc/bin/data/`. 
+
+#### OSC User  
+The commands executed within the OSC container will done with the *root* user as defined here `user: root`.
+> Assumption: The THT community does not have reservations with respect to using the root user within the container. Other OOO container services use the same approach, for instance [nova](https://github.com/openstack/tripleo-heat-templates/blob/master/docker/services/nova-api.yaml) or [aodh](https://github.com/openstack/tripleo-heat-templates/blob/master/docker/services/aodh-api.yaml). The root user is not a strong requirement for OSC but understanding the full impact of changing that we will require further investigation. 
 
 #### OSC Service Ports  
 TODO: How are the ports used by the service provided through the THT?
@@ -151,8 +153,8 @@ TODO: Things to consider:
 2. Persistence in case of container migration
 
 #### OSC TLS Certificate sourcing
-TODO: Is it fine to define environomental variables like TripleO::Services::OSC::tls_truststore_file? As defining as above would
-make it available in puppet scripts.
+TODO: Is it fine to define environomental variables like TripleO::Services::OSC::tls_truststore_file? As defining as 
+above would make it available in puppet scripts.
 
 
 #### OSC TLS & Secret Data Configuration  
@@ -172,6 +174,8 @@ path/directory on overcloud node and the TLS certificate is copied to this locat
 
 >>b. In the above declaration we are assuming that $tls_truststore_file info is defined as part of class definition and available in the manifest file. Is it possible to define the logic in manifest file, to copy the certificates to another location? otherwise can we add this logic in the resource definition section in heat template to have this copy logic? what is preferred?
 
+>>c. Do we need to hard code the target path for storing the certificate? If so how is this used by puppet?
+
 ## Tests
 TBD
 
@@ -183,6 +187,4 @@ TBD
 ### [Kolla Container Repos](https://hub.docker.com/r/kolla/centos-binary-neutron-server-opendaylight)  
 ### [Docker Run](https://docs.docker.com/engine/reference/run/)
 ### [TLS Certificate](https://github.com/openstack/tripleo-heat-templates/blob/master/environments/ssl/enable-tls.yaml)
-
-
 
