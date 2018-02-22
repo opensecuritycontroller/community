@@ -183,8 +183,8 @@ path/directory on overcloud node and the TLS certificate is copied to this locat
 
 >>c. Do we need to hard code the target path for storing the certificate? If so how is this used by puppet?
 
-#### OSC Network Related Configuration
-1. Add an entry in the file `network/service_net_map.j2.yaml` file under the `ServiceNetMapDefaults` section for `OSCNetwork` like below. This is required to prevent OSC service to be part of provisioning network.
+#### OSC Network Configuration
+1. Add an entry in the file `network/service_net_map.j2.yaml` under the `ServiceNetMapDefaults` section for `OSCNetwork` like below. This is required to prevent OSC service to be part of provisioning network.
     ```yaml
         ServiceNetMapDefaults:
             default:
