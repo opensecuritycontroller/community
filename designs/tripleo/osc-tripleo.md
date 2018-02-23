@@ -126,7 +126,16 @@ outputs:
               - OSC_ENV_VAR={get_param: OSCEnvVar}
               - TripleO::Services::OSC::tls_truststore_file: {get_param:OSCTrustStoreFile}
               - TripleO::Services::OSC::keystore_file: {get_param:OSCKeyStoreFile}
-```  
+        tripleo.osc.firewall_rules:
+              'osc-ui':
+                dport:
+                  -  {get_param: [EndpointMap, OSCUIPublic, port]}
+                  - 443
+              'osc-api':
+                dport:
+                  -  {get_param: [EndpointMap, OSCAPIPublic, port]}
+                  - 8090
+```
 
 *[THT Tutorial](#tht-tutorial)  
 
@@ -147,8 +156,34 @@ OSC requires a mounted volume for persistence of data such us the OSC H2 databas
 The commands executed within the OSC container will done with the *root* user as defined here `user: root`.
 > Assumption: The THT community does not have reservations with respect to using the root user within the container. Other OOO container services use the same approach, for instance [nova](https://github.com/openstack/tripleo-heat-templates/blob/master/docker/services/nova-api.yaml) or [aodh](https://github.com/openstack/tripleo-heat-templates/blob/master/docker/services/aodh-api.yaml). The root user is not a strong requirement for OSC but understanding the full impact of changing that we will require further investigation. 
 
-#### OSC Service Ports  
-TODO: How are the ports used by the service provided through the THT?
+### OSC Service Ports
+The OSC service makes use of two ports to expose its functionality: the OSC APIs use the port `8090` and the UI `443` within its container. Those ports must be mapped to the host ports dedicated to OSC. When running the OSC container on Docker these bindings are provided through the Docker run parameter `-p`, for details see [Docker networking](https://docs.docker.com/config/containers/container-networking/). For a OOO deployment, the following configuration is assumed to provide the same effect:
+```yaml
+tripleo.osc.firewall_rules:
+              'osc-ui':
+                dport:
+                  -  {get_param: [EndpointMap, OSCUIPublic, port]}
+                  - 443
+              'osc-api':
+                dport:
+                  -  {get_param: [EndpointMap, OSCAPIPublic, port]}
+                  - 8090
+```
+> **Assumption:** The Docker run param `-p` effectively creates a firewall rule which maps the container port to a port on the Docker host. Unfortunately, the [THT Containers documentation](http://tripleo.org/install/containers_deployment/architecture.html) does not make any reference to port binding. Looking at other existing THT services the closest way to configure this is with an entry similar to above but this semantics and syntax must be validated with a THT/RH engineer.
+
+The value for the endpoint ports `OSCUIPublic` and `OSCAPIPublic` must be defined in the file `network/endpoints/endpoint_data.yaml` for OSC as shown below:
+```yaml
+        OSCUI:
+            Public:
+                net_param: Public
+            port: 8082
+        OSCAPI:
+            Public:
+                net_param: Public
+            port: 8083
+```
+
+> **TODO**: The default values `8082` and `8083` are just incremental values based on the existing last entry in the file `network/endpoints/endpoint_data.yaml` we must check with RH whether this is the right way to define these values.
 
 #### Service Upgrade  
 TODO: Is there any script we need to add to handle service upgrades?
@@ -184,28 +219,17 @@ path/directory on overcloud node and the TLS certificate is copied to this locat
 >>c. Do we need to hard code the target path for storing the certificate? If so how is this used by puppet?
 
 #### OSC Network Configuration
-1. Add an entry in the file `network/service_net_map.j2.yaml` under the `ServiceNetMapDefaults` section for `OSCNetwork` like below. This is required to prevent OSC service to be part of provisioning network.
+1. Add two entries in the file `network/service_net_map.j2.yaml` under the `ServiceNetMapDefaults` section for `OSCUINetwork` and `OSCAPINetwork` like below. This is required to prevent OSC service to be part of provisioning network.
     ```yaml
         ServiceNetMapDefaults:
             default:
                 ...
-                OSCNetwork: internal_api
+                OSCUINetwork: internal_api
+                OSCAPINetwork: internal_api
     ```
     >Assumption: OSC Service needs to be placed under internal_api network by default.
 
-2. Add an entry in the file `network/endpoints/endpoint_data.yaml` for OSC like below. This will create a public endpoint for OSC service using which user can access the OSC UI.
-    ```yaml
-        OSC:
-            Public:
-                net_param: Public
-                uri_suffixes:
-                    '': /osc_dashboard
-                port: 443
-    ```
-
->TODO:
->1. We need to check whether uri_suffixes and port are optional or not. Otherwise we need to come up with correct uri and port for hosting OSC service.
->2. Do we need to explicitly bind the service network and endpoint under the docker_config or puppet_config in THT?
+2. Add the port entries in the file `network/endpoints/endpoint_data.yaml` as mentioned in [OSC Service Ports](#osc-service-ports).
 
 ## Tests
 TBD
