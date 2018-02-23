@@ -219,28 +219,17 @@ path/directory on overcloud node and the TLS certificate is copied to this locat
 >>c. Do we need to hard code the target path for storing the certificate? If so how is this used by puppet?
 
 #### OSC Network Configuration
-1. Add an entry in the file `network/service_net_map.j2.yaml` under the `ServiceNetMapDefaults` section for `OSCNetwork` like below. This is required to prevent OSC service to be part of provisioning network.
+1. Add two entries in the file `network/service_net_map.j2.yaml` under the `ServiceNetMapDefaults` section for `OSCUINetwork` and `OSCAPINetwork` like below. This is required to prevent OSC service to be part of provisioning network.
     ```yaml
         ServiceNetMapDefaults:
             default:
                 ...
-                OSCNetwork: internal_api
+                OSCUINetwork: internal_api
+                OSCAPINetwork: internal_api
     ```
     >Assumption: OSC Service needs to be placed under internal_api network by default.
 
-2. Add an entry in the file `network/endpoints/endpoint_data.yaml` for OSC like below. This will create a public endpoint for OSC service using which user can access the OSC UI.
-    ```yaml
-        OSC:
-            Public:
-                net_param: Public
-                uri_suffixes:
-                    '': /osc_dashboard
-                port: 443
-    ```
-
->TODO:
->1. We need to check whether uri_suffixes and port are optional or not. Otherwise we need to come up with correct uri and port for hosting OSC service.
->2. Do we need to explicitly bind the service network and endpoint under the docker_config or puppet_config in THT?
+2. Add the port entries in the file `network/endpoints/endpoint_data.yaml` as mentioned in [OSC Service Ports](#osc-service-ports).
 
 ## Tests
 TBD
