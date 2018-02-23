@@ -87,6 +87,13 @@ description: >
     description: This contains private key and public certificate for osc access. In addition contains public 
     certificate chain for accessing osc clients (OpenStack and Security Manager).
     
+  # The parameter ServiceNetMap is required for service network-isolation i.e. to indicate in which network the service will be hosted.
+  ServiceNetMap:
+    default: {}
+    description: Mapping of service_name -> network name. Typically set
+                 via parameter_defaults in the resource registry.  This
+                 mapping overrides those in ServiceNetMapDefaults.
+
 resources:
   # This resource containers a static list of configurations and scripts necessary 
   # for the deployment of container services in the *overcloud*
@@ -175,6 +182,30 @@ path/directory on overcloud node and the TLS certificate is copied to this locat
 >>b. In the above declaration we are assuming that $tls_truststore_file info is defined as part of class definition and available in the manifest file. Is it possible to define the logic in manifest file, to copy the certificates to another location? otherwise can we add this logic in the resource definition section in heat template to have this copy logic? what is preferred?
 
 >>c. Do we need to hard code the target path for storing the certificate? If so how is this used by puppet?
+
+#### OSC Network Configuration
+1. Add an entry in the file `network/service_net_map.j2.yaml` under the `ServiceNetMapDefaults` section for `OSCNetwork` like below. This is required to prevent OSC service to be part of provisioning network.
+    ```yaml
+        ServiceNetMapDefaults:
+            default:
+                ...
+                OSCNetwork: internal_api
+    ```
+    >Assumption: OSC Service needs to be placed under internal_api network by default.
+
+2. Add an entry in the file `network/endpoints/endpoint_data.yaml` for OSC like below. This will create a public endpoint for OSC service using which user can access the OSC UI.
+    ```yaml
+        OSC:
+            Public:
+                net_param: Public
+                uri_suffixes:
+                    '': /osc_dashboard
+                port: 443
+    ```
+
+>TODO:
+>1. We need to check whether uri_suffixes and port are optional or not. Otherwise we need to come up with correct uri and port for hosting OSC service.
+>2. Do we need to explicitly bind the service network and endpoint under the docker_config or puppet_config in THT?
 
 ## Tests
 TBD
