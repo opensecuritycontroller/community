@@ -37,8 +37,8 @@ SecurityGroupDto {
 id (integer, optional),
 parentId (integer, optional),
 name (string),
-projectId (string,optional),                       // changing from REQUIRED to OPTIONAL 
-projectName (string, optional),                    // changing from REQUIRED to OPTIONAL 
+projectId (string,optional),                       // changing from REQUIRED to OPTIONAL
+projectName (string, optional),                    // changing from REQUIRED to OPTIONAL
 markForDeletion (boolean, optional, read only),
 protectAll (boolean, optional),
 servicesDescription (string, optional, read only),
@@ -74,7 +74,8 @@ label (string, optional)
 ```
 
 #### Virtualization Connectors
-The virtualization connector resource `/api/server/v1/virtualizationConnectors/{vcId}` field `type` can now have a new possible value: `KUBERNETES`. 
+The virtualization connector resource `/api/server/v1/virtualizationConnectors/{vcId}` field `type` can now have a new possible value: `KUBERNETES`.
+
 ```javascript
 VirtualizationConnectorDto {
 id (integer, optional),
@@ -164,7 +165,7 @@ One of the drawbacks identified with Fabric8 is the lack of compliance with OSGi
 As mentioned in the Constraints section, the connectivity with Kubernetes will be done through `http` and without user credentials (unauthenticated).
 > Note: Currently, the OSC Virtualization Connector does require the user name to be passed in the `providerUser` field though. This field will continue to be required however its value will not be used.
 
-The inputs needed to connect with the Kubernetes API service will be: the **ip address** of the service endpoint, provided in the Kubernetes virtualization connector; and **port**, harcoded to 8080.
+The inputs needed to connect with the Kubernetes API service will be: the **ip address** of the service endpoint, provided in the Kubernetes virtualization connector; and **port**, hardcoded to 8080.
 > Note: Support to other ports can be added in the future by adding a new field in the `providerAttributes` map: `providerPort`.
 
 #### K8s Targeted APIs
@@ -384,12 +385,14 @@ The diagram below depicts the tasks and metatasks involved on this change:
 * **LabelPodDeleteTask:** This task is responsible for purging pod and pod network information from the OSC db.  `
 
 ## Tests
+
 **TBD on next revision**
 
 Describe here any new test requirement for this feature. This can include: virtualization platform, test infrastructure, stubs, etc.
 > Note: Any feature should be demonstrable and testable independently of a particular vendor component or service.
 
 ## References
+
 ### [Kubernetes Home](https://kubernetes.io/)
 
 ### [K8s Pod Watch API](https://kubernetes.io/docs/api-reference/v1.7/#watch-64)
