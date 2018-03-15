@@ -83,16 +83,18 @@ HAProxy will do the Load Balancing as well traffic redirection to the Active Nod
 	- Pacemaker and Corosync are not Openstack specific service. Hence, can be used in any Linux flavours.
 5. Is it possible to have shared volume between all the instances and keep all OSC related stuff in that volume?
 	- iSCSI provides it. But we will be using the linux provided NFS.
-
-# Future Investigations
-- How does DRBD work in multi node deployment?
+6. How does DRBD work in multi node deployment?
 	- It seems, it supports muti node deployment. It added many multi node features in DRBD9.
-- How to customize data replication between Active-Passive nodes?
+7. How to customize data replication between Active-Passive nodes?
 	- Its quite possible to configure only required volume data.
-- How to configure DRBD, Pacemaker and Corosync in Heat Template?
-	- Yet to investigate based on the approach selected.
-- Need to analyze for the code changes required to segregate Application and Database Layers.
+8. eed to analyze for the code changes required to segregate Application and Database Layers.
 	- As Active/Passive setup is not possible in H2 databse, hence analyzing code changes are not required until database gets changed.
-- Is there any better HA for OSC?
-	- Approach 1 and 3 seems good to go ahead for POC but still investigating for better HA if any.
+9. Is there any better HA for OSC?
+	- Approach 1 and 3 seems good to go ahead for POC but better HA can be investigated if any.
+
+# Further Investigations
+- Approach 3 needs more investigation to narrow down detailed implementation path.
+- How to configure DRBD, Pacemaker and Corosync in Heat Template?
+
+
 
